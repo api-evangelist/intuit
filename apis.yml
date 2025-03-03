@@ -14,13 +14,24 @@ apis:
 name: Intuit
 tags:
   - Financial
+  - Accounting
+  - Tax Preparation
+  - Taxes
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
 created: '2025-03-01'
 modified: '2025-03-02'
 position: Consumer
-description: 'The developer platform for the worlds fintech infrastructure '
+description: >-
+  Intuit is a financial software company that develops and sells financial,
+  accounting, and tax preparation software for businesses and individuals. They
+  offer products such as QuickBooks, TurboTax, and Mint, which help users manage
+  their finances, track expenses, and file taxes efficiently. Intuit's software
+  is designed to simplify financial tasks, automate processes, and provide
+  valuable insights to help users make informed decisions. With a focus on
+  innovation and user experience, Intuit is dedicated to helping individuals and
+  businesses achieve financial success.
 maintainers:
   - FN: Kin Lane
     email: info@apievangelist.com
