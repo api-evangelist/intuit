@@ -3,7 +3,7 @@ url: >-
   https://raw.githubusercontent.com/api-evangelist/intuit/refs/heads/main/apis.yml
 apis:
   - aid: intuit:intuit
-    name: Intuit
+    name: Intuit APIs
     tags:
       - API
     humanURL: https://developer.intuit.com/app/developer/homepage
