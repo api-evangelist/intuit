@@ -1,5 +1,5 @@
 # Intuit (intuit)
-Intuit is a financial software company that develops and sells financial, accounting, and tax preparation software for businesses and individuals. They offer products such as QuickBooks, TurboTax, and Mint, which help users manage their finances, track expenses, and file taxes efficiently. Intuit's software is designed to simplify financial tasks, automate processes, and provide valuable insights to help users make informed decisions. With a focus on innovation and user experience, Intuit is dedicated to helping individuals and businesses achieve financial success.
+Collection of APIs offered by Intuit for financial and business management services
 
 **URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/intuit/refs/heads/main/apis.yml)
 
@@ -11,7 +11,7 @@ Intuit is a financial software company that develops and sells financial, accoun
 
 ## Tags:
 
- - Financial, Accounting, Tax Preparation, Taxes
+ - Accounting, Financial, Financial Services, Payments, Payroll, Small Business, Tax, Tax Preparation, Taxes
 
 ## Timestamps
 
@@ -34,9 +34,21 @@ Intuit APIs provide developers with access to a wide range of services and funct
 
 - [Documentation](https://developer.intuit.com/app/developer/homepage)
 
+## Common Properties
+
+- [Developer Portal](https://developer.intuit.com)
+- [Sign Up](https://developer.intuit.com/app/developer/appcard/overview)
+- [Blog](https://developer.intuit.com/app/developer/blog)
+- [Support](https://help.developer.intuit.com)
+- [Status Page](https://status.developer.intuit.com)
+- [Terms of Service](https://developer.intuit.com/app/developer/qbo/docs/learn/terms-of-service)
+- [Privacy Policy](https://www.intuit.com/privacy/)
+
 ## Maintainers
 
 **FN:** Kin Lane
 
 **Email:** info@apievangelist.com
+**FN:** Intuit Developer
 
+**Email:** developer-support@intuit.com
