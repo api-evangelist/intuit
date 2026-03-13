@@ -1,0 +1,510 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/api-evangelist/intuit/json-schema/intuit-invoice-schema.json",
+  "title": "QuickBooks Online Invoice",
+  "description": "An Invoice represents a sales form where the customer pays for a product or service later. QuickBooks Online records an accounts receivable transaction for each invoice. This schema describes the full Invoice entity as returned by the QuickBooks Online Accounting API.",
+  "type": "object",
+  "properties": {
+    "Id": {
+      "type": "string",
+      "description": "Unique identifier for the invoice, assigned by QuickBooks Online.",
+      "readOnly": true
+    },
+    "SyncToken": {
+      "type": "string",
+      "description": "Version number of the entity used for optimistic concurrency control. Required for update operations. The value changes each time the entity is updated."
+    },
+    "MetaData": {
+      "$ref": "#/$defs/MetaData"
+    },
+    "DocNumber": {
+      "type": "string",
+      "description": "Reference number for the transaction. If not provided during creation, QuickBooks auto-generates a sequential number.",
+      "maxLength": 21
+    },
+    "TxnDate": {
+      "type": "string",
+      "format": "date",
+      "description": "The date of the transaction in YYYY-MM-DD format. Defaults to the current date if not specified."
+    },
+    "DueDate": {
+      "type": "string",
+      "format": "date",
+      "description": "The date when payment is due. Calculated based on the sales terms if not explicitly set."
+    },
+    "PrivateNote": {
+      "type": "string",
+      "description": "A private note for internal use that is not displayed to the customer.",
+      "maxLength": 4000
+    },
+    "CustomerMemo": {
+      "type": "object",
+      "description": "A note to the customer that appears on the invoice.",
+      "properties": {
+        "value": {
+          "type": "string",
+          "maxLength": 1000
+        }
+      }
+    },
+    "CustomerRef": {
+      "$ref": "#/$defs/ReferenceType",
+      "description": "Reference to the customer associated with this invoice. Required for creation."
+    },
+    "BillAddr": {
+      "$ref": "#/$defs/PhysicalAddress",
+      "description": "Bill-to address for the invoice."
+    },
+    "ShipAddr": {
+      "$ref": "#/$defs/PhysicalAddress",
+      "description": "Ship-to address for the invoice."
+    },
+    "BillEmail": {
+      "$ref": "#/$defs/EmailAddress",
+      "description": "Email address to which the invoice is sent."
+    },
+    "Line": {
+      "type": "array",
+      "description": "Individual line items of the transaction. At least one line item with a valid DetailType is required.",
+      "items": {
+        "$ref": "#/$defs/InvoiceLine"
+      },
+      "minItems": 1
+    },
+    "TxnTaxDetail": {
+      "$ref": "#/$defs/TxnTaxDetail",
+      "description": "Tax details for the entire invoice transaction."
+    },
+    "TotalAmt": {
+      "type": "number",
+      "description": "Total amount of the transaction including tax. This is a calculated field and is read-only.",
+      "readOnly": true
+    },
+    "Balance": {
+      "type": "number",
+      "description": "The balance remaining to be paid on the invoice. A value of 0 indicates the invoice is fully paid.",
+      "readOnly": true
+    },
+    "Deposit": {
+      "type": "number",
+      "description": "Deposit amount previously applied to this invoice."
+    },
+    "DepositToAccountRef": {
+      "$ref": "#/$defs/ReferenceType",
+      "description": "Account where the deposit was made."
+    },
+    "SalesTermRef": {
+      "$ref": "#/$defs/ReferenceType",
+      "description": "Reference to the sales term (e.g., Net 30, Due on Receipt)."
+    },
+    "PaymentMethodRef": {
+      "$ref": "#/$defs/ReferenceType",
+      "description": "Reference to the payment method for this invoice."
+    },
+    "CurrencyRef": {
+      "$ref": "#/$defs/ReferenceType",
+      "description": "Reference to the currency used for this invoice. Only applicable for companies with multicurrency enabled."
+    },
+    "ExchangeRate": {
+      "type": "number",
+      "description": "The exchange rate between the invoice currency and the home currency. Only applicable for multicurrency companies."
+    },
+    "ShipDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Date for delivery of goods or services."
+    },
+    "ShipMethodRef": {
+      "$ref": "#/$defs/ReferenceType",
+      "description": "Reference to the shipping method."
+    },
+    "TrackingNum": {
+      "type": "string",
+      "description": "Shipping tracking number."
+    },
+    "ApplyTaxAfterDiscount": {
+      "type": "boolean",
+      "description": "If true, tax is calculated after applying any discount. If false, tax is calculated before the discount."
+    },
+    "PrintStatus": {
+      "type": "string",
+      "description": "Printing status of the invoice.",
+      "enum": ["NotSet", "NeedToPrint", "PrintComplete"]
+    },
+    "EmailStatus": {
+      "type": "string",
+      "description": "Email delivery status of the invoice.",
+      "enum": ["NotSet", "NeedToSend", "EmailSent"]
+    },
+    "GlobalTaxCalculation": {
+      "type": "string",
+      "description": "Method in which tax is applied. TaxExcluded means line amounts are exclusive of tax. TaxInclusive means line amounts include tax.",
+      "enum": ["TaxExcluded", "TaxInclusive", "NotApplicable"]
+    },
+    "AllowOnlinePayment": {
+      "type": "boolean",
+      "description": "Whether online payment is allowed for this invoice."
+    },
+    "AllowOnlineCreditCardPayment": {
+      "type": "boolean",
+      "description": "Whether online credit card payment is allowed."
+    },
+    "AllowOnlineACHPayment": {
+      "type": "boolean",
+      "description": "Whether online ACH (bank transfer) payment is allowed."
+    },
+    "CustomField": {
+      "type": "array",
+      "description": "Custom fields defined for the invoice. A maximum of 3 custom fields are supported.",
+      "items": {
+        "$ref": "#/$defs/CustomField"
+      },
+      "maxItems": 3
+    },
+    "LinkedTxn": {
+      "type": "array",
+      "description": "Transactions linked to this invoice such as payments or credit memos.",
+      "items": {
+        "$ref": "#/$defs/LinkedTxn"
+      }
+    },
+    "domain": {
+      "type": "string",
+      "description": "Domain of the entity (e.g., QBO).",
+      "readOnly": true
+    },
+    "sparse": {
+      "type": "boolean",
+      "description": "Indicates whether this is a sparse (partial) representation of the entity."
+    }
+  },
+  "required": ["CustomerRef", "Line"],
+  "$defs": {
+    "ReferenceType": {
+      "type": "object",
+      "description": "A reference to another entity in QuickBooks Online, containing the entity ID and optionally a display name.",
+      "properties": {
+        "value": {
+          "type": "string",
+          "description": "The unique identifier of the referenced entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "An identifying name for the referenced entity."
+        }
+      },
+      "required": ["value"]
+    },
+    "PhysicalAddress": {
+      "type": "object",
+      "description": "A physical (mailing) address.",
+      "properties": {
+        "Id": {
+          "type": "string",
+          "description": "Unique identifier for the address."
+        },
+        "Line1": {
+          "type": "string",
+          "description": "First line of the street address.",
+          "maxLength": 500
+        },
+        "Line2": {
+          "type": "string",
+          "description": "Second line of the street address.",
+          "maxLength": 500
+        },
+        "Line3": {
+          "type": "string",
+          "description": "Third line of the street address.",
+          "maxLength": 500
+        },
+        "Line4": {
+          "type": "string",
+          "description": "Fourth line of the street address.",
+          "maxLength": 500
+        },
+        "Line5": {
+          "type": "string",
+          "description": "Fifth line of the street address.",
+          "maxLength": 500
+        },
+        "City": {
+          "type": "string",
+          "description": "City name.",
+          "maxLength": 255
+        },
+        "CountrySubDivisionCode": {
+          "type": "string",
+          "description": "Region within a country (e.g., state, province).",
+          "maxLength": 255
+        },
+        "PostalCode": {
+          "type": "string",
+          "description": "Postal code.",
+          "maxLength": 30
+        },
+        "Country": {
+          "type": "string",
+          "description": "Country name or code.",
+          "maxLength": 255
+        },
+        "Lat": {
+          "type": "string",
+          "description": "Latitude coordinate."
+        },
+        "Long": {
+          "type": "string",
+          "description": "Longitude coordinate."
+        }
+      }
+    },
+    "EmailAddress": {
+      "type": "object",
+      "description": "An email address.",
+      "properties": {
+        "Address": {
+          "type": "string",
+          "format": "email",
+          "description": "The email address.",
+          "maxLength": 100
+        }
+      }
+    },
+    "MetaData": {
+      "type": "object",
+      "description": "Metadata about entity creation and modification timestamps.",
+      "properties": {
+        "CreateTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the entity was created."
+        },
+        "LastUpdatedTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the entity was last updated."
+        }
+      }
+    },
+    "LinkedTxn": {
+      "type": "object",
+      "description": "A reference to a linked transaction.",
+      "properties": {
+        "TxnId": {
+          "type": "string",
+          "description": "The ID of the linked transaction."
+        },
+        "TxnType": {
+          "type": "string",
+          "description": "The type of the linked transaction.",
+          "enum": [
+            "Invoice",
+            "Payment",
+            "CreditMemo",
+            "Estimate",
+            "SalesReceipt",
+            "JournalEntry",
+            "Expense",
+            "StatementCharge",
+            "ReimburseCharge"
+          ]
+        }
+      },
+      "required": ["TxnId", "TxnType"]
+    },
+    "SalesItemLineDetail": {
+      "type": "object",
+      "description": "Detail for a line item representing a sale of a product or service.",
+      "properties": {
+        "ItemRef": {
+          "$ref": "#/$defs/ReferenceType",
+          "description": "Reference to the item (product or service) being sold."
+        },
+        "ClassRef": {
+          "$ref": "#/$defs/ReferenceType",
+          "description": "Reference to the class for classification."
+        },
+        "UnitPrice": {
+          "type": "number",
+          "description": "Per-unit selling price of the item."
+        },
+        "RatePercent": {
+          "type": "number",
+          "description": "Discount rate as a percentage (for discount lines)."
+        },
+        "Qty": {
+          "type": "number",
+          "description": "Quantity of items."
+        },
+        "ItemAccountRef": {
+          "$ref": "#/$defs/ReferenceType",
+          "description": "Reference to the account associated with this item."
+        },
+        "TaxCodeRef": {
+          "$ref": "#/$defs/ReferenceType",
+          "description": "Reference to the tax code for this line."
+        },
+        "ServiceDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Date the service was performed or goods delivered."
+        },
+        "DiscountAmt": {
+          "type": "number",
+          "description": "Discount amount applied to this line."
+        },
+        "DiscountRate": {
+          "type": "number",
+          "description": "Discount rate as a percentage."
+        }
+      }
+    },
+    "InvoiceLine": {
+      "type": "object",
+      "description": "A single line item on an invoice.",
+      "properties": {
+        "Id": {
+          "type": "string",
+          "description": "Unique identifier for the line item."
+        },
+        "LineNum": {
+          "type": "integer",
+          "description": "Specifies the position of the line in the collection."
+        },
+        "Description": {
+          "type": "string",
+          "description": "Free-form text description of the line item.",
+          "maxLength": 4000
+        },
+        "Amount": {
+          "type": "number",
+          "description": "The total amount for this line item."
+        },
+        "DetailType": {
+          "type": "string",
+          "description": "The type of detail for this line.",
+          "enum": [
+            "SalesItemLineDetail",
+            "GroupLineDetail",
+            "DescriptionOnly",
+            "DiscountLineDetail",
+            "SubTotalLineDetail"
+          ]
+        },
+        "SalesItemLineDetail": {
+          "$ref": "#/$defs/SalesItemLineDetail"
+        },
+        "LinkedTxn": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/LinkedTxn"
+          }
+        }
+      },
+      "required": ["Amount", "DetailType"]
+    },
+    "TxnTaxDetail": {
+      "type": "object",
+      "description": "Tax details for the transaction.",
+      "properties": {
+        "TxnTaxCodeRef": {
+          "$ref": "#/$defs/ReferenceType",
+          "description": "Reference to the tax code for the transaction."
+        },
+        "TotalTax": {
+          "type": "number",
+          "description": "Total tax calculated for the transaction."
+        },
+        "TaxLine": {
+          "type": "array",
+          "description": "Tax lines itemizing individual tax amounts.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "Amount": {
+                "type": "number",
+                "description": "Tax amount for this tax line."
+              },
+              "DetailType": {
+                "type": "string",
+                "enum": ["TaxLineDetail"]
+              },
+              "TaxLineDetail": {
+                "type": "object",
+                "properties": {
+                  "TaxRateRef": {
+                    "$ref": "#/$defs/ReferenceType"
+                  },
+                  "PercentBased": {
+                    "type": "boolean"
+                  },
+                  "TaxPercent": {
+                    "type": "number"
+                  },
+                  "NetAmountTaxable": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "CustomField": {
+      "type": "object",
+      "description": "A custom field defined for the entity.",
+      "properties": {
+        "DefinitionId": {
+          "type": "string",
+          "description": "Unique identifier of the custom field definition."
+        },
+        "Name": {
+          "type": "string",
+          "description": "Name of the custom field."
+        },
+        "Type": {
+          "type": "string",
+          "description": "Data type of the custom field.",
+          "enum": ["StringType", "BooleanType", "NumberType", "DateType"]
+        },
+        "StringValue": {
+          "type": "string",
+          "description": "Value when Type is StringType."
+        }
+      }
+    }
+  },
+  "examples": [
+    {
+      "CustomerRef": {
+        "value": "1",
+        "name": "Amy's Bird Sanctuary"
+      },
+      "Line": [
+        {
+          "Amount": 150.00,
+          "DetailType": "SalesItemLineDetail",
+          "SalesItemLineDetail": {
+            "ItemRef": {
+              "value": "1",
+              "name": "Services"
+            },
+            "UnitPrice": 150,
+            "Qty": 1
+          }
+        },
+        {
+          "Amount": 150.00,
+          "DetailType": "SubTotalLineDetail"
+        }
+      ],
+      "DueDate": "2025-12-15",
+      "TxnDate": "2025-11-15",
+      "DocNumber": "1001",
+      "BillEmail": {
+        "Address": "amy@birdsnest.example.com"
+      }
+    }
+  ]
+}

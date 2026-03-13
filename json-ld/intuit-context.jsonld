@@ -1,0 +1,413 @@
+{
+  "@context": {
+    "@vocab": "https://developer.intuit.com/app/developer/qbo/docs/api/accounting/all-entities/",
+    "intuit": "https://developer.intuit.com/ns/quickbooks#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "qbo": "https://quickbooks.api.intuit.com/v3/company/",
+
+    "Invoice": {
+      "@id": "intuit:Invoice",
+      "@context": {
+        "Id": {
+          "@id": "intuit:entityId",
+          "@type": "xsd:string"
+        },
+        "SyncToken": {
+          "@id": "intuit:syncToken",
+          "@type": "xsd:string"
+        },
+        "DocNumber": {
+          "@id": "intuit:docNumber",
+          "@type": "xsd:string"
+        },
+        "TxnDate": {
+          "@id": "intuit:transactionDate",
+          "@type": "xsd:date"
+        },
+        "DueDate": {
+          "@id": "schema:paymentDueDate",
+          "@type": "xsd:date"
+        },
+        "TotalAmt": {
+          "@id": "schema:totalPrice",
+          "@type": "xsd:decimal"
+        },
+        "Balance": {
+          "@id": "intuit:balance",
+          "@type": "xsd:decimal"
+        },
+        "CustomerRef": {
+          "@id": "intuit:customerReference",
+          "@type": "@id"
+        },
+        "Line": {
+          "@id": "intuit:lineItem",
+          "@container": "@list"
+        },
+        "BillAddr": {
+          "@id": "schema:billingAddress",
+          "@type": "schema:PostalAddress"
+        },
+        "ShipAddr": {
+          "@id": "intuit:shippingAddress",
+          "@type": "schema:PostalAddress"
+        },
+        "BillEmail": {
+          "@id": "intuit:billingEmail",
+          "@type": "schema:ContactPoint"
+        },
+        "PrintStatus": {
+          "@id": "intuit:printStatus",
+          "@type": "xsd:string"
+        },
+        "EmailStatus": {
+          "@id": "intuit:emailStatus",
+          "@type": "xsd:string"
+        },
+        "ShipDate": {
+          "@id": "intuit:shipDate",
+          "@type": "xsd:date"
+        },
+        "TrackingNum": {
+          "@id": "intuit:trackingNumber",
+          "@type": "xsd:string"
+        },
+        "PrivateNote": {
+          "@id": "intuit:privateNote",
+          "@type": "xsd:string"
+        },
+        "ExchangeRate": {
+          "@id": "schema:currentExchangeRate",
+          "@type": "xsd:decimal"
+        },
+        "Deposit": {
+          "@id": "intuit:deposit",
+          "@type": "xsd:decimal"
+        },
+        "AllowOnlinePayment": {
+          "@id": "intuit:allowOnlinePayment",
+          "@type": "xsd:boolean"
+        },
+        "AllowOnlineCreditCardPayment": {
+          "@id": "intuit:allowOnlineCreditCardPayment",
+          "@type": "xsd:boolean"
+        },
+        "AllowOnlineACHPayment": {
+          "@id": "intuit:allowOnlineACHPayment",
+          "@type": "xsd:boolean"
+        }
+      }
+    },
+
+    "Customer": {
+      "@id": "intuit:Customer",
+      "@context": {
+        "Id": {
+          "@id": "intuit:entityId",
+          "@type": "xsd:string"
+        },
+        "SyncToken": {
+          "@id": "intuit:syncToken",
+          "@type": "xsd:string"
+        },
+        "DisplayName": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "GivenName": {
+          "@id": "schema:givenName",
+          "@type": "xsd:string"
+        },
+        "MiddleName": {
+          "@id": "schema:additionalName",
+          "@type": "xsd:string"
+        },
+        "FamilyName": {
+          "@id": "schema:familyName",
+          "@type": "xsd:string"
+        },
+        "Title": {
+          "@id": "schema:honorificPrefix",
+          "@type": "xsd:string"
+        },
+        "Suffix": {
+          "@id": "schema:honorificSuffix",
+          "@type": "xsd:string"
+        },
+        "CompanyName": {
+          "@id": "schema:legalName",
+          "@type": "xsd:string"
+        },
+        "PrimaryEmailAddr": {
+          "@id": "schema:email",
+          "@type": "schema:ContactPoint"
+        },
+        "PrimaryPhone": {
+          "@id": "schema:telephone",
+          "@type": "schema:ContactPoint"
+        },
+        "Mobile": {
+          "@id": "intuit:mobilePhone",
+          "@type": "schema:ContactPoint"
+        },
+        "Fax": {
+          "@id": "schema:faxNumber",
+          "@type": "schema:ContactPoint"
+        },
+        "BillAddr": {
+          "@id": "schema:billingAddress",
+          "@type": "schema:PostalAddress"
+        },
+        "ShipAddr": {
+          "@id": "intuit:shippingAddress",
+          "@type": "schema:PostalAddress"
+        },
+        "WebAddr": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "Active": {
+          "@id": "intuit:active",
+          "@type": "xsd:boolean"
+        },
+        "Taxable": {
+          "@id": "intuit:taxable",
+          "@type": "xsd:boolean"
+        },
+        "Balance": {
+          "@id": "intuit:balance",
+          "@type": "xsd:decimal"
+        },
+        "BalanceWithJobs": {
+          "@id": "intuit:balanceWithJobs",
+          "@type": "xsd:decimal"
+        },
+        "Job": {
+          "@id": "intuit:isJob",
+          "@type": "xsd:boolean"
+        },
+        "ParentRef": {
+          "@id": "intuit:parentReference",
+          "@type": "@id"
+        },
+        "Level": {
+          "@id": "intuit:hierarchyLevel",
+          "@type": "xsd:integer"
+        },
+        "FullyQualifiedName": {
+          "@id": "intuit:fullyQualifiedName",
+          "@type": "xsd:string"
+        },
+        "PreferredDeliveryMethod": {
+          "@id": "intuit:preferredDeliveryMethod",
+          "@type": "xsd:string"
+        },
+        "Notes": {
+          "@id": "schema:description",
+          "@type": "xsd:string"
+        },
+        "CurrencyRef": {
+          "@id": "schema:priceCurrency",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "Item": {
+      "@id": "intuit:Item",
+      "@context": {
+        "Id": {
+          "@id": "intuit:entityId",
+          "@type": "xsd:string"
+        },
+        "SyncToken": {
+          "@id": "intuit:syncToken",
+          "@type": "xsd:string"
+        },
+        "Name": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "Description": {
+          "@id": "schema:description",
+          "@type": "xsd:string"
+        },
+        "Active": {
+          "@id": "intuit:active",
+          "@type": "xsd:boolean"
+        },
+        "UnitPrice": {
+          "@id": "schema:price",
+          "@type": "xsd:decimal"
+        },
+        "PurchaseCost": {
+          "@id": "intuit:purchaseCost",
+          "@type": "xsd:decimal"
+        },
+        "Type": {
+          "@id": "intuit:itemType",
+          "@type": "xsd:string"
+        },
+        "QtyOnHand": {
+          "@id": "intuit:quantityOnHand",
+          "@type": "xsd:decimal"
+        },
+        "Sku": {
+          "@id": "schema:sku",
+          "@type": "xsd:string"
+        },
+        "Taxable": {
+          "@id": "intuit:taxable",
+          "@type": "xsd:boolean"
+        },
+        "IncomeAccountRef": {
+          "@id": "intuit:incomeAccountReference",
+          "@type": "@id"
+        },
+        "ExpenseAccountRef": {
+          "@id": "intuit:expenseAccountReference",
+          "@type": "@id"
+        },
+        "AssetAccountRef": {
+          "@id": "intuit:assetAccountReference",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "Payment": {
+      "@id": "intuit:Payment",
+      "@context": {
+        "Id": {
+          "@id": "intuit:entityId",
+          "@type": "xsd:string"
+        },
+        "SyncToken": {
+          "@id": "intuit:syncToken",
+          "@type": "xsd:string"
+        },
+        "TxnDate": {
+          "@id": "intuit:transactionDate",
+          "@type": "xsd:date"
+        },
+        "TotalAmt": {
+          "@id": "schema:totalPrice",
+          "@type": "xsd:decimal"
+        },
+        "CustomerRef": {
+          "@id": "intuit:customerReference",
+          "@type": "@id"
+        },
+        "PaymentRefNum": {
+          "@id": "intuit:paymentReferenceNumber",
+          "@type": "xsd:string"
+        },
+        "PaymentMethodRef": {
+          "@id": "schema:paymentMethod",
+          "@type": "@id"
+        },
+        "DepositToAccountRef": {
+          "@id": "intuit:depositToAccountReference",
+          "@type": "@id"
+        },
+        "UnappliedAmt": {
+          "@id": "intuit:unappliedAmount",
+          "@type": "xsd:decimal"
+        },
+        "Line": {
+          "@id": "intuit:paymentLine",
+          "@container": "@list"
+        },
+        "CurrencyRef": {
+          "@id": "schema:priceCurrency",
+          "@type": "@id"
+        },
+        "ExchangeRate": {
+          "@id": "schema:currentExchangeRate",
+          "@type": "xsd:decimal"
+        },
+        "PrivateNote": {
+          "@id": "intuit:privateNote",
+          "@type": "xsd:string"
+        }
+      }
+    },
+
+    "PhysicalAddress": {
+      "@id": "schema:PostalAddress",
+      "@context": {
+        "Line1": {
+          "@id": "schema:streetAddress",
+          "@type": "xsd:string"
+        },
+        "City": {
+          "@id": "schema:addressLocality",
+          "@type": "xsd:string"
+        },
+        "CountrySubDivisionCode": {
+          "@id": "schema:addressRegion",
+          "@type": "xsd:string"
+        },
+        "PostalCode": {
+          "@id": "schema:postalCode",
+          "@type": "xsd:string"
+        },
+        "Country": {
+          "@id": "schema:addressCountry",
+          "@type": "xsd:string"
+        },
+        "Lat": {
+          "@id": "schema:latitude",
+          "@type": "xsd:string"
+        },
+        "Long": {
+          "@id": "schema:longitude",
+          "@type": "xsd:string"
+        }
+      }
+    },
+
+    "ReferenceType": {
+      "@id": "intuit:ReferenceType",
+      "@context": {
+        "value": {
+          "@id": "intuit:referenceId",
+          "@type": "xsd:string"
+        },
+        "name": {
+          "@id": "intuit:referenceName",
+          "@type": "xsd:string"
+        }
+      }
+    },
+
+    "MetaData": {
+      "@id": "intuit:MetaData",
+      "@context": {
+        "CreateTime": {
+          "@id": "schema:dateCreated",
+          "@type": "xsd:dateTime"
+        },
+        "LastUpdatedTime": {
+          "@id": "schema:dateModified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "LinkedTxn": {
+      "@id": "intuit:LinkedTransaction",
+      "@context": {
+        "TxnId": {
+          "@id": "intuit:transactionId",
+          "@type": "xsd:string"
+        },
+        "TxnType": {
+          "@id": "intuit:transactionType",
+          "@type": "xsd:string"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,248 @@
+asyncapi: 3.0.0
+info:
+  title: QuickBooks Online Webhooks
+  version: "1.0.0"
+  description: >-
+    QuickBooks Online Webhooks provide near real-time notifications when data
+    changes in a QuickBooks Online company. When an entity is created, updated,
+    merged, deleted, or voided, Intuit sends an HTTP POST notification to your
+    registered endpoint. Webhook notifications are delivered as JSON payloads
+    and are signed with an HMAC-SHA256 signature using your webhook verifier
+    token. Your endpoint must respond with an HTTP 200 status within 10 seconds.
+    Notifications may be batched, delivering multiple entity change events in a
+    single payload. Notifications are sent on a best-effort basis and may arrive
+    out of order; your application should use the query API to retrieve the
+    current state of changed entities.
+  termsOfService: https://developer.intuit.com/app/developer/qbo/docs/learn/terms-of-service
+  contact:
+    name: Intuit Developer Support
+    url: https://help.developer.intuit.com
+    email: developer-support@intuit.com
+  license:
+    name: Intuit Developer Terms of Service
+    url: https://developer.intuit.com/app/developer/qbo/docs/learn/terms-of-service
+  externalDocs:
+    description: QuickBooks Webhooks Documentation
+    url: https://developer.intuit.com/app/developer/qbo/docs/develop/webhooks
+  tags:
+    - name: accounting
+      description: Accounting entity change events
+    - name: webhooks
+      description: Webhook notification delivery
+
+defaultContentType: application/json
+
+servers:
+  yourEndpoint:
+    host: "{yourDomain}"
+    protocol: https
+    description: >-
+      Your application's webhook endpoint. This URL is registered in the
+      Intuit Developer portal under the Webhooks section of your app settings.
+      Intuit sends HTTP POST requests to this URL when entity changes occur.
+    variables:
+      yourDomain:
+        description: Your application's domain that receives webhook notifications
+        default: api.example.com
+
+channels:
+  webhookNotification:
+    address: /your-webhook-endpoint
+    title: QuickBooks Webhook Notification Channel
+    description: >-
+      The channel through which Intuit delivers webhook notifications to your
+      application. Your endpoint must accept POST requests and respond with
+      HTTP 200 within 10 seconds. Failed deliveries are retried, but
+      notifications are delivered on a best-effort basis.
+    messages:
+      webhookEvent:
+        $ref: "#/components/messages/WebhookNotification"
+
+operations:
+  receiveWebhookNotification:
+    action: receive
+    channel:
+      $ref: "#/channels/webhookNotification"
+    title: Receive Webhook Notification
+    summary: Receive entity change notifications from QuickBooks Online
+    description: >-
+      Your application receives webhook notifications when entities in a
+      QuickBooks Online company are created, updated, merged, deleted, or
+      voided. The notification payload contains metadata about the changes
+      but not the full entity data. Your application should use the
+      QuickBooks Online Accounting API to query for the current state of
+      changed entities.
+    messages:
+      - $ref: "#/channels/webhookNotification/messages/webhookEvent"
+    security:
+      - type: httpApiKey
+        name: intuit-signature
+        in: header
+        description: >-
+          HMAC-SHA256 signature of the payload body using your webhook
+          verifier token as the key. Your application must validate this
+          signature to verify the notification came from Intuit. Compute
+          the HMAC-SHA256 hash of the raw request body using your verifier
+          token, then Base64 encode the result and compare it with the
+          intuit-signature header value.
+
+components:
+  messages:
+    WebhookNotification:
+      name: WebhookNotification
+      title: Webhook Notification
+      summary: >-
+        A batch of entity change notifications from QuickBooks Online
+      description: >-
+        Contains one or more entity change events grouped by company (realm).
+        Each event describes a single entity change operation. Multiple events
+        for different entities and different companies may be included in a
+        single notification delivery.
+      contentType: application/json
+      headers:
+        type: object
+        properties:
+          intuit-signature:
+            type: string
+            description: >-
+              HMAC-SHA256 signature of the request body, Base64 encoded.
+              Used to verify the notification originated from Intuit.
+        required:
+          - intuit-signature
+      payload:
+        $ref: "#/components/schemas/WebhookPayload"
+
+  schemas:
+    WebhookPayload:
+      type: object
+      description: >-
+        The top-level webhook notification payload containing event
+        notifications grouped by company.
+      properties:
+        eventNotifications:
+          type: array
+          description: >-
+            Array of event notification groups, one per QuickBooks Online
+            company that has changes.
+          items:
+            $ref: "#/components/schemas/EventNotification"
+      required:
+        - eventNotifications
+
+    EventNotification:
+      type: object
+      description: >-
+        A group of entity change events for a single QuickBooks Online company.
+      properties:
+        realmId:
+          type: string
+          description: >-
+            The QuickBooks Online company ID (realm ID) where the changes
+            occurred.
+          examples:
+            - "1234567890"
+        dataChangeEvent:
+          $ref: "#/components/schemas/DataChangeEvent"
+      required:
+        - realmId
+        - dataChangeEvent
+
+    DataChangeEvent:
+      type: object
+      description: >-
+        Contains the array of entity change events for a company.
+      properties:
+        entities:
+          type: array
+          description: Array of individual entity change records
+          items:
+            $ref: "#/components/schemas/EntityChange"
+      required:
+        - entities
+
+    EntityChange:
+      type: object
+      description: >-
+        Describes a single entity change event. Contains the entity name,
+        entity ID, the type of operation, and the time of the last update.
+        Does not contain the full entity data; use the Accounting API to
+        retrieve current entity state.
+      properties:
+        name:
+          type: string
+          description: >-
+            The type of entity that changed. Corresponds to QuickBooks Online
+            entity names.
+          enum:
+            - Invoice
+            - Customer
+            - Item
+            - Payment
+            - Account
+            - Bill
+            - BillPayment
+            - CreditMemo
+            - Deposit
+            - Employee
+            - Estimate
+            - JournalEntry
+            - Purchase
+            - PurchaseOrder
+            - RefundReceipt
+            - SalesReceipt
+            - TimeActivity
+            - Transfer
+            - Vendor
+            - VendorCredit
+            - Budget
+            - Class
+            - Department
+            - PaymentMethod
+            - Preferences
+            - TaxAgency
+            - TaxCode
+            - TaxRate
+            - Term
+          examples:
+            - Invoice
+            - Customer
+            - Payment
+        id:
+          type: string
+          description: The unique identifier of the changed entity
+          examples:
+            - "1234"
+        operation:
+          type: string
+          description: >-
+            The type of operation that occurred on the entity
+          enum:
+            - Create
+            - Update
+            - Merge
+            - Delete
+            - Void
+            - Emailed
+          examples:
+            - Create
+            - Update
+        lastUpdated:
+          type: string
+          format: date-time
+          description: >-
+            The date and time when the entity was last updated, in ISO 8601
+            format (e.g., 2025-10-10T14:20:30.000Z). Use this timestamp to
+            determine the order of changes and whether you need to re-query
+            the entity.
+          examples:
+            - "2025-10-10T14:20:30.000Z"
+        deletedId:
+          type: string
+          description: >-
+            For merge operations, this is the ID of the entity that was
+            deleted (merged into the entity identified by the id field).
+      required:
+        - name
+        - id
+        - operation
+        - lastUpdated

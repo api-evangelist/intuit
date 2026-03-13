@@ -1,0 +1,352 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/api-evangelist/intuit/json-schema/intuit-customer-schema.json",
+  "title": "QuickBooks Online Customer",
+  "description": "A Customer represents a consumer of the service or product that the business offers. The Customer entity supports a hierarchy where customers can have sub-customers (jobs) organized under a parent customer. DisplayName must be unique across all Customer, Employee, and Vendor objects within a QuickBooks Online company.",
+  "type": "object",
+  "properties": {
+    "Id": {
+      "type": "string",
+      "description": "Unique identifier for the customer, assigned by QuickBooks Online.",
+      "readOnly": true
+    },
+    "SyncToken": {
+      "type": "string",
+      "description": "Version number of the entity used for optimistic concurrency control. Required for update operations."
+    },
+    "MetaData": {
+      "$ref": "#/$defs/MetaData"
+    },
+    "Title": {
+      "type": "string",
+      "description": "Title of the person (e.g., Mr., Mrs., Ms., Dr.).",
+      "maxLength": 16
+    },
+    "GivenName": {
+      "type": "string",
+      "description": "Given (first) name of the customer.",
+      "maxLength": 100
+    },
+    "MiddleName": {
+      "type": "string",
+      "description": "Middle name of the customer.",
+      "maxLength": 100
+    },
+    "FamilyName": {
+      "type": "string",
+      "description": "Family (last) name of the customer.",
+      "maxLength": 100
+    },
+    "Suffix": {
+      "type": "string",
+      "description": "Suffix of the person (e.g., Jr., Sr., III).",
+      "maxLength": 16
+    },
+    "DisplayName": {
+      "type": "string",
+      "description": "The name displayed to identify the customer in the QuickBooks UI and on transaction forms. Must be unique across all Customer, Employee, and Vendor objects.",
+      "maxLength": 500
+    },
+    "CompanyName": {
+      "type": "string",
+      "description": "The company name associated with the customer.",
+      "maxLength": 500
+    },
+    "PrintOnCheckName": {
+      "type": "string",
+      "description": "Name to print on checks issued to this customer.",
+      "maxLength": 110
+    },
+    "Active": {
+      "type": "boolean",
+      "description": "Whether the customer is currently active. Inactive customers do not appear in transaction drop-downs but their data is retained.",
+      "default": true
+    },
+    "Taxable": {
+      "type": "boolean",
+      "description": "Whether transactions for this customer are taxable."
+    },
+    "PrimaryEmailAddr": {
+      "$ref": "#/$defs/EmailAddress",
+      "description": "Primary email address for the customer."
+    },
+    "PrimaryPhone": {
+      "$ref": "#/$defs/TelephoneNumber",
+      "description": "Primary phone number."
+    },
+    "Mobile": {
+      "$ref": "#/$defs/TelephoneNumber",
+      "description": "Mobile phone number."
+    },
+    "Fax": {
+      "$ref": "#/$defs/TelephoneNumber",
+      "description": "Fax number."
+    },
+    "AlternatePhone": {
+      "$ref": "#/$defs/TelephoneNumber",
+      "description": "Alternate phone number."
+    },
+    "BillAddr": {
+      "$ref": "#/$defs/PhysicalAddress",
+      "description": "Default billing address for the customer."
+    },
+    "ShipAddr": {
+      "$ref": "#/$defs/PhysicalAddress",
+      "description": "Default shipping address for the customer."
+    },
+    "Notes": {
+      "type": "string",
+      "description": "Free-form text notes about the customer.",
+      "maxLength": 2000
+    },
+    "Job": {
+      "type": "boolean",
+      "description": "Whether this customer represents a job (sub-customer) rather than a top-level customer."
+    },
+    "ParentRef": {
+      "$ref": "#/$defs/ReferenceType",
+      "description": "Reference to the parent customer if this is a sub-customer (job)."
+    },
+    "Level": {
+      "type": "integer",
+      "description": "Depth level in the customer hierarchy. 0 indicates a top-level customer.",
+      "readOnly": true,
+      "minimum": 0
+    },
+    "FullyQualifiedName": {
+      "type": "string",
+      "description": "Fully qualified name of the customer including all parent names separated by colons (e.g., 'ParentCustomer:SubCustomer').",
+      "readOnly": true
+    },
+    "CurrencyRef": {
+      "$ref": "#/$defs/ReferenceType",
+      "description": "Reference to the currency used by this customer. Only applicable for companies with multicurrency enabled."
+    },
+    "PreferredDeliveryMethod": {
+      "type": "string",
+      "description": "Preferred method for delivering communications to this customer.",
+      "enum": ["Print", "Email", "None"]
+    },
+    "Balance": {
+      "type": "number",
+      "description": "Open balance amount for the customer (sum of all open invoices minus payments).",
+      "readOnly": true
+    },
+    "BalanceWithJobs": {
+      "type": "number",
+      "description": "Open balance amount including balances of all sub-customers (jobs).",
+      "readOnly": true
+    },
+    "SalesTermRef": {
+      "$ref": "#/$defs/ReferenceType",
+      "description": "Default sales terms for transactions with this customer."
+    },
+    "PaymentMethodRef": {
+      "$ref": "#/$defs/ReferenceType",
+      "description": "Default payment method for this customer."
+    },
+    "TaxExemptionReasonId": {
+      "type": "string",
+      "description": "The tax exemption reason identifier if the customer is tax-exempt."
+    },
+    "WebAddr": {
+      "type": "object",
+      "description": "The customer's website address.",
+      "properties": {
+        "URI": {
+          "type": "string",
+          "format": "uri",
+          "description": "The website URL."
+        }
+      }
+    },
+    "IsProject": {
+      "type": "boolean",
+      "description": "Whether this customer is a project (QuickBooks Online Plus and Advanced only).",
+      "readOnly": true
+    },
+    "Source": {
+      "type": "string",
+      "description": "Source of the customer record.",
+      "readOnly": true
+    },
+    "PrimaryTaxIdentifier": {
+      "type": "string",
+      "description": "Primary tax identifier for the customer (e.g., ABN in Australia, GSTIN in India)."
+    },
+    "GSTRegistrationType": {
+      "type": "string",
+      "description": "GST registration type (applicable for India and Australia editions).",
+      "enum": [
+        "GST_REG_REG",
+        "GST_REG_COMP",
+        "GST_UNREG",
+        "CONSUMER",
+        "OVERSEAS",
+        "SEZ",
+        "DEEMED"
+      ]
+    },
+    "BusinessNumber": {
+      "type": "string",
+      "description": "Business number of the customer (used in certain international editions)."
+    },
+    "GSTIN": {
+      "type": "string",
+      "description": "GST Identification Number (India edition)."
+    },
+    "domain": {
+      "type": "string",
+      "description": "Domain of the entity (e.g., QBO).",
+      "readOnly": true
+    },
+    "sparse": {
+      "type": "boolean",
+      "description": "Indicates whether this is a sparse (partial) representation of the entity."
+    }
+  },
+  "required": ["DisplayName"],
+  "$defs": {
+    "ReferenceType": {
+      "type": "object",
+      "description": "A reference to another entity in QuickBooks Online.",
+      "properties": {
+        "value": {
+          "type": "string",
+          "description": "The unique identifier of the referenced entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "An identifying name for the referenced entity."
+        }
+      },
+      "required": ["value"]
+    },
+    "PhysicalAddress": {
+      "type": "object",
+      "description": "A physical (mailing) address.",
+      "properties": {
+        "Id": {
+          "type": "string",
+          "description": "Unique identifier for the address."
+        },
+        "Line1": {
+          "type": "string",
+          "description": "First line of the street address.",
+          "maxLength": 500
+        },
+        "Line2": {
+          "type": "string",
+          "description": "Second line of the street address.",
+          "maxLength": 500
+        },
+        "Line3": {
+          "type": "string",
+          "description": "Third line of the street address.",
+          "maxLength": 500
+        },
+        "Line4": {
+          "type": "string",
+          "description": "Fourth line of the street address.",
+          "maxLength": 500
+        },
+        "Line5": {
+          "type": "string",
+          "description": "Fifth line of the street address.",
+          "maxLength": 500
+        },
+        "City": {
+          "type": "string",
+          "description": "City name.",
+          "maxLength": 255
+        },
+        "CountrySubDivisionCode": {
+          "type": "string",
+          "description": "Region within a country (e.g., state, province).",
+          "maxLength": 255
+        },
+        "PostalCode": {
+          "type": "string",
+          "description": "Postal code.",
+          "maxLength": 30
+        },
+        "Country": {
+          "type": "string",
+          "description": "Country name or code.",
+          "maxLength": 255
+        },
+        "Lat": {
+          "type": "string",
+          "description": "Latitude coordinate."
+        },
+        "Long": {
+          "type": "string",
+          "description": "Longitude coordinate."
+        }
+      }
+    },
+    "EmailAddress": {
+      "type": "object",
+      "description": "An email address.",
+      "properties": {
+        "Address": {
+          "type": "string",
+          "format": "email",
+          "description": "The email address.",
+          "maxLength": 100
+        }
+      }
+    },
+    "TelephoneNumber": {
+      "type": "object",
+      "description": "A telephone number.",
+      "properties": {
+        "FreeFormNumber": {
+          "type": "string",
+          "description": "Telephone number in free-form format.",
+          "maxLength": 30
+        }
+      }
+    },
+    "MetaData": {
+      "type": "object",
+      "description": "Metadata about entity creation and modification timestamps.",
+      "properties": {
+        "CreateTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the entity was created."
+        },
+        "LastUpdatedTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the entity was last updated."
+        }
+      }
+    }
+  },
+  "examples": [
+    {
+      "DisplayName": "Amy's Bird Sanctuary",
+      "GivenName": "Amy",
+      "FamilyName": "Lauterbach",
+      "CompanyName": "Amy's Bird Sanctuary",
+      "PrimaryEmailAddr": {
+        "Address": "amy@birdsnest.example.com"
+      },
+      "PrimaryPhone": {
+        "FreeFormNumber": "(555) 555-1234"
+      },
+      "BillAddr": {
+        "Line1": "4581 Finch St.",
+        "City": "Bayshore",
+        "CountrySubDivisionCode": "CA",
+        "PostalCode": "94326",
+        "Country": "US"
+      },
+      "PreferredDeliveryMethod": "Email",
+      "Active": true,
+      "Taxable": true
+    }
+  ]
+}
