@@ -171,7 +171,7 @@ type: Index
 image: https://developer.intuit.com/app/developer/common/imgs/IntuitDev_Logo.svg
 access: 3rd-Party
 created: '2025-03-01'
-modified: '2026-03-03'
+modified: '2026-03-16'
 position: Consumer
 description: Collection of APIs offered by Intuit for financial and business management services
 maintainers:
