@@ -1,12 +1,11 @@
 aid: intuit
-url: 
-  https://raw.githubusercontent.com/api-evangelist/intuit/refs/heads/main/apis.yml
+url: https://raw.githubusercontent.com/api-evangelist/intuit/refs/heads/main/apis.yml
 apis:
   - aid: intuit:intuit
     name: Intuit APIs
     tags:
-      - Financial
       - Accounting
+      - Financial
       - Tax Preparation
       - Taxes
     humanURL: https://developer.intuit.com/app/developer/homepage
@@ -23,42 +22,33 @@ apis:
     name: QuickBooks Online Accounting API
     tags:
       - Accounting
+      - Bookkeeping
       - Financial
       - Invoicing
-      - Bookkeeping
       - Small Business
     humanURL: https://developer.intuit.com/app/developer/qbo/docs/develop
     properties:
       - url: https://developer.intuit.com/app/developer/qbo/docs/develop
         type: Documentation
-      - url: 
-          https://developer.intuit.com/app/developer/qbo/docs/api/accounting/all-entities/account
+      - url: https://developer.intuit.com/app/developer/qbo/docs/api/accounting/all-entities/account
         type: API Reference
       - url: https://developer.intuit.com/app/developer/qbo/docs/get-started
         type: Getting Started
-      - url: 
-          https://developer.intuit.com/app/developer/qbo/docs/get-started/get-started-with-the-api-explorer
+      - url: https://developer.intuit.com/app/developer/qbo/docs/get-started/get-started-with-the-api-explorer
         type: API Explorer
-      - url: 
-          https://developer.intuit.com/app/developer/qbo/docs/develop/webhooks
+      - url: https://developer.intuit.com/app/developer/qbo/docs/develop/webhooks
         type: Webhooks
-      - url: 
-          https://developer.intuit.com/app/developer/qbo/docs/develop/sandboxes/postman
+      - url: https://developer.intuit.com/app/developer/qbo/docs/develop/sandboxes/postman
         type: Postman Collection
-      - url: 
-          https://developer.intuit.com/app/developer/qbo/docs/develop/authentication-and-authorization/oauth-2.0
+      - url: https://developer.intuit.com/app/developer/qbo/docs/develop/authentication-and-authorization/oauth-2.0
         type: Authentication
-      - url: 
-          https://developer.intuit.com/app/developer/qbo/docs/learn/explore-the-quickbooks-online-api
+      - url: https://developer.intuit.com/app/developer/qbo/docs/learn/explore-the-quickbooks-online-api
         type: Overview
-      - url: 
-          https://developer.intuit.com/app/developer/qbo/docs/learn/explore-the-quickbooks-online-api/minor-versions
+      - url: https://developer.intuit.com/app/developer/qbo/docs/learn/explore-the-quickbooks-online-api/minor-versions
         type: Versioning
-      - url: 
-          https://developer.intuit.com/app/developer/qbo/docs/develop/sdks-and-samples
+      - url: https://developer.intuit.com/app/developer/qbo/docs/develop/sdks-and-samples
         type: SDKs
-      - url: 
-          https://developer.intuit.com/app/developer/qbo/docs/release-notes/platform-release-notes
+      - url: https://developer.intuit.com/app/developer/qbo/docs/release-notes/platform-release-notes
         type: Release Notes
       - url: openapi/quickbooks-accounting.yml
         type: OpenAPI
@@ -70,153 +60,102 @@ apis:
         type: JSONSchema
       - url: json-ld/intuit-context.jsonld
         type: JSON-LD Context
-    description: The QuickBooks Online Accounting API is a RESTful API that 
-      provides programmatic access to QuickBooks Online company data, including 
-      customers, invoices, payments, bills, vendors, accounts, and reports. It 
-      enables developers to build integrations that automate accounting 
-      workflows, synchronize financial data, and extend QuickBooks Online 
-      functionality for small and mid-sized businesses.
+    description: The QuickBooks Online Accounting API is a RESTful API that provides programmatic access to QuickBooks Online company data, including customers, invoices, payments, bills, vendors, accounts, and reports. It enables developers to build integrations that automate accounting workflows, synchronize financial data, and extend QuickBooks Online functionality for small and mid-sized businesses.
   - aid: intuit:quickbooks-payments
     name: QuickBooks Payments API
     tags:
-      - Payments
-      - Financial
       - Credit Cards
       - eCommerce
-    humanURL: 
-      https://developer.intuit.com/app/developer/qbpayments/docs/learn/explore-the-quickbooks-payments-api
+      - Financial
+      - Payments
+    humanURL: https://developer.intuit.com/app/developer/qbpayments/docs/learn/explore-the-quickbooks-payments-api
     properties:
-      - url: 
-          https://developer.intuit.com/app/developer/qbpayments/docs/learn/explore-the-quickbooks-payments-api
+      - url: https://developer.intuit.com/app/developer/qbpayments/docs/learn/explore-the-quickbooks-payments-api
         type: Documentation
-      - url: 
-          https://developer.intuit.com/app/developer/qbpayments/docs/get-started
+      - url: https://developer.intuit.com/app/developer/qbpayments/docs/get-started
         type: Getting Started
-      - url: 
-          https://developer.intuit.com/app/developer/qbo/docs/workflows/use-the-quickbooks-online-and-the-quickbooks-payments-apis-together
+      - url: https://developer.intuit.com/app/developer/qbo/docs/workflows/use-the-quickbooks-online-and-the-quickbooks-payments-apis-together
         type: Integration Guide
       - url: https://developer.intuit.com/app/developer/qbpayments/docs/develop
         type: API Reference
-    description: The QuickBooks Payments API enables developers to process 
-      credit card charges, bank account debits (ACH), and manage payment methods
-      within the QuickBooks ecosystem. It supports tokenized card storage, 
-      refunds, and the ability to link payments directly to QuickBooks Online 
-      invoices for seamless reconciliation.
+    description: The QuickBooks Payments API enables developers to process credit card charges, bank account debits (ACH), and manage payment methods within the QuickBooks ecosystem. It supports tokenized card storage, refunds, and the ability to link payments directly to QuickBooks Online invoices for seamless reconciliation.
   - aid: intuit:quickbooks-payroll-time
     name: QuickBooks Payroll and Time API
     tags:
-      - Payroll
-      - Time Tracking
       - HR
+      - Payroll
       - Small Business
-    humanURL: 
-      https://developer.intuit.com/app/developer/payroll-time/docs/get-started
+      - Time Tracking
+    humanURL: https://developer.intuit.com/app/developer/payroll-time/docs/get-started
     properties:
-      - url: 
-          https://developer.intuit.com/app/developer/payroll-time/docs/get-started
+      - url: https://developer.intuit.com/app/developer/payroll-time/docs/get-started
         type: Getting Started
-      - url: 
-          https://developer.intuit.com/app/developer/payroll-time/docs/develop/develop-payroll
+      - url: https://developer.intuit.com/app/developer/payroll-time/docs/develop/develop-payroll
         type: Documentation
-      - url: 
-          https://developer.intuit.com/app/developer/qbo/docs/workflows/integrate-with-payroll-api
+      - url: https://developer.intuit.com/app/developer/qbo/docs/workflows/integrate-with-payroll-api
         type: Integration Guide
-    description: The QuickBooks Payroll and Time API provides programmatic 
-      access to payroll and time-tracking data within QuickBooks Online. It 
-      supports use cases including time entry management, payroll compensation, 
-      and deductions, enabling developers to build integrations that streamline 
-      workforce and payroll operations for small businesses.
+    description: The QuickBooks Payroll and Time API provides programmatic access to payroll and time-tracking data within QuickBooks Online. It supports use cases including time entry management, payroll compensation, and deductions, enabling developers to build integrations that streamline workforce and payroll operations for small businesses.
   - aid: intuit:quickbooks-desktop
     name: QuickBooks Desktop API
     tags:
       - Accounting
-      - Financial
       - Desktop
+      - Financial
       - Small Business
-    humanURL: 
-      https://developer.intuit.com/app/developer/qbdesktop/docs/api-reference/qbdesktop
+    humanURL: https://developer.intuit.com/app/developer/qbdesktop/docs/api-reference/qbdesktop
     properties:
-      - url: 
-          https://developer.intuit.com/app/developer/qbdesktop/docs/api-reference/qbdesktop
+      - url: https://developer.intuit.com/app/developer/qbdesktop/docs/api-reference/qbdesktop
         type: API Reference
-      - url: 
-          https://developer.intuit.com/app/developer/qbdesktop/docs/api-reference
+      - url: https://developer.intuit.com/app/developer/qbdesktop/docs/api-reference
         type: Documentation
-    description: The QuickBooks Desktop API allows developers to integrate with 
-      QuickBooks Desktop applications using qbXML messages. It provides 
-      capabilities for adding, querying, modifying, and deleting data across 
-      list objects, transaction objects, query objects, and report objects, 
-      enabling third-party applications to interact with on-premise QuickBooks 
-      installations.
+    description: The QuickBooks Desktop API allows developers to integrate with QuickBooks Desktop applications using qbXML messages. It provides capabilities for adding, querying, modifying, and deleting data across list objects, transaction objects, query objects, and report objects, enabling third-party applications to interact with on-premise QuickBooks installations.
   - aid: intuit:quickbooks-projects
     name: QuickBooks Projects API
     tags:
-      - Projects
-      - Financial
       - Accounting
+      - Financial
       - Project Management
+      - Projects
       - Small Business
-    humanURL: 
-      https://developer.intuit.com/app/developer/qbo/docs/api/accounting/all-entities/account
+    humanURL: https://developer.intuit.com/app/developer/qbo/docs/api/accounting/all-entities/account
     properties:
-      - url: 
-          https://developer.intuit.com/app/developer/qbo/docs/api/accounting/all-entities/account
+      - url: https://developer.intuit.com/app/developer/qbo/docs/api/accounting/all-entities/account
         type: API Reference
       - url: https://developer.intuit.com/app/developer/qbo/docs/develop
         type: Documentation
-    description: The QuickBooks Projects API is a premium API that provides 
-      programmatic access to project data within QuickBooks Online Plus, 
-      Advanced, Accountant, and Intuit Enterprise Suite. It enables developers 
-      to create projects, track profitability, and manage project-level 
-      financial data, allowing integrations that enhance project-based 
-      accounting and reporting workflows.
+    description: The QuickBooks Projects API is a premium API that provides programmatic access to project data within QuickBooks Online Plus, Advanced, Accountant, and Intuit Enterprise Suite. It enables developers to create projects, track profitability, and manage project-level financial data, allowing integrations that enhance project-based accounting and reporting workflows.
   - aid: intuit:quickbooks-custom-fields
     name: QuickBooks Custom Fields API
     tags:
-      - Custom Fields
-      - Metadata
-      - Financial
       - Accounting
+      - Custom Fields
+      - Financial
+      - Metadata
       - Small Business
-    humanURL: 
-      https://developer.intuit.com/app/developer/qbo/docs/api/accounting/all-entities/account
+    humanURL: https://developer.intuit.com/app/developer/qbo/docs/api/accounting/all-entities/account
     properties:
-      - url: 
-          https://developer.intuit.com/app/developer/qbo/docs/api/accounting/all-entities/account
+      - url: https://developer.intuit.com/app/developer/qbo/docs/api/accounting/all-entities/account
         type: API Reference
       - url: https://developer.intuit.com/app/developer/qbo/docs/develop
         type: Documentation
-      - url: 
-          https://blogs.intuit.com/2025/12/01/custom-fields-api-extending-quickbooks-online-with-flexible-metadata/
+      - url: https://blogs.intuit.com/2025/12/01/custom-fields-api-extending-quickbooks-online-with-flexible-metadata/
         type: Blog Post
-    description: The QuickBooks Custom Fields API is a premium API that provides
-      programmatic access to custom field definitions and values in QuickBooks 
-      Online and Intuit Enterprise Suite. It allows developers to create and 
-      manage up to 12 custom fields that can be used across different 
-      transaction types, enabling flexible metadata extensions for invoices, 
-      estimates, sales receipts, and other entities.
+    description: The QuickBooks Custom Fields API is a premium API that provides programmatic access to custom field definitions and values in QuickBooks Online and Intuit Enterprise Suite. It allows developers to create and manage up to 12 custom fields that can be used across different transaction types, enabling flexible metadata extensions for invoices, estimates, sales receipts, and other entities.
   - aid: intuit:quickbooks-sales-tax
     name: QuickBooks Sales Tax API
     tags:
-      - Sales Tax
-      - Tax
-      - Financial
       - Accounting
+      - Financial
+      - Sales Tax
       - Small Business
-    humanURL: 
-      https://developer.intuit.com/app/developer/qbo/docs/api/accounting/all-entities/taxrate
+      - Tax
+    humanURL: https://developer.intuit.com/app/developer/qbo/docs/api/accounting/all-entities/taxrate
     properties:
-      - url: 
-          https://developer.intuit.com/app/developer/qbo/docs/api/accounting/all-entities/taxrate
+      - url: https://developer.intuit.com/app/developer/qbo/docs/api/accounting/all-entities/taxrate
         type: API Reference
       - url: https://developer.intuit.com/app/developer/qbo/docs/develop
         type: Documentation
-    description: The QuickBooks Sales Tax API is a premium API that provides 
-      programmatic access to the automated sales tax calculation capabilities 
-      within QuickBooks Online. It enables developers to leverage QuickBooks 
-      automated sales tax engine to calculate the correct sales tax for invoices
-      and other transactions, supporting tax compliance across different 
-      jurisdictions.
+    description: The QuickBooks Sales Tax API is a premium API that provides programmatic access to the automated sales tax calculation capabilities within QuickBooks Online. It enables developers to leverage QuickBooks automated sales tax engine to calculate the correct sales tax for invoices and other transactions, supporting tax compliance across different jurisdictions.
 name: Intuit
 tags:
   - Accounting
@@ -259,24 +198,19 @@ common:
     type: Support
   - url: https://status.developer.intuit.com
     type: Status Page
-  - url: 
-      https://developer.intuit.com/app/developer/qbo/docs/learn/terms-of-service
+  - url: https://developer.intuit.com/app/developer/qbo/docs/learn/terms-of-service
     type: Terms of Service
   - url: https://www.intuit.com/privacy/
     type: Privacy Policy
-  - url: 
-      https://developer.intuit.com/app/developer/qbo/docs/develop/authentication-and-authorization/oauth-2.0
+  - url: https://developer.intuit.com/app/developer/qbo/docs/develop/authentication-and-authorization/oauth-2.0
     type: Authentication
   - url: https://developer.intuit.com/app/developer/qbo/docs/develop/webhooks
     type: Webhooks
-  - url: 
-      https://developer.intuit.com/app/developer/qbo/docs/develop/sandboxes/postman
+  - url: https://developer.intuit.com/app/developer/qbo/docs/develop/sandboxes/postman
     type: Postman Collection
-  - url: 
-      https://developer.intuit.com/app/developer/qbo/docs/get-started/get-started-with-the-api-explorer
+  - url: https://developer.intuit.com/app/developer/qbo/docs/get-started/get-started-with-the-api-explorer
     type: API Explorer
-  - url: 
-      https://developer.intuit.com/app/developer/qbo/docs/get-started/partner-faq
+  - url: https://developer.intuit.com/app/developer/qbo/docs/get-started/partner-faq
     type: FAQ
   - url: https://github.com/intuit
     type: GitHub Organization
@@ -292,37 +226,27 @@ common:
     type: Ruby SDK
   - url: https://blogs.intuit.com/
     type: Change Log
-  - url: 
-      https://developer.intuit.com/app/developer/qbo/docs/release-notes/platform-release-notes
+  - url: https://developer.intuit.com/app/developer/qbo/docs/release-notes/platform-release-notes
     type: Release Notes
-  - url: 
-      https://developer.intuit.com/app/developer/qbo/docs/release-notes/general-release-notes
+  - url: https://developer.intuit.com/app/developer/qbo/docs/release-notes/general-release-notes
     type: Release Notes
-  - url: 
-      https://developer.intuit.com/app/developer/qbo/docs/develop/sdks-and-samples
+  - url: https://developer.intuit.com/app/developer/qbo/docs/develop/sdks-and-samples
     type: SDKs
-  - url: 
-      https://developer.intuit.com/app/developer/qbo/docs/develop/sdks-and-samples-collections/nodejs
+  - url: https://developer.intuit.com/app/developer/qbo/docs/develop/sdks-and-samples-collections/nodejs
     type: Node.js SDK
-  - url: 
-      https://developer.intuit.com/app/developer/qbo/docs/develop/sdks-and-samples-collections/python
+  - url: https://developer.intuit.com/app/developer/qbo/docs/develop/sdks-and-samples-collections/python
     type: Python SDK
-  - url: 
-      https://developer.intuit.com/app/developer/qbo/docs/develop/authentication-and-authorization/openid-connect
+  - url: https://developer.intuit.com/app/developer/qbo/docs/develop/authentication-and-authorization/openid-connect
     type: OpenID Connect
-  - url: 
-      https://developer.intuit.com/app/developer/qbo/docs/go-live/publish-app/security-requirements
+  - url: https://developer.intuit.com/app/developer/qbo/docs/go-live/publish-app/security-requirements
     type: Security
-  - url: 
-      https://developer.intuit.com/app/developer/qbo/docs/go-live/list-on-the-app-store
+  - url: https://developer.intuit.com/app/developer/qbo/docs/go-live/list-on-the-app-store
     type: App Listing Guide
   - url: https://quickbooks.intuit.com/app/apps/home/en-global/
     type: App Store
-  - url: 
-      https://developer.intuit.com/app/developer/qbo/docs/learn/explore-the-quickbooks-online-api/minor-versions
+  - url: https://developer.intuit.com/app/developer/qbo/docs/learn/explore-the-quickbooks-online-api/minor-versions
     type: Versioning
-  - url: 
-      https://help.developer.intuit.com/s/article/API-call-limits-and-throttling
+  - url: https://help.developer.intuit.com/s/article/API-call-limits-and-throttling
     type: Rate Limits
   - url: https://help.developer.intuit.com/s/article/Open-API-docs-Swagger-docs
     type: OpenAPI Docs
