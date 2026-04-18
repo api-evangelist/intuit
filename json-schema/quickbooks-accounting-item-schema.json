@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Item",
+  "type": "object",
+  "description": "An Item represents a product or service that a company buys, sells, or re-sells. Items are used in line items on invoices, sales receipts, bills, and other transactions.",
+  "properties": {
+    "Id": {
+      "type": "string",
+      "description": "Unique identifier for the item"
+    },
+    "SyncToken": {
+      "type": "string",
+      "description": "Version number for optimistic locking"
+    },
+    "Name": {
+      "type": "string",
+      "description": "Name of the item. Must be unique within the same type."
+    },
+    "Description": {
+      "type": "string",
+      "description": "Description of the item used in sales transactions"
+    },
+    "PurchaseDesc": {
+      "type": "string",
+      "description": "Description of the item used in purchase transactions"
+    },
+    "Active": {
+      "type": "boolean",
+      "description": "Whether the item is currently active"
+    },
+    "FullyQualifiedName": {
+      "type": "string",
+      "description": "Fully qualified name of the item"
+    },
+    "Taxable": {
+      "type": "boolean",
+      "description": "Whether sales of this item are taxable"
+    },
+    "SalesTaxIncluded": {
+      "type": "boolean",
+      "description": "Whether the sales tax is included in the item amount"
+    },
+    "UnitPrice": {
+      "type": "number",
+      "description": "Sales price for this item"
+    },
+    "Type": {
+      "type": "string",
+      "description": "Classification of the item"
+    },
+    "PurchaseCost": {
+      "type": "number",
+      "description": "Purchase cost of the item"
+    },
+    "QtyOnHand": {
+      "type": "number",
+      "description": "Current quantity on hand (inventory items only)"
+    },
+    "InvStartDate": {
+      "type": "string",
+      "description": "Date of opening balance for inventory items"
+    },
+    "TrackQtyOnHand": {
+      "type": "boolean",
+      "description": "Whether quantity on hand is tracked"
+    },
+    "Sku": {
+      "type": "string",
+      "description": "Stock keeping unit identifier"
+    },
+    "SubItem": {
+      "type": "boolean",
+      "description": "Whether this is a sub-item"
+    },
+    "Level": {
+      "type": "integer",
+      "description": "Depth level in the item hierarchy"
+    },
+    "AbatementRate": {
+      "type": "number"
+    },
+    "ReverseChargeRate": {
+      "type": "number"
+    },
+    "domain": {
+      "type": "string"
+    },
+    "sparse": {
+      "type": "boolean"
+    }
+  }
+}

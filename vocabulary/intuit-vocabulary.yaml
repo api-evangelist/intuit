@@ -1,0 +1,11 @@
+name: intuit API Vocabulary
+provider: intuit
+created: '2026-04-18'
+modified: '2026-04-18'
+operations: 17
+schemas: 21
+tags:
+- Customers
+- Invoices
+- Items
+- Payments

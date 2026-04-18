@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "InvoiceLine",
+  "type": "object",
+  "properties": {
+    "Id": {
+      "type": "string"
+    },
+    "LineNum": {
+      "type": "integer"
+    },
+    "Description": {
+      "type": "string"
+    },
+    "Amount": {
+      "type": "number"
+    },
+    "DetailType": {
+      "type": "string"
+    },
+    "LinkedTxn": {
+      "type": "array"
+    }
+  }
+}

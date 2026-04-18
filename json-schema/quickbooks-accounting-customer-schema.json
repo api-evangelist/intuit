@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Customer",
+  "type": "object",
+  "description": "A Customer represents a consumer of the service or product that the business offers. Customers can be organized as sub-customers (jobs) within a parent customer hierarchy.",
+  "properties": {
+    "Id": {
+      "type": "string",
+      "description": "Unique identifier for the customer"
+    },
+    "SyncToken": {
+      "type": "string",
+      "description": "Version number for optimistic locking"
+    },
+    "Title": {
+      "type": "string",
+      "description": "Title of the person (e.g., Mr., Mrs., Ms.)"
+    },
+    "GivenName": {
+      "type": "string",
+      "description": "Given (first) name of the customer"
+    },
+    "MiddleName": {
+      "type": "string",
+      "description": "Middle name of the customer"
+    },
+    "FamilyName": {
+      "type": "string",
+      "description": "Family (last) name of the customer"
+    },
+    "Suffix": {
+      "type": "string",
+      "description": "Suffix of the person (e.g., Jr., Sr., III)"
+    },
+    "DisplayName": {
+      "type": "string",
+      "description": "The name displayed to identify the customer. Must be unique across Customer, Employee, and Vendor objects."
+    },
+    "CompanyName": {
+      "type": "string",
+      "description": "The name of the company associated with the customer"
+    },
+    "PrintOnCheckName": {
+      "type": "string",
+      "description": "Name of the customer as printed on a check"
+    },
+    "Active": {
+      "type": "boolean",
+      "description": "Whether the customer is currently active"
+    },
+    "Taxable": {
+      "type": "boolean",
+      "description": "Whether the customer is taxable"
+    },
+    "Notes": {
+      "type": "string",
+      "description": "Free-form text about the customer"
+    },
+    "Job": {
+      "type": "boolean",
+      "description": "Whether this customer is a sub-customer (job)"
+    },
+    "Level": {
+      "type": "integer",
+      "description": "Depth level in the customer hierarchy (0 = top)"
+    },
+    "FullyQualifiedName": {
+      "type": "string",
+      "description": "Fully qualified name of the entity, including parent names separated by colons"
+    },
+    "PreferredDeliveryMethod": {
+      "type": "string",
+      "description": "Preferred delivery method for communications"
+    },
+    "Balance": {
+      "type": "number",
+      "description": "Open balance amount for the customer"
+    },
+    "BalanceWithJobs": {
+      "type": "number",
+      "description": "Open balance amount including balances of sub-customers (jobs)"
+    },
+    "TaxExemptionReasonId": {
+      "type": "string",
+      "description": "Tax exemption reason ID"
+    },
+    "WebAddr": {
+      "type": "object"
+    },
+    "domain": {
+      "type": "string"
+    },
+    "sparse": {
+      "type": "boolean"
+    }
+  }
+}

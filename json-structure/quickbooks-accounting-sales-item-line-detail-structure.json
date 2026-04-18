@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "SalesItemLineDetail",
+  "type": "object",
+  "properties": {
+    "UnitPrice": {
+      "type": "number"
+    },
+    "RatePercent": {
+      "type": "number"
+    },
+    "Qty": {
+      "type": "number"
+    },
+    "ServiceDate": {
+      "type": "string"
+    },
+    "DiscountAmt": {
+      "type": "number"
+    },
+    "DiscountRate": {
+      "type": "number"
+    }
+  }
+}

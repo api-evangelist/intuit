@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Invoice",
+  "type": "object",
+  "description": "An Invoice represents a sales form where the customer pays for a product or service later. It creates an accounts receivable transaction.",
+  "properties": {
+    "Id": {
+      "type": "string",
+      "description": "Unique identifier for the invoice (assigned by QuickBooks)"
+    },
+    "SyncToken": {
+      "type": "string",
+      "description": "Version number of the entity, used for optimistic locking. Required for updates."
+    },
+    "DocNumber": {
+      "type": "string",
+      "description": "Reference number for the transaction. If not provided, QuickBooks auto-generates one."
+    },
+    "TxnDate": {
+      "type": "string",
+      "description": "The date of the transaction. Defaults to the current date."
+    },
+    "DueDate": {
+      "type": "string",
+      "description": "Date when the payment of the transaction is due"
+    },
+    "PrivateNote": {
+      "type": "string",
+      "description": "A private note that is not displayed to the customer"
+    },
+    "CustomerMemo": {
+      "type": "object",
+      "description": "A note to the customer displayed on the invoice"
+    },
+    "Line": {
+      "type": "array",
+      "description": "Individual line items of the transaction. At least one line is required."
+    },
+    "TotalAmt": {
+      "type": "number",
+      "description": "Total amount of the transaction including tax"
+    },
+    "Balance": {
+      "type": "number",
+      "description": "The balance remaining on the invoice. A value of 0 indicates the invoice is fully paid."
+    },
+    "Deposit": {
+      "type": "number",
+      "description": "Deposit amount applied to the invoice"
+    },
+    "ExchangeRate": {
+      "type": "number",
+      "description": "Currency exchange rate (multicurrency enabled companies)"
+    },
+    "ShipDate": {
+      "type": "string",
+      "description": "Date for delivery of goods or services"
+    },
+    "TrackingNum": {
+      "type": "string",
+      "description": "Shipping tracking number"
+    },
+    "ApplyTaxAfterDiscount": {
+      "type": "boolean",
+      "description": "Whether to apply tax after discount"
+    },
+    "PrintStatus": {
+      "type": "string",
+      "description": "Printing status of the invoice"
+    },
+    "EmailStatus": {
+      "type": "string",
+      "description": "Email delivery status of the invoice"
+    },
+    "GlobalTaxCalculation": {
+      "type": "string",
+      "description": "Method in which tax is applied"
+    },
+    "AllowOnlinePayment": {
+      "type": "boolean",
+      "description": "Whether online payment is allowed"
+    },
+    "AllowOnlineCreditCardPayment": {
+      "type": "boolean",
+      "description": "Whether online credit card payment is allowed"
+    },
+    "AllowOnlineACHPayment": {
+      "type": "boolean",
+      "description": "Whether online ACH (bank) payment is allowed"
+    },
+    "CustomField": {
+      "type": "array"
+    },
+    "LinkedTxn": {
+      "type": "array"
+    },
+    "domain": {
+      "type": "string",
+      "description": "Domain (e.g., QBO)"
+    },
+    "sparse": {
+      "type": "boolean",
+      "description": "Whether this is a sparse (partial) representation"
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "InvoiceLine",
+  "type": "object",
+  "description": "A line item on an invoice",
+  "properties": {
+    "Id": {
+      "type": "string",
+      "description": "The unique identifier for the line item"
+    },
+    "LineNum": {
+      "type": "integer",
+      "description": "Line number within the transaction"
+    },
+    "Description": {
+      "type": "string",
+      "description": "Free-form text description of the line item"
+    },
+    "Amount": {
+      "type": "number",
+      "description": "The total amount for the line item"
+    },
+    "DetailType": {
+      "type": "string",
+      "description": "Specifies the type of line detail"
+    },
+    "LinkedTxn": {
+      "type": "array"
+    }
+  }
+}

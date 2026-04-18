@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "Customer",
+  "type": "object",
+  "properties": {
+    "Id": {
+      "type": "string"
+    },
+    "SyncToken": {
+      "type": "string"
+    },
+    "Title": {
+      "type": "string"
+    },
+    "GivenName": {
+      "type": "string"
+    },
+    "MiddleName": {
+      "type": "string"
+    },
+    "FamilyName": {
+      "type": "string"
+    },
+    "Suffix": {
+      "type": "string"
+    },
+    "DisplayName": {
+      "type": "string"
+    },
+    "CompanyName": {
+      "type": "string"
+    },
+    "PrintOnCheckName": {
+      "type": "string"
+    },
+    "Active": {
+      "type": "boolean"
+    },
+    "Taxable": {
+      "type": "boolean"
+    },
+    "Notes": {
+      "type": "string"
+    },
+    "Job": {
+      "type": "boolean"
+    },
+    "Level": {
+      "type": "integer"
+    },
+    "FullyQualifiedName": {
+      "type": "string"
+    },
+    "PreferredDeliveryMethod": {
+      "type": "string"
+    },
+    "Balance": {
+      "type": "number"
+    },
+    "BalanceWithJobs": {
+      "type": "number"
+    },
+    "TaxExemptionReasonId": {
+      "type": "string"
+    },
+    "WebAddr": {
+      "type": "object"
+    },
+    "domain": {
+      "type": "string"
+    },
+    "sparse": {
+      "type": "boolean"
+    }
+  }
+}

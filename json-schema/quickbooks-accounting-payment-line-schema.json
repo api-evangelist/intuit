@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PaymentLine",
+  "type": "object",
+  "description": "A line item on a payment showing how it is applied",
+  "properties": {
+    "Amount": {
+      "type": "number",
+      "description": "Amount to apply from this payment"
+    },
+    "LinkedTxn": {
+      "type": "array"
+    }
+  }
+}

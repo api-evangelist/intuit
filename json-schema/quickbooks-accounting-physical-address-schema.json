@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PhysicalAddress",
+  "type": "object",
+  "description": "Physical (mailing) address",
+  "properties": {
+    "Id": {
+      "type": "string",
+      "description": "Unique identifier for the address"
+    },
+    "Line1": {
+      "type": "string",
+      "description": "First line of the street address"
+    },
+    "Line2": {
+      "type": "string",
+      "description": "Second line of the street address"
+    },
+    "Line3": {
+      "type": "string",
+      "description": "Third line of the street address"
+    },
+    "Line4": {
+      "type": "string",
+      "description": "Fourth line of the street address"
+    },
+    "Line5": {
+      "type": "string",
+      "description": "Fifth line of the street address"
+    },
+    "City": {
+      "type": "string",
+      "description": "City name"
+    },
+    "CountrySubDivisionCode": {
+      "type": "string",
+      "description": "Region or state within a country (e.g., state, province)"
+    },
+    "PostalCode": {
+      "type": "string",
+      "description": "Postal code"
+    },
+    "Country": {
+      "type": "string",
+      "description": "Country name or code"
+    },
+    "Lat": {
+      "type": "string",
+      "description": "Latitude coordinate"
+    },
+    "Long": {
+      "type": "string",
+      "description": "Longitude coordinate"
+    }
+  }
+}

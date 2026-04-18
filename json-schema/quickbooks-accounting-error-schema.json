@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Error",
+  "type": "object",
+  "description": "Error response from the API",
+  "properties": {
+    "Fault": {
+      "type": "object"
+    },
+    "time": {
+      "type": "string"
+    }
+  }
+}

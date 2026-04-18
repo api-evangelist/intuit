@@ -1,0 +1,633 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "QuickBooks Online Accounting API"
+  description: "RESTful API providing programmatic access to QuickBooks Online company data including invoices, customers, items, and payments."
+  tags:
+    - Accounting
+    - Invoicing
+    - Financial
+    - Small Business
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      INTUIT_OAUTH_ACCESS_TOKEN: INTUIT_OAUTH_ACCESS_TOKEN
+
+capability:
+  consumes:
+    - type: http
+      namespace: quickbooks-accounting
+      baseUri: https://quickbooks.api.intuit.com/v3/company/{realmId}
+      description: "QuickBooks Online Accounting API for managing invoices, customers, items, and payments."
+      authentication:
+        type: bearer
+        token: "{{INTUIT_OAUTH_ACCESS_TOKEN}}"
+      resources:
+        - name: invoices
+          path: /invoice
+          description: "Manage sales invoices and accounts receivable transactions."
+          operations:
+            - name: create-invoice
+              method: POST
+              description: "Create a new invoice with customer reference and line items."
+              inputParameters:
+                - name: minorversion
+                  in: query
+                  type: integer
+                  required: false
+                  description: "API minor version for backward-compatible features."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  CustomerRef: "{{tools.customer_ref}}"
+                  Line: "{{tools.line_items}}"
+            - name: read-invoice
+              method: GET
+              description: "Retrieve an invoice by its unique ID."
+              inputParameters:
+                - name: invoiceId
+                  in: path
+                  type: string
+                  required: true
+                  description: "The unique identifier of the invoice."
+                - name: minorversion
+                  in: query
+                  type: integer
+                  required: false
+                  description: "API minor version."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: update-invoice
+              method: POST
+              description: "Update an existing invoice with full sparse update support."
+              inputParameters:
+                - name: minorversion
+                  in: query
+                  type: integer
+                  required: false
+                  description: "API minor version."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  Id: "{{tools.invoice_id}}"
+                  SyncToken: "{{tools.sync_token}}"
+                  sparse: true
+            - name: send-invoice
+              method: POST
+              description: "Send an invoice via email to the customer."
+              inputParameters:
+                - name: invoiceId
+                  in: path
+                  type: string
+                  required: true
+                  description: "The invoice ID to send."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: void-invoice
+              method: POST
+              description: "Void an existing invoice."
+              inputParameters:
+                - name: minorversion
+                  in: query
+                  type: integer
+                  required: false
+                  description: "API minor version."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  Id: "{{tools.invoice_id}}"
+                  SyncToken: "{{tools.sync_token}}"
+            - name: get-invoice-pdf
+              method: GET
+              description: "Retrieve the PDF representation of an invoice."
+              inputParameters:
+                - name: invoiceId
+                  in: path
+                  type: string
+                  required: true
+                  description: "The invoice ID."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: customers
+          path: /customer
+          description: "Manage customer records and contact information."
+          operations:
+            - name: create-customer
+              method: POST
+              description: "Create a new customer record."
+              inputParameters:
+                - name: minorversion
+                  in: query
+                  type: integer
+                  required: false
+                  description: "API minor version."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  DisplayName: "{{tools.display_name}}"
+            - name: read-customer
+              method: GET
+              description: "Retrieve a customer by ID."
+              inputParameters:
+                - name: customerId
+                  in: path
+                  type: string
+                  required: true
+                  description: "The customer ID."
+                - name: minorversion
+                  in: query
+                  type: integer
+                  required: false
+                  description: "API minor version."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: update-customer
+              method: POST
+              description: "Update an existing customer record."
+              inputParameters:
+                - name: minorversion
+                  in: query
+                  type: integer
+                  required: false
+                  description: "API minor version."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  Id: "{{tools.customer_id}}"
+                  SyncToken: "{{tools.sync_token}}"
+                  sparse: true
+        - name: items
+          path: /item
+          description: "Manage products and services catalog."
+          operations:
+            - name: create-item
+              method: POST
+              description: "Create a new item (product or service)."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  Name: "{{tools.name}}"
+                  Type: "{{tools.type}}"
+            - name: read-item
+              method: GET
+              description: "Retrieve an item by ID."
+              inputParameters:
+                - name: itemId
+                  in: path
+                  type: string
+                  required: true
+                  description: "The item ID."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: update-item
+              method: POST
+              description: "Update an existing item."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  Id: "{{tools.item_id}}"
+                  SyncToken: "{{tools.sync_token}}"
+                  sparse: true
+        - name: payments
+          path: /payment
+          description: "Record and manage customer payments against invoices."
+          operations:
+            - name: create-payment
+              method: POST
+              description: "Record a new payment from a customer."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  CustomerRef: "{{tools.customer_ref}}"
+                  TotalAmt: "{{tools.total_amount}}"
+            - name: read-payment
+              method: GET
+              description: "Retrieve a payment by ID."
+              inputParameters:
+                - name: paymentId
+                  in: path
+                  type: string
+                  required: true
+                  description: "The payment ID."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: update-payment
+              method: POST
+              description: "Update an existing payment."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  Id: "{{tools.payment_id}}"
+                  SyncToken: "{{tools.sync_token}}"
+                  sparse: true
+            - name: void-payment
+              method: POST
+              description: "Void an existing payment."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  Id: "{{tools.payment_id}}"
+                  SyncToken: "{{tools.sync_token}}"
+        - name: query
+          path: /query
+          description: "Query QuickBooks entities using SQL-like syntax."
+          operations:
+            - name: query-entities
+              method: GET
+              description: "Query entities using QuickBooks query language."
+              inputParameters:
+                - name: query
+                  in: query
+                  type: string
+                  required: true
+                  description: "SQL-like query string."
+                - name: minorversion
+                  in: query
+                  type: integer
+                  required: false
+                  description: "API minor version."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8100
+      namespace: quickbooks-accounting-api
+      resources:
+        - path: /v1/invoices
+          name: invoices
+          description: "Invoice management operations."
+          operations:
+            - method: POST
+              name: create-invoice
+              description: "Create a new invoice."
+              call: "quickbooks-accounting.create-invoice"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: GET
+              name: query-invoices
+              description: "Query invoices."
+              call: "quickbooks-accounting.query-entities"
+              with:
+                query: "rest.query"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/invoices/{invoiceId}
+          name: invoice-detail
+          description: "Single invoice operations."
+          operations:
+            - method: GET
+              name: read-invoice
+              description: "Retrieve an invoice by ID."
+              call: "quickbooks-accounting.read-invoice"
+              with:
+                invoiceId: "rest.invoiceId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/customers
+          name: customers
+          description: "Customer management operations."
+          operations:
+            - method: POST
+              name: create-customer
+              description: "Create a new customer."
+              call: "quickbooks-accounting.create-customer"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/customers/{customerId}
+          name: customer-detail
+          description: "Single customer operations."
+          operations:
+            - method: GET
+              name: read-customer
+              description: "Retrieve a customer by ID."
+              call: "quickbooks-accounting.read-customer"
+              with:
+                customerId: "rest.customerId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/items
+          name: items
+          description: "Product and service catalog operations."
+          operations:
+            - method: POST
+              name: create-item
+              description: "Create a new item."
+              call: "quickbooks-accounting.create-item"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/items/{itemId}
+          name: item-detail
+          description: "Single item operations."
+          operations:
+            - method: GET
+              name: read-item
+              description: "Retrieve an item by ID."
+              call: "quickbooks-accounting.read-item"
+              with:
+                itemId: "rest.itemId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/payments
+          name: payments
+          description: "Payment management operations."
+          operations:
+            - method: POST
+              name: create-payment
+              description: "Record a new payment."
+              call: "quickbooks-accounting.create-payment"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/payments/{paymentId}
+          name: payment-detail
+          description: "Single payment operations."
+          operations:
+            - method: GET
+              name: read-payment
+              description: "Retrieve a payment by ID."
+              call: "quickbooks-accounting.read-payment"
+              with:
+                paymentId: "rest.paymentId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9100
+      namespace: quickbooks-accounting-mcp
+      transport: http
+      tools:
+        - name: create-invoice
+          description: "Create a new QuickBooks invoice with customer reference and line items."
+          hints:
+            readOnly: false
+          call: "quickbooks-accounting.create-invoice"
+          with:
+            customer_ref: "tools.customer_ref"
+            line_items: "tools.line_items"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: read-invoice
+          description: "Retrieve a QuickBooks invoice by its unique ID."
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "quickbooks-accounting.read-invoice"
+          with:
+            invoiceId: "tools.invoiceId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: update-invoice
+          description: "Update an existing QuickBooks invoice."
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "quickbooks-accounting.update-invoice"
+          with:
+            invoice_id: "tools.invoice_id"
+            sync_token: "tools.sync_token"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: send-invoice
+          description: "Send a QuickBooks invoice via email to the customer."
+          hints:
+            readOnly: false
+          call: "quickbooks-accounting.send-invoice"
+          with:
+            invoiceId: "tools.invoiceId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: void-invoice
+          description: "Void an existing QuickBooks invoice."
+          hints:
+            readOnly: false
+            destructive: true
+          call: "quickbooks-accounting.void-invoice"
+          with:
+            invoice_id: "tools.invoice_id"
+            sync_token: "tools.sync_token"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-invoice-pdf
+          description: "Retrieve the PDF representation of a QuickBooks invoice."
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "quickbooks-accounting.get-invoice-pdf"
+          with:
+            invoiceId: "tools.invoiceId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: query-entities
+          description: "Query QuickBooks entities using SQL-like query language."
+          hints:
+            readOnly: true
+            idempotent: true
+            openWorld: true
+          call: "quickbooks-accounting.query-entities"
+          with:
+            query: "tools.query"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-customer
+          description: "Create a new customer record in QuickBooks."
+          hints:
+            readOnly: false
+          call: "quickbooks-accounting.create-customer"
+          with:
+            display_name: "tools.display_name"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: read-customer
+          description: "Retrieve a QuickBooks customer by ID."
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "quickbooks-accounting.read-customer"
+          with:
+            customerId: "tools.customerId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: update-customer
+          description: "Update an existing QuickBooks customer record."
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "quickbooks-accounting.update-customer"
+          with:
+            customer_id: "tools.customer_id"
+            sync_token: "tools.sync_token"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-item
+          description: "Create a new product or service item in QuickBooks."
+          hints:
+            readOnly: false
+          call: "quickbooks-accounting.create-item"
+          with:
+            name: "tools.name"
+            type: "tools.type"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: read-item
+          description: "Retrieve a QuickBooks item by ID."
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "quickbooks-accounting.read-item"
+          with:
+            itemId: "tools.itemId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: update-item
+          description: "Update an existing QuickBooks item."
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "quickbooks-accounting.update-item"
+          with:
+            item_id: "tools.item_id"
+            sync_token: "tools.sync_token"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-payment
+          description: "Record a new payment from a customer in QuickBooks."
+          hints:
+            readOnly: false
+          call: "quickbooks-accounting.create-payment"
+          with:
+            customer_ref: "tools.customer_ref"
+            total_amount: "tools.total_amount"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: read-payment
+          description: "Retrieve a QuickBooks payment by ID."
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "quickbooks-accounting.read-payment"
+          with:
+            paymentId: "tools.paymentId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: update-payment
+          description: "Update an existing QuickBooks payment."
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "quickbooks-accounting.update-payment"
+          with:
+            payment_id: "tools.payment_id"
+            sync_token: "tools.sync_token"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: void-payment
+          description: "Void an existing QuickBooks payment."
+          hints:
+            readOnly: false
+            destructive: true
+          call: "quickbooks-accounting.void-payment"
+          with:
+            payment_id: "tools.payment_id"
+            sync_token: "tools.sync_token"
+          outputParameters:
+            - type: object
+              mapping: "$."

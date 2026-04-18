@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "InvoiceResponse",
+  "type": "object",
+  "properties": {
+    "time": {
+      "type": "string",
+      "description": "Timestamp of the response"
+    }
+  }
+}

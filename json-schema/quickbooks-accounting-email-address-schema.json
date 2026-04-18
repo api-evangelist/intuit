@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EmailAddress",
+  "type": "object",
+  "description": "Email address",
+  "properties": {
+    "Address": {
+      "type": "string",
+      "description": "Email address string"
+    }
+  }
+}

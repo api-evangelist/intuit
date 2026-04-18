@@ -1,0 +1,15 @@
+{
+  "Id": "abc123",
+  "SyncToken": "example_value",
+  "TxnDate": "example_value",
+  "TotalAmt": 42.5,
+  "PaymentRefNum": "example_value",
+  "ExchangeRate": 42.5,
+  "Line": [],
+  "PrivateNote": "example_value",
+  "UnappliedAmt": 42.5,
+  "ProcessPayment": true,
+  "TxnSource": "example_value",
+  "domain": "example_value",
+  "sparse": true
+}

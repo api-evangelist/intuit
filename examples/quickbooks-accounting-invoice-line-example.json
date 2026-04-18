@@ -1,0 +1,8 @@
+{
+  "Id": "abc123",
+  "LineNum": 10,
+  "Description": "A sample description.",
+  "Amount": 42.5,
+  "DetailType": "example_value",
+  "LinkedTxn": []
+}

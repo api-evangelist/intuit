@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "LinkedTxn",
+  "type": "object",
+  "description": "A reference to a linked transaction such as an invoice, payment, or credit memo",
+  "properties": {
+    "TxnId": {
+      "type": "string",
+      "description": "Transaction ID of the related transaction"
+    },
+    "TxnType": {
+      "type": "string",
+      "description": "The type of the linked transaction"
+    }
+  }
+}

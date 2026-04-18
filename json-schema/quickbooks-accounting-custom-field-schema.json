@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CustomField",
+  "type": "object",
+  "description": "Custom field defined for the entity",
+  "properties": {
+    "DefinitionId": {
+      "type": "string",
+      "description": "Unique identifier of the custom field definition"
+    },
+    "Name": {
+      "type": "string",
+      "description": "Name of the custom field"
+    },
+    "Type": {
+      "type": "string",
+      "description": "Data type of the custom field"
+    },
+    "StringValue": {
+      "type": "string",
+      "description": "Value when Type is StringType"
+    }
+  }
+}

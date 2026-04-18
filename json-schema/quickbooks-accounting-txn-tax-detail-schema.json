@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TxnTaxDetail",
+  "type": "object",
+  "description": "Tax details for a transaction",
+  "properties": {
+    "TotalTax": {
+      "type": "number",
+      "description": "Total tax calculated for the transaction"
+    },
+    "TaxLine": {
+      "type": "array"
+    }
+  }
+}

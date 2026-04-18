@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "QueryResponse",
+  "type": "object",
+  "description": "Response wrapper for query operations. Contains the array of matching entities along with pagination metadata.",
+  "properties": {
+    "QueryResponse": {
+      "type": "object"
+    },
+    "time": {
+      "type": "string"
+    }
+  }
+}

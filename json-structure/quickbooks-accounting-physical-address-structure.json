@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "PhysicalAddress",
+  "type": "object",
+  "properties": {
+    "Id": {
+      "type": "string"
+    },
+    "Line1": {
+      "type": "string"
+    },
+    "Line2": {
+      "type": "string"
+    },
+    "Line3": {
+      "type": "string"
+    },
+    "Line4": {
+      "type": "string"
+    },
+    "Line5": {
+      "type": "string"
+    },
+    "City": {
+      "type": "string"
+    },
+    "CountrySubDivisionCode": {
+      "type": "string"
+    },
+    "PostalCode": {
+      "type": "string"
+    },
+    "Country": {
+      "type": "string"
+    },
+    "Lat": {
+      "type": "string"
+    },
+    "Long": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SalesItemLineDetail",
+  "type": "object",
+  "description": "Detail for a sales item line",
+  "properties": {
+    "UnitPrice": {
+      "type": "number",
+      "description": "Unit price of the item"
+    },
+    "RatePercent": {
+      "type": "number",
+      "description": "The discount rate as a percentage (for discount lines)"
+    },
+    "Qty": {
+      "type": "number",
+      "description": "Number of items for the line"
+    },
+    "ServiceDate": {
+      "type": "string",
+      "description": "Date the service was performed"
+    },
+    "DiscountAmt": {
+      "type": "number",
+      "description": "Discount amount applied to the line"
+    },
+    "DiscountRate": {
+      "type": "number",
+      "description": "Discount rate as a percentage"
+    }
+  }
+}

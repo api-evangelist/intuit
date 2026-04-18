@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MetaData",
+  "type": "object",
+  "description": "Metadata about when the entity was created and last updated",
+  "properties": {
+    "CreateTime": {
+      "type": "string",
+      "description": "Time the entity was created"
+    },
+    "LastUpdatedTime": {
+      "type": "string",
+      "description": "Time the entity was last updated"
+    }
+  }
+}

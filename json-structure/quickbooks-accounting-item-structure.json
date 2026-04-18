@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "Item",
+  "type": "object",
+  "properties": {
+    "Id": {
+      "type": "string"
+    },
+    "SyncToken": {
+      "type": "string"
+    },
+    "Name": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "string"
+    },
+    "PurchaseDesc": {
+      "type": "string"
+    },
+    "Active": {
+      "type": "boolean"
+    },
+    "FullyQualifiedName": {
+      "type": "string"
+    },
+    "Taxable": {
+      "type": "boolean"
+    },
+    "SalesTaxIncluded": {
+      "type": "boolean"
+    },
+    "UnitPrice": {
+      "type": "number"
+    },
+    "Type": {
+      "type": "string"
+    },
+    "PurchaseCost": {
+      "type": "number"
+    },
+    "QtyOnHand": {
+      "type": "number"
+    },
+    "InvStartDate": {
+      "type": "string"
+    },
+    "TrackQtyOnHand": {
+      "type": "boolean"
+    },
+    "Sku": {
+      "type": "string"
+    },
+    "SubItem": {
+      "type": "boolean"
+    },
+    "Level": {
+      "type": "integer"
+    },
+    "AbatementRate": {
+      "type": "number"
+    },
+    "ReverseChargeRate": {
+      "type": "number"
+    },
+    "domain": {
+      "type": "string"
+    },
+    "sparse": {
+      "type": "boolean"
+    }
+  }
+}

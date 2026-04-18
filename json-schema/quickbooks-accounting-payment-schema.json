@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Payment",
+  "type": "object",
+  "description": "A Payment records a payment received from a customer. Payments can be applied to one or more outstanding invoices, or left as unapplied credit.",
+  "properties": {
+    "Id": {
+      "type": "string",
+      "description": "Unique identifier for the payment"
+    },
+    "SyncToken": {
+      "type": "string",
+      "description": "Version number for optimistic locking"
+    },
+    "TxnDate": {
+      "type": "string",
+      "description": "The date of the payment transaction"
+    },
+    "TotalAmt": {
+      "type": "number",
+      "description": "Total amount of the payment"
+    },
+    "PaymentRefNum": {
+      "type": "string",
+      "description": "Reference number for the payment (e.g., check number)"
+    },
+    "ExchangeRate": {
+      "type": "number",
+      "description": "Currency exchange rate"
+    },
+    "Line": {
+      "type": "array",
+      "description": "Lines indicating which invoices or credit memos this payment is applied against"
+    },
+    "PrivateNote": {
+      "type": "string",
+      "description": "Private note for internal use"
+    },
+    "UnappliedAmt": {
+      "type": "number",
+      "description": "Amount not yet applied to invoices"
+    },
+    "ProcessPayment": {
+      "type": "boolean",
+      "description": "Whether to process the payment through the Intuit payment gateway"
+    },
+    "TxnSource": {
+      "type": "string",
+      "description": "Source of the transaction"
+    },
+    "domain": {
+      "type": "string"
+    },
+    "sparse": {
+      "type": "boolean"
+    }
+  }
+}

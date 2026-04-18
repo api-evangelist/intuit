@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ReferenceType",
+  "type": "object",
+  "description": "A reference type used throughout the API to link entities. Contains the ID value and optionally the display name of the referenced entity.",
+  "properties": {
+    "value": {
+      "type": "string",
+      "description": "The ID of the referenced entity"
+    },
+    "name": {
+      "type": "string",
+      "description": "An identifying name for the referenced entity"
+    }
+  }
+}
