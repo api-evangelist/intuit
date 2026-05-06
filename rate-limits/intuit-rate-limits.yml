@@ -4,133 +4,68 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Intuit
 providerId: intuit
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
-  - Accounting
-  - Custom Fields
-  - Financial
-  - Financial Services
-  - Invoicing
-  - Payments
-  - Payroll
-  - Project Management
-  - Sales Tax
-  - Small Business
-  - Tax
-  - Tax Preparation
-  - Taxes
-  - Time Tracking
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Intuit API surface. Captures per-tier quotas,
-  burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to be replaced
-  with published provider limits.
+  - Accounting
+  - Financial
+  - Small Business
+description: Intuit enforces throttling on the QuickBooks Online (QBO) API per realm (company file)
+  and per app, with separate caps for production and sandbox. Limits are documented at the app/realm
+  scope; bursts beyond the cap return HTTP 429 with a Retry-After signal. QuickBooks Payments and Payroll
+  APIs follow similar per-app throttling enforced at Intuit's gateway.
+sources:
+  - https://developer.intuit.com/app/developer/qbo/docs/develop/rest-api-features
+  - https://developer.intuit.com/app/developer/qbo/docs/learn/rest-api-features
+  - https://help.developer.intuit.com/s/topic/0TO80000000ku2bGAA/throttle-limits
 headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
   retryAfter: Retry-After
-  policy: RateLimit-Policy
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
   serviceUnavailable: 503
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
+  - name: QuickBooks Online API (per realm, production)
+    scope: realm
     metric: requests_per_minute
+    limit: 500
+    timeFrame: minute
+    notes: 500 requests per minute per realm (company file).
+  - name: QuickBooks Online API (per app, production)
+    scope: app
+    metric: concurrent_requests
     limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Intuit APIs
-      - QuickBooks Online Accounting API
-      - QuickBooks Payments API
-      - QuickBooks Payroll and Time API
-      - QuickBooks Desktop API
-      - QuickBooks Projects API
-      - QuickBooks Custom Fields API
-      - QuickBooks Sales Tax API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Intuit APIs
-      - QuickBooks Online Accounting API
-      - QuickBooks Payments API
-      - QuickBooks Payroll and Time API
-      - QuickBooks Desktop API
-      - QuickBooks Projects API
-      - QuickBooks Custom Fields API
-      - QuickBooks Sales Tax API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
+    notes: Up to 10 concurrent requests per app, per realm.
+  - name: QuickBooks Online API (sandbox)
+    scope: realm
     metric: requests_per_minute
-    limit: 100
-    burst: 200
+    limit: 500
     timeFrame: minute
-    applies:
-      - Intuit APIs
-      - QuickBooks Online Accounting API
-      - QuickBooks Payments API
-      - QuickBooks Payroll and Time API
-      - QuickBooks Desktop API
-      - QuickBooks Projects API
-      - QuickBooks Custom Fields API
-      - QuickBooks Sales Tax API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Intuit APIs
-      - QuickBooks Online Accounting API
-      - QuickBooks Payments API
-      - QuickBooks Payroll and Time API
-      - QuickBooks Desktop API
-      - QuickBooks Projects API
-      - QuickBooks Custom Fields API
-      - QuickBooks Sales Tax API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
+    notes: Sandbox shares the 500/min/realm cap; do not load-test in sandbox.
+  - name: QuickBooks Payments API
+    scope: app
+    metric: requests_per_second
+    limit: 10
+    timeFrame: second
+    notes: Standard cap is around 10 RPS per app; adjustments via support.
+  - name: Batch endpoint
+    scope: realm
     metric: requests_per_minute
-    limit: 1000
-    burst: 5000
+    limit: 40
     timeFrame: minute
-    applies:
-      - Intuit APIs
-      - QuickBooks Online Accounting API
-      - QuickBooks Payments API
-      - QuickBooks Payroll and Time API
-      - QuickBooks Desktop API
-      - QuickBooks Projects API
-      - QuickBooks Custom Fields API
-      - QuickBooks Sales Tax API
+    notes: Batch requests count against the per-realm minute cap and the batch endpoint enforces a
+      separate 40 batch-requests/minute ceiling.
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  - name: Backoff
+    description: On 429, honor the Retry-After header and back off exponentially with jitter.
+  - name: Idempotency
+    description: For payment and transactional writes, use the RequestId / Idempotency-Key supported
+      by the Payments API to safely retry.
+  - name: Realm scope
+    description: Throttle counters reset per realm + per app pair; multi-tenant apps should rotate
+      across realms to avoid hot-spotting.
+  - name: Raise via support
+    description: For sustained higher throughput, contact Intuit Developer Support; raises are case-by-case.
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
-  - name: Intuit Developer
-    email: developer-support@intuit.com
-    url: https://help.developer.intuit.com
+  - FN: API Evangelist
+    email: info@apievangelist.com
