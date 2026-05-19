@@ -166,7 +166,7 @@ type: Index
 image: https://developer.intuit.com/app/developer/common/imgs/IntuitDev_Logo.svg
 access: 3rd-Party
 created: '2025-03-01'
-modified: '2026-04-18'
+modified: '2026-05-19'
 position: Consumer
 description: >-
   Collection of APIs offered by Intuit for financial and business management services.
@@ -278,3 +278,6 @@ common:
         description: Connect CRM data with accounting to automate invoice creation from deals and track payment status.
       - name: Salesforce
         description: Sync customer and opportunity data between Salesforce CRM and QuickBooks accounting.
+  - name: MCP Server
+    url: https://github.com/intuit/quickbooks-online-mcp-server
+    type: MCPServer
