@@ -1,0 +1,243 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: QuickBooks Online Accounting API — Payments
+  description: 'QuickBooks Online Accounting API — Payments. 5 operations. Lead operation: Create a Payment. Self-contained
+    Naftiko capability covering one Intuit business surface.'
+  tags:
+  - Intuit
+  - Payments
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    INTUIT_API_KEY: INTUIT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: quickbooks-accounting-payments
+    baseUri: https://quickbooks.api.intuit.com/v3/company/{realmId}
+    description: QuickBooks Online Accounting API — Payments business capability. Self-contained, no shared references.
+    resources:
+    - name: payment
+      path: /payment
+      operations:
+      - name: createpayment
+        method: POST
+        description: Create a Payment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: payment-paymentId
+      path: /payment/{paymentId}
+      operations:
+      - name: readpayment
+        method: GET
+        description: Read a Payment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatepayment
+        method: POST
+        description: Update a Payment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: sparse
+          in: query
+          type: boolean
+          description: Set to true for a sparse (partial) update
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: payment-paymentId-void
+      path: /payment/{paymentId}/void
+      operations:
+      - name: voidpayment
+        method: POST
+        description: Void a Payment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: operation
+          in: query
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: query
+      path: /query
+      operations:
+      - name: queryentities
+        method: GET
+        description: Query Entities
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: query
+          in: query
+          type: string
+          description: 'A SQL-like query string. For example: SELECT * FROM Invoice WHERE TotalAmt > ''100.00'' ORDERBY TxnDate'
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.INTUIT_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: quickbooks-accounting-payments-rest
+    port: 8080
+    description: REST adapter for QuickBooks Online Accounting API — Payments. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/payment
+      name: payment
+      description: REST surface for payment.
+      operations:
+      - method: POST
+        name: createpayment
+        description: Create a Payment
+        call: quickbooks-accounting-payments.createpayment
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/payment/{paymentid}
+      name: payment-paymentid
+      description: REST surface for payment-paymentId.
+      operations:
+      - method: GET
+        name: readpayment
+        description: Read a Payment
+        call: quickbooks-accounting-payments.readpayment
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: updatepayment
+        description: Update a Payment
+        call: quickbooks-accounting-payments.updatepayment
+        with:
+          sparse: rest.sparse
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/payment/{paymentid}/void
+      name: payment-paymentid-void
+      description: REST surface for payment-paymentId-void.
+      operations:
+      - method: POST
+        name: voidpayment
+        description: Void a Payment
+        call: quickbooks-accounting-payments.voidpayment
+        with:
+          operation: rest.operation
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/query
+      name: query
+      description: REST surface for query.
+      operations:
+      - method: GET
+        name: queryentities
+        description: Query Entities
+        call: quickbooks-accounting-payments.queryentities
+        with:
+          query: rest.query
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: quickbooks-accounting-payments-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for QuickBooks Online Accounting API — Payments. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: create-payment
+      description: Create a Payment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: quickbooks-accounting-payments.createpayment
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-payment
+      description: Read a Payment
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: quickbooks-accounting-payments.readpayment
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-payment
+      description: Update a Payment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: quickbooks-accounting-payments.updatepayment
+      with:
+        sparse: tools.sparse
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: void-payment
+      description: Void a Payment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: quickbooks-accounting-payments.voidpayment
+      with:
+        operation: tools.operation
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: query-entities
+      description: Query Entities
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: quickbooks-accounting-payments.queryentities
+      with:
+        query: tools.query
+      outputParameters:
+      - type: object
+        mapping: $.
