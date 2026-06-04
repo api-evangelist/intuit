@@ -1,0 +1,84 @@
+arazzo: 1.0.1
+info:
+  title: Intuit Remind Overdue Invoice
+  summary: Query for unpaid invoices and email a reminder for the first match.
+  description: >-
+    A receivables follow-up flow. The workflow queries the Invoice entity for
+    records with a positive Balance ordered by due date, then branches: when at
+    least one unpaid invoice is returned it emails that invoice to the customer
+    through the send endpoint as a reminder. When nothing is overdue the flow
+    ends. The invoice Id from the query feeds the send step. Every step spells
+    out its request inline so the flow can be read and executed without opening
+    the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: quickbooksAccounting
+  url: ../openapi/quickbooks-accounting.yml
+  type: openapi
+workflows:
+- workflowId: remind-overdue-invoice
+  summary: Query unpaid invoices and resend the first one as a reminder.
+  description: >-
+    Queries the Invoice entity for a positive Balance and, when a match exists,
+    emails that invoice via the send endpoint.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    properties:
+      accessToken:
+        type: string
+        description: OAuth 2.0 bearer access token for the QuickBooks company.
+      reminderEmail:
+        type: string
+        description: Optional override email address for the reminder.
+  steps:
+  - stepId: findUnpaidInvoices
+    description: Query the Invoice entity for records with an outstanding balance.
+    operationId: queryEntities
+    parameters:
+    - name: query
+      in: query
+      value: "SELECT * FROM Invoice WHERE Balance > '0' ORDERBY DueDate"
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      overdueInvoiceId: $response.body#/QueryResponse/Invoice/0/Id
+    onSuccess:
+    - name: hasOverdue
+      type: goto
+      stepId: sendReminder
+      criteria:
+      - context: $response.body
+        condition: $.QueryResponse.Invoice.length > 0
+        type: jsonpath
+    - name: nothingOverdue
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.QueryResponse.Invoice.length == 0
+        type: jsonpath
+  - stepId: sendReminder
+    description: Email the first overdue invoice to the customer as a reminder.
+    operationId: sendInvoice
+    parameters:
+    - name: invoiceId
+      in: path
+      value: $steps.findUnpaidInvoices.outputs.overdueInvoiceId
+    - name: sendTo
+      in: query
+      value: $inputs.reminderEmail
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      emailStatus: $response.body#/Invoice/EmailStatus
+      invoiceId: $response.body#/Invoice/Id
+  outputs:
+    overdueInvoiceId: $steps.findUnpaidInvoices.outputs.overdueInvoiceId
+    emailStatus: $steps.sendReminder.outputs.emailStatus

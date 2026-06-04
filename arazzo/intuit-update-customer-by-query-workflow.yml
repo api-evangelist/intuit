@@ -1,0 +1,103 @@
+arazzo: 1.0.1
+info:
+  title: Intuit Update Customer by Query
+  summary: Find a customer by email, read it, and update its contact details.
+  description: >-
+    A query-driven maintenance flow. The workflow runs a SQL-like query against
+    the Customer entity filtering on PrimaryEmailAddr, reads the matched
+    customer to obtain its current SyncToken, and then performs a sparse update
+    that changes only the supplied fields while preserving the rest. The
+    SyncToken is chained from the read into the update because QuickBooks
+    rejects updates that do not carry the latest token. Every step spells out
+    its request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: quickbooksAccounting
+  url: ../openapi/quickbooks-accounting.yml
+  type: openapi
+workflows:
+- workflowId: update-customer-by-query
+  summary: Query a customer by email then sparse-update its details.
+  description: >-
+    Queries the Customer entity by email, reads the match for its SyncToken, and
+    applies a sparse update with the new contact details.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - email
+    - newPhone
+    properties:
+      accessToken:
+        type: string
+        description: OAuth 2.0 bearer access token for the QuickBooks company.
+      email:
+        type: string
+        description: Email address used to locate the customer.
+      newPhone:
+        type: string
+        description: New primary phone number to set on the customer.
+      newCompanyName:
+        type: string
+        description: Optional new company name to set on the customer.
+  steps:
+  - stepId: findCustomer
+    description: Query the Customer entity by primary email address.
+    operationId: queryEntities
+    parameters:
+    - name: query
+      in: query
+      value: "SELECT * FROM Customer WHERE PrimaryEmailAddr = '$inputs.email'"
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      matchedCustomerId: $response.body#/QueryResponse/Customer/0/Id
+  - stepId: readCustomer
+    description: Read the matched customer to obtain its current SyncToken.
+    operationId: readCustomer
+    parameters:
+    - name: customerId
+      in: path
+      value: $steps.findCustomer.outputs.matchedCustomerId
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      customerId: $response.body#/Customer/Id
+      syncToken: $response.body#/Customer/SyncToken
+  - stepId: updateCustomer
+    description: Apply a sparse update with the new phone and company name.
+    operationId: updateCustomer
+    parameters:
+    - name: customerId
+      in: path
+      value: $steps.readCustomer.outputs.customerId
+    - name: sparse
+      in: query
+      value: true
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        Id: $steps.readCustomer.outputs.customerId
+        SyncToken: $steps.readCustomer.outputs.syncToken
+        sparse: true
+        CompanyName: $inputs.newCompanyName
+        PrimaryPhone:
+          FreeFormNumber: $inputs.newPhone
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      customerId: $response.body#/Customer/Id
+      syncToken: $response.body#/Customer/SyncToken
+  outputs:
+    customerId: $steps.updateCustomer.outputs.customerId
+    syncToken: $steps.updateCustomer.outputs.syncToken

@@ -1,0 +1,116 @@
+arazzo: 1.0.1
+info:
+  title: Intuit Create Item and Invoice
+  summary: Create a sellable service item and invoice a customer using that item.
+  description: >-
+    Builds the product catalog and a sale in one pass. The workflow creates a
+    Service Item with an income account reference and unit price, then raises an
+    Invoice whose Line references the new item through SalesItemLineDetail, and
+    reads the invoice back to confirm the line resolved to the item. Every step
+    spells out its request inline so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: quickbooksAccounting
+  url: ../openapi/quickbooks-accounting.yml
+  type: openapi
+workflows:
+- workflowId: create-item-and-invoice
+  summary: Create a service item then invoice a customer with it.
+  description: >-
+    Creates an Item, raises an Invoice whose line references that item, and
+    reads the invoice back to confirm the calculated total.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - itemName
+    - unitPrice
+    - incomeAccountId
+    - customerId
+    - quantity
+    properties:
+      accessToken:
+        type: string
+        description: OAuth 2.0 bearer access token for the QuickBooks company.
+      itemName:
+        type: string
+        description: Name of the new service item.
+      unitPrice:
+        type: number
+        description: Unit price of the item.
+      incomeAccountId:
+        type: string
+        description: Id of the income account the item posts revenue to.
+      customerId:
+        type: string
+        description: Id of the customer to invoice.
+      quantity:
+        type: number
+        description: Quantity of the item to bill on the invoice line.
+  steps:
+  - stepId: createItem
+    description: Create a service item with a unit price and income account.
+    operationId: createItem
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        Name: $inputs.itemName
+        Type: Service
+        UnitPrice: $inputs.unitPrice
+        IncomeAccountRef:
+          value: $inputs.incomeAccountId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      itemId: $response.body#/Item/Id
+      itemName: $response.body#/Item/Name
+      unitPrice: $response.body#/Item/UnitPrice
+  - stepId: createInvoice
+    description: Raise an invoice whose line references the new item.
+    operationId: createInvoice
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        CustomerRef:
+          value: $inputs.customerId
+        Line:
+        - Amount: $steps.createItem.outputs.unitPrice
+          DetailType: SalesItemLineDetail
+          SalesItemLineDetail:
+            ItemRef:
+              value: $steps.createItem.outputs.itemId
+            Qty: $inputs.quantity
+            UnitPrice: $steps.createItem.outputs.unitPrice
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      invoiceId: $response.body#/Invoice/Id
+      totalAmt: $response.body#/Invoice/TotalAmt
+  - stepId: readInvoice
+    description: Read the invoice back to confirm the line and total.
+    operationId: readInvoice
+    parameters:
+    - name: invoiceId
+      in: path
+      value: $steps.createInvoice.outputs.invoiceId
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      totalAmt: $response.body#/Invoice/TotalAmt
+      balance: $response.body#/Invoice/Balance
+  outputs:
+    itemId: $steps.createItem.outputs.itemId
+    invoiceId: $steps.createInvoice.outputs.invoiceId
+    totalAmt: $steps.readInvoice.outputs.totalAmt

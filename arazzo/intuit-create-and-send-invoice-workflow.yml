@@ -1,0 +1,103 @@
+arazzo: 1.0.1
+info:
+  title: Intuit Create and Send Invoice
+  summary: Create an invoice and email it to the customer in one flow.
+  description: >-
+    Automates billing delivery. The workflow creates an Invoice with a billing
+    email address, emails it to the customer through the dedicated send
+    endpoint with an optional sendTo override, and reads the invoice back to
+    confirm the EmailStatus moved to EmailSent. Every step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: quickbooksAccounting
+  url: ../openapi/quickbooks-accounting.yml
+  type: openapi
+workflows:
+- workflowId: create-and-send-invoice
+  summary: Create an invoice then email it to the customer.
+  description: >-
+    Creates an Invoice carrying a BillEmail, sends it via the send endpoint, and
+    reads it back to confirm the email status.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - customerId
+    - lineAmount
+    - billEmail
+    properties:
+      accessToken:
+        type: string
+        description: OAuth 2.0 bearer access token for the QuickBooks company.
+      customerId:
+        type: string
+        description: Id of the customer to invoice.
+      lineAmount:
+        type: number
+        description: Amount of the single invoice line item.
+      billEmail:
+        type: string
+        description: Email address to bill and send the invoice to.
+      sendTo:
+        type: string
+        description: Optional override destination email address for the send.
+  steps:
+  - stepId: createInvoice
+    description: Create the invoice with a billing email address.
+    operationId: createInvoice
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        CustomerRef:
+          value: $inputs.customerId
+        BillEmail:
+          Address: $inputs.billEmail
+        Line:
+        - Amount: $inputs.lineAmount
+          DetailType: SalesItemLineDetail
+          Description: Services rendered
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      invoiceId: $response.body#/Invoice/Id
+      emailStatus: $response.body#/Invoice/EmailStatus
+  - stepId: sendInvoice
+    description: Email the invoice to the customer, optionally overriding the address.
+    operationId: sendInvoice
+    parameters:
+    - name: invoiceId
+      in: path
+      value: $steps.createInvoice.outputs.invoiceId
+    - name: sendTo
+      in: query
+      value: $inputs.sendTo
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      emailStatus: $response.body#/Invoice/EmailStatus
+  - stepId: readInvoice
+    description: Read the invoice back to confirm the email status.
+    operationId: readInvoice
+    parameters:
+    - name: invoiceId
+      in: path
+      value: $steps.createInvoice.outputs.invoiceId
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      emailStatus: $response.body#/Invoice/EmailStatus
+  outputs:
+    invoiceId: $steps.createInvoice.outputs.invoiceId
+    emailStatus: $steps.readInvoice.outputs.emailStatus

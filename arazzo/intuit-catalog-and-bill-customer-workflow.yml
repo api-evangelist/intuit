@@ -1,0 +1,111 @@
+arazzo: 1.0.1
+info:
+  title: Intuit Catalog and Bill Customer
+  summary: Create an item, create a customer, then invoice them for that item.
+  description: >-
+    A full from-scratch billing setup. The workflow creates a new Service Item,
+    creates a new Customer, and then raises an Invoice that bills the customer
+    for the item by referencing both newly created Ids in the line and
+    CustomerRef. It is the building-block flow for onboarding a customer onto a
+    brand new product in a single pass. Every step spells out its request inline
+    so the flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: quickbooksAccounting
+  url: ../openapi/quickbooks-accounting.yml
+  type: openapi
+workflows:
+- workflowId: catalog-and-bill-customer
+  summary: Create an item and customer, then invoice the customer for the item.
+  description: >-
+    Creates an Item, creates a Customer, and raises an Invoice linking the two.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - itemName
+    - unitPrice
+    - incomeAccountId
+    - displayName
+    properties:
+      accessToken:
+        type: string
+        description: OAuth 2.0 bearer access token for the QuickBooks company.
+      itemName:
+        type: string
+        description: Name of the new service item.
+      unitPrice:
+        type: number
+        description: Unit price of the item.
+      incomeAccountId:
+        type: string
+        description: Id of the income account the item posts revenue to.
+      displayName:
+        type: string
+        description: Unique display name for the new customer.
+  steps:
+  - stepId: createItem
+    description: Create the service item to be billed.
+    operationId: createItem
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        Name: $inputs.itemName
+        Type: Service
+        UnitPrice: $inputs.unitPrice
+        IncomeAccountRef:
+          value: $inputs.incomeAccountId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      itemId: $response.body#/Item/Id
+      unitPrice: $response.body#/Item/UnitPrice
+  - stepId: createCustomer
+    description: Create the customer to be billed.
+    operationId: createCustomer
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        DisplayName: $inputs.displayName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      customerId: $response.body#/Customer/Id
+  - stepId: createInvoice
+    description: Raise an invoice billing the customer for the item.
+    operationId: createInvoice
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        CustomerRef:
+          value: $steps.createCustomer.outputs.customerId
+        Line:
+        - Amount: $steps.createItem.outputs.unitPrice
+          DetailType: SalesItemLineDetail
+          SalesItemLineDetail:
+            ItemRef:
+              value: $steps.createItem.outputs.itemId
+            UnitPrice: $steps.createItem.outputs.unitPrice
+            Qty: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      invoiceId: $response.body#/Invoice/Id
+      totalAmt: $response.body#/Invoice/TotalAmt
+  outputs:
+    itemId: $steps.createItem.outputs.itemId
+    customerId: $steps.createCustomer.outputs.customerId
+    invoiceId: $steps.createInvoice.outputs.invoiceId

@@ -1,0 +1,112 @@
+arazzo: 1.0.1
+info:
+  title: Intuit Customer Invoice Payment Cycle
+  summary: Onboard a customer, invoice them, and record their payment end to end.
+  description: >-
+    A complete order-to-cash cycle for QuickBooks Online expressed as one
+    Arazzo workflow. The flow creates a new Customer, raises an Invoice against
+    that customer, and then records a Payment linked back to the invoice so the
+    receivable is cleared. It chains the customer Id and invoice Id forward so
+    the three entities stay linked. Every step spells out its request inline so
+    the flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: quickbooksAccounting
+  url: ../openapi/quickbooks-accounting.yml
+  type: openapi
+workflows:
+- workflowId: customer-invoice-payment
+  summary: Create a customer, invoice them, and apply a payment in one flow.
+  description: >-
+    Creates a Customer, raises an Invoice for that customer, and records a
+    Payment that links to the invoice to clear the balance.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - displayName
+    - lineAmount
+    - paymentAmount
+    properties:
+      accessToken:
+        type: string
+        description: OAuth 2.0 bearer access token for the QuickBooks company.
+      displayName:
+        type: string
+        description: Unique display name for the new customer.
+      email:
+        type: string
+        description: Primary email address for the customer.
+      lineAmount:
+        type: number
+        description: Amount of the single invoice line item.
+      paymentAmount:
+        type: number
+        description: Total amount of the payment to record.
+  steps:
+  - stepId: createCustomer
+    description: Create the customer record.
+    operationId: createCustomer
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        DisplayName: $inputs.displayName
+        PrimaryEmailAddr:
+          Address: $inputs.email
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      customerId: $response.body#/Customer/Id
+  - stepId: createInvoice
+    description: Raise an invoice for the new customer.
+    operationId: createInvoice
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        CustomerRef:
+          value: $steps.createCustomer.outputs.customerId
+        Line:
+        - Amount: $inputs.lineAmount
+          DetailType: SalesItemLineDetail
+          Description: Services rendered
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      invoiceId: $response.body#/Invoice/Id
+      totalAmt: $response.body#/Invoice/TotalAmt
+  - stepId: createPayment
+    description: Record a payment linked to the invoice to clear the receivable.
+    operationId: createPayment
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        CustomerRef:
+          value: $steps.createCustomer.outputs.customerId
+        TotalAmt: $inputs.paymentAmount
+        Line:
+        - Amount: $inputs.paymentAmount
+          LinkedTxn:
+          - TxnId: $steps.createInvoice.outputs.invoiceId
+            TxnType: Invoice
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      paymentId: $response.body#/Payment/Id
+      unappliedAmt: $response.body#/Payment/UnappliedAmt
+  outputs:
+    customerId: $steps.createCustomer.outputs.customerId
+    invoiceId: $steps.createInvoice.outputs.invoiceId
+    paymentId: $steps.createPayment.outputs.paymentId

@@ -1,0 +1,110 @@
+arazzo: 1.0.1
+info:
+  title: Intuit Create Customer and Invoice
+  summary: Create a new QuickBooks customer and immediately raise their first invoice.
+  description: >-
+    A foundational order-to-cash flow for QuickBooks Online. The workflow
+    creates a brand new Customer from a display name and contact details, then
+    raises an Invoice that references the freshly created customer via its
+    CustomerRef, and finally reads the invoice back to confirm the totals and
+    balance QuickBooks calculated. Every step spells out its request inline so
+    the flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: quickbooksAccounting
+  url: ../openapi/quickbooks-accounting.yml
+  type: openapi
+workflows:
+- workflowId: create-customer-and-invoice
+  summary: Create a customer then invoice them in a single chained flow.
+  description: >-
+    Creates a Customer, raises an Invoice against the returned customer Id, and
+    reads the invoice back to surface the calculated TotalAmt and Balance.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - displayName
+    - lineAmount
+    - lineDescription
+    properties:
+      accessToken:
+        type: string
+        description: OAuth 2.0 bearer access token for the QuickBooks company.
+      displayName:
+        type: string
+        description: Unique display name for the new customer.
+      companyName:
+        type: string
+        description: Optional company name for the customer.
+      email:
+        type: string
+        description: Primary email address for the customer.
+      lineAmount:
+        type: number
+        description: Amount for the single invoice line item.
+      lineDescription:
+        type: string
+        description: Description for the single invoice line item.
+  steps:
+  - stepId: createCustomer
+    description: Create the customer record from the supplied display name and contacts.
+    operationId: createCustomer
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        DisplayName: $inputs.displayName
+        CompanyName: $inputs.companyName
+        PrimaryEmailAddr:
+          Address: $inputs.email
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      customerId: $response.body#/Customer/Id
+      customerName: $response.body#/Customer/DisplayName
+  - stepId: createInvoice
+    description: Raise an invoice that references the newly created customer.
+    operationId: createInvoice
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        CustomerRef:
+          value: $steps.createCustomer.outputs.customerId
+        Line:
+        - Amount: $inputs.lineAmount
+          DetailType: SalesItemLineDetail
+          Description: $inputs.lineDescription
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      invoiceId: $response.body#/Invoice/Id
+      syncToken: $response.body#/Invoice/SyncToken
+      totalAmt: $response.body#/Invoice/TotalAmt
+  - stepId: readInvoice
+    description: Read the invoice back to confirm calculated totals and balance.
+    operationId: readInvoice
+    parameters:
+    - name: invoiceId
+      in: path
+      value: $steps.createInvoice.outputs.invoiceId
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      balance: $response.body#/Invoice/Balance
+      totalAmt: $response.body#/Invoice/TotalAmt
+  outputs:
+    customerId: $steps.createCustomer.outputs.customerId
+    invoiceId: $steps.createInvoice.outputs.invoiceId
+    balance: $steps.readInvoice.outputs.balance

@@ -1,0 +1,85 @@
+arazzo: 1.0.1
+info:
+  title: Intuit Reprice Item
+  summary: Read an item and apply a new unit price via a sparse update.
+  description: >-
+    A targeted catalog maintenance flow. The workflow reads an Item to capture
+    its current SyncToken, then performs a sparse update that changes only the
+    UnitPrice while leaving every other field intact. The SyncToken is chained
+    from the read into the update because QuickBooks rejects updates that omit
+    the latest token. Every step spells out its request inline so the flow can
+    be read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: quickbooksAccounting
+  url: ../openapi/quickbooks-accounting.yml
+  type: openapi
+workflows:
+- workflowId: reprice-item
+  summary: Read an item then sparse-update its unit price.
+  description: >-
+    Reads an Item for its SyncToken and applies a sparse update that sets a new
+    UnitPrice.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - itemId
+    - newUnitPrice
+    properties:
+      accessToken:
+        type: string
+        description: OAuth 2.0 bearer access token for the QuickBooks company.
+      itemId:
+        type: string
+        description: Id of the item to reprice.
+      newUnitPrice:
+        type: number
+        description: The new unit price to set on the item.
+  steps:
+  - stepId: readItem
+    description: Read the item to obtain its current SyncToken and price.
+    operationId: readItem
+    parameters:
+    - name: itemId
+      in: path
+      value: $inputs.itemId
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      itemId: $response.body#/Item/Id
+      syncToken: $response.body#/Item/SyncToken
+      oldUnitPrice: $response.body#/Item/UnitPrice
+  - stepId: updateItem
+    description: Apply a sparse update that changes only the unit price.
+    operationId: updateItem
+    parameters:
+    - name: itemId
+      in: path
+      value: $steps.readItem.outputs.itemId
+    - name: sparse
+      in: query
+      value: true
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        Id: $steps.readItem.outputs.itemId
+        SyncToken: $steps.readItem.outputs.syncToken
+        sparse: true
+        UnitPrice: $inputs.newUnitPrice
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      itemId: $response.body#/Item/Id
+      newUnitPrice: $response.body#/Item/UnitPrice
+      syncToken: $response.body#/Item/SyncToken
+  outputs:
+    itemId: $steps.updateItem.outputs.itemId
+    oldUnitPrice: $steps.readItem.outputs.oldUnitPrice
+    newUnitPrice: $steps.updateItem.outputs.newUnitPrice

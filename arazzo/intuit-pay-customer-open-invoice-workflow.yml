@@ -1,0 +1,94 @@
+arazzo: 1.0.1
+info:
+  title: Intuit Pay Customer Open Invoice
+  summary: Find a customer's oldest open invoice and record a payment against it.
+  description: >-
+    Applies a received payment to the right invoice automatically. The workflow
+    queries the Invoice entity for a specific customer's records that still
+    carry a Balance, ordered by transaction date, then records a Payment whose
+    Line links to the oldest open invoice returned. The customer Id and the
+    resolved invoice Id are chained into the payment request. Every step spells
+    out its request inline so the flow can be read and executed without opening
+    the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: quickbooksAccounting
+  url: ../openapi/quickbooks-accounting.yml
+  type: openapi
+workflows:
+- workflowId: pay-customer-open-invoice
+  summary: Query a customer's open invoices and pay the oldest one.
+  description: >-
+    Queries the Invoice entity for a customer's unpaid invoices and records a
+    Payment linked to the oldest open invoice when one exists.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - customerId
+    - paymentAmount
+    properties:
+      accessToken:
+        type: string
+        description: OAuth 2.0 bearer access token for the QuickBooks company.
+      customerId:
+        type: string
+        description: Id of the customer whose open invoice will be paid.
+      paymentAmount:
+        type: number
+        description: Total amount of the payment to record.
+  steps:
+  - stepId: findOpenInvoices
+    description: Query the customer's invoices that still have an outstanding balance.
+    operationId: queryEntities
+    parameters:
+    - name: query
+      in: query
+      value: "SELECT * FROM Invoice WHERE CustomerRef = '$inputs.customerId' AND Balance > '0' ORDERBY TxnDate"
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      openInvoiceId: $response.body#/QueryResponse/Invoice/0/Id
+    onSuccess:
+    - name: hasOpenInvoice
+      type: goto
+      stepId: recordPayment
+      criteria:
+      - context: $response.body
+        condition: $.QueryResponse.Invoice.length > 0
+        type: jsonpath
+    - name: nothingOpen
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.QueryResponse.Invoice.length == 0
+        type: jsonpath
+  - stepId: recordPayment
+    description: Record a payment linked to the customer's oldest open invoice.
+    operationId: createPayment
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        CustomerRef:
+          value: $inputs.customerId
+        TotalAmt: $inputs.paymentAmount
+        Line:
+        - Amount: $inputs.paymentAmount
+          LinkedTxn:
+          - TxnId: $steps.findOpenInvoices.outputs.openInvoiceId
+            TxnType: Invoice
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      paymentId: $response.body#/Payment/Id
+      unappliedAmt: $response.body#/Payment/UnappliedAmt
+  outputs:
+    openInvoiceId: $steps.findOpenInvoices.outputs.openInvoiceId
+    paymentId: $steps.recordPayment.outputs.paymentId

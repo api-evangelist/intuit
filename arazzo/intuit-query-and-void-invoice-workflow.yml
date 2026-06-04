@@ -1,0 +1,104 @@
+arazzo: 1.0.1
+info:
+  title: Intuit Query and Void Invoice
+  summary: Find an invoice by document number and void it with its SyncToken.
+  description: >-
+    A query-driven cancellation flow. The workflow runs a SQL-like query against
+    the Invoice entity filtering on DocNumber, reads the matched invoice to
+    obtain its current SyncToken, and then voids it by replaying the Id and
+    SyncToken in the void request body with the required operation=void query
+    parameter. Reading before voiding guarantees the latest SyncToken is used.
+    Every step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: quickbooksAccounting
+  url: ../openapi/quickbooks-accounting.yml
+  type: openapi
+workflows:
+- workflowId: query-and-void-invoice
+  summary: Query an invoice by doc number, read it, then void it.
+  description: >-
+    Queries the Invoice entity by DocNumber, reads the match for its SyncToken,
+    and voids it via the void endpoint.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - docNumber
+    properties:
+      accessToken:
+        type: string
+        description: OAuth 2.0 bearer access token for the QuickBooks company.
+      docNumber:
+        type: string
+        description: Document number of the invoice to locate and void.
+  steps:
+  - stepId: findInvoice
+    description: Query the Invoice entity for a record by document number.
+    operationId: queryEntities
+    parameters:
+    - name: query
+      in: query
+      value: "SELECT * FROM Invoice WHERE DocNumber = '$inputs.docNumber'"
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      matchedInvoiceId: $response.body#/QueryResponse/Invoice/0/Id
+    onSuccess:
+    - name: invoiceFound
+      type: goto
+      stepId: readInvoice
+      criteria:
+      - context: $response.body
+        condition: $.QueryResponse.Invoice.length > 0
+        type: jsonpath
+    - name: invoiceMissing
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.QueryResponse.Invoice.length == 0
+        type: jsonpath
+  - stepId: readInvoice
+    description: Read the matched invoice to obtain its current SyncToken.
+    operationId: readInvoice
+    parameters:
+    - name: invoiceId
+      in: path
+      value: $steps.findInvoice.outputs.matchedInvoiceId
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      invoiceId: $response.body#/Invoice/Id
+      syncToken: $response.body#/Invoice/SyncToken
+  - stepId: voidInvoice
+    description: Void the invoice using its Id, SyncToken, and the operation parameter.
+    operationId: voidInvoice
+    parameters:
+    - name: invoiceId
+      in: path
+      value: $steps.readInvoice.outputs.invoiceId
+    - name: operation
+      in: query
+      value: void
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        Id: $steps.readInvoice.outputs.invoiceId
+        SyncToken: $steps.readInvoice.outputs.syncToken
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      voidedId: $response.body#/Invoice/Id
+  outputs:
+    matchedInvoiceId: $steps.findInvoice.outputs.matchedInvoiceId
+    voidedId: $steps.voidInvoice.outputs.voidedId

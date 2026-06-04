@@ -1,0 +1,89 @@
+arazzo: 1.0.1
+info:
+  title: Intuit Update Payment Amount
+  summary: Read a payment for its SyncToken and update its amount and reference.
+  description: >-
+    Corrects a recorded payment. The workflow reads a Payment to capture its
+    current SyncToken, then applies a sparse update that revises the TotalAmt and
+    PaymentRefNum while leaving the rest of the payment intact. The SyncToken is
+    chained from the read into the update because QuickBooks rejects updates that
+    omit the latest token. Every step spells out its request inline so the flow
+    can be read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: quickbooksAccounting
+  url: ../openapi/quickbooks-accounting.yml
+  type: openapi
+workflows:
+- workflowId: update-payment-amount
+  summary: Read a payment then sparse-update its total amount and reference.
+  description: >-
+    Reads a Payment for its SyncToken and applies a sparse update that sets a new
+    TotalAmt and PaymentRefNum.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - paymentId
+    - newTotalAmt
+    properties:
+      accessToken:
+        type: string
+        description: OAuth 2.0 bearer access token for the QuickBooks company.
+      paymentId:
+        type: string
+        description: Id of the payment to update.
+      newTotalAmt:
+        type: number
+        description: The corrected total amount of the payment.
+      paymentRefNum:
+        type: string
+        description: Optional new payment reference number.
+  steps:
+  - stepId: readPayment
+    description: Read the payment to obtain its current Id and SyncToken.
+    operationId: readPayment
+    parameters:
+    - name: paymentId
+      in: path
+      value: $inputs.paymentId
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      paymentId: $response.body#/Payment/Id
+      syncToken: $response.body#/Payment/SyncToken
+      oldTotalAmt: $response.body#/Payment/TotalAmt
+  - stepId: updatePayment
+    description: Apply a sparse update setting the new total and reference number.
+    operationId: updatePayment
+    parameters:
+    - name: paymentId
+      in: path
+      value: $steps.readPayment.outputs.paymentId
+    - name: sparse
+      in: query
+      value: true
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        Id: $steps.readPayment.outputs.paymentId
+        SyncToken: $steps.readPayment.outputs.syncToken
+        sparse: true
+        TotalAmt: $inputs.newTotalAmt
+        PaymentRefNum: $inputs.paymentRefNum
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      paymentId: $response.body#/Payment/Id
+      newTotalAmt: $response.body#/Payment/TotalAmt
+      syncToken: $response.body#/Payment/SyncToken
+  outputs:
+    paymentId: $steps.updatePayment.outputs.paymentId
+    oldTotalAmt: $steps.readPayment.outputs.oldTotalAmt
+    newTotalAmt: $steps.updatePayment.outputs.newTotalAmt

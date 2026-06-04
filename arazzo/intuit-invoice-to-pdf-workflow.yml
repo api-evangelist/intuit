@@ -1,0 +1,76 @@
+arazzo: 1.0.1
+info:
+  title: Intuit Invoice to PDF
+  summary: Create an invoice and retrieve it as a downloadable PDF.
+  description: >-
+    Produces a printable billing document. The workflow creates an Invoice for
+    a customer and then retrieves the same invoice as a PDF through the dedicated
+    pdf endpoint, which returns an application/pdf body. The invoice Id is
+    chained from the create step into the pdf request. Every step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: quickbooksAccounting
+  url: ../openapi/quickbooks-accounting.yml
+  type: openapi
+workflows:
+- workflowId: invoice-to-pdf
+  summary: Create an invoice then fetch its PDF rendering.
+  description: >-
+    Creates an Invoice and retrieves it as a PDF document from the pdf endpoint.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - customerId
+    - lineAmount
+    properties:
+      accessToken:
+        type: string
+        description: OAuth 2.0 bearer access token for the QuickBooks company.
+      customerId:
+        type: string
+        description: Id of the customer to invoice.
+      lineAmount:
+        type: number
+        description: Amount of the single invoice line item.
+  steps:
+  - stepId: createInvoice
+    description: Create the invoice to be rendered as a PDF.
+    operationId: createInvoice
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        CustomerRef:
+          value: $inputs.customerId
+        Line:
+        - Amount: $inputs.lineAmount
+          DetailType: SalesItemLineDetail
+          Description: Services rendered
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      invoiceId: $response.body#/Invoice/Id
+      docNumber: $response.body#/Invoice/DocNumber
+  - stepId: getInvoicePdf
+    description: Retrieve the invoice as an application/pdf document.
+    operationId: getInvoicePdf
+    parameters:
+    - name: invoiceId
+      in: path
+      value: $steps.createInvoice.outputs.invoiceId
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      pdf: $response.body
+  outputs:
+    invoiceId: $steps.createInvoice.outputs.invoiceId
+    docNumber: $steps.createInvoice.outputs.docNumber

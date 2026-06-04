@@ -1,0 +1,109 @@
+arazzo: 1.0.1
+info:
+  title: Intuit Find or Create Customer
+  summary: Look up a customer by display name and create it only if missing.
+  description: >-
+    An idempotent customer upsert for QuickBooks Online. The workflow runs a
+    SQL-like query against the Customer entity filtering on DisplayName, then
+    branches: when the QueryResponse already contains a matching Customer it
+    reads that customer back, and when no match is found it creates a new
+    Customer. This avoids duplicate customers, which QuickBooks rejects because
+    DisplayName must be unique. Every step spells out its request inline so the
+    flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: quickbooksAccounting
+  url: ../openapi/quickbooks-accounting.yml
+  type: openapi
+workflows:
+- workflowId: find-or-create-customer
+  summary: Query for a customer by display name and create it if absent.
+  description: >-
+    Queries the Customer entity by DisplayName and branches to read the existing
+    customer or create a new one based on whether the query returned a match.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - displayName
+    properties:
+      accessToken:
+        type: string
+        description: OAuth 2.0 bearer access token for the QuickBooks company.
+      displayName:
+        type: string
+        description: Display name to search for and, if absent, create.
+      email:
+        type: string
+        description: Email to set when creating a new customer.
+  steps:
+  - stepId: findCustomer
+    description: Query the Customer entity for an existing record by display name.
+    operationId: queryEntities
+    parameters:
+    - name: query
+      in: query
+      value: "SELECT * FROM Customer WHERE DisplayName = '$inputs.displayName'"
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      matchedCustomerId: $response.body#/QueryResponse/Customer/0/Id
+      matchCount: $response.body#/QueryResponse/totalCount
+    onSuccess:
+    - name: customerExists
+      type: goto
+      stepId: readCustomer
+      criteria:
+      - context: $response.body
+        condition: $.QueryResponse.Customer.length > 0
+        type: jsonpath
+    - name: customerMissing
+      type: goto
+      stepId: createCustomer
+      criteria:
+      - context: $response.body
+        condition: $.QueryResponse.Customer.length == 0
+        type: jsonpath
+  - stepId: readCustomer
+    description: Read the matched customer back to return its full record.
+    operationId: readCustomer
+    parameters:
+    - name: customerId
+      in: path
+      value: $steps.findCustomer.outputs.matchedCustomerId
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      customerId: $response.body#/Customer/Id
+      displayName: $response.body#/Customer/DisplayName
+    onSuccess:
+    - name: done
+      type: end
+  - stepId: createCustomer
+    description: Create a new customer when no existing record matched.
+    operationId: createCustomer
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        DisplayName: $inputs.displayName
+        PrimaryEmailAddr:
+          Address: $inputs.email
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      customerId: $response.body#/Customer/Id
+      displayName: $response.body#/Customer/DisplayName
+  outputs:
+    existingCustomerId: $steps.readCustomer.outputs.customerId
+    createdCustomerId: $steps.createCustomer.outputs.customerId

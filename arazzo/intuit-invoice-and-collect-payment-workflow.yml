@@ -1,0 +1,108 @@
+arazzo: 1.0.1
+info:
+  title: Intuit Invoice and Collect Payment
+  summary: Raise an invoice and record a customer payment applied against it.
+  description: >-
+    Closes the loop on a single sale. The workflow creates an Invoice for a
+    customer, then records a Payment whose Line links to that invoice through a
+    LinkedTxn of TxnType Invoice, and reads the invoice back to confirm the
+    balance dropped to zero once the payment was applied. Every step spells out
+    its request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: quickbooksAccounting
+  url: ../openapi/quickbooks-accounting.yml
+  type: openapi
+workflows:
+- workflowId: invoice-and-collect-payment
+  summary: Create an invoice then apply a payment to it.
+  description: >-
+    Creates an Invoice, records a Payment that links to the invoice, and reads
+    the invoice back to confirm the remaining balance.
+  inputs:
+    type: object
+    required:
+    - accessToken
+    - customerId
+    - lineAmount
+    - paymentAmount
+    properties:
+      accessToken:
+        type: string
+        description: OAuth 2.0 bearer access token for the QuickBooks company.
+      customerId:
+        type: string
+        description: Id of the customer being invoiced and paying.
+      lineAmount:
+        type: number
+        description: Amount of the single invoice line item.
+      lineDescription:
+        type: string
+        description: Description of the invoice line item.
+      paymentAmount:
+        type: number
+        description: Total amount of the payment to record.
+  steps:
+  - stepId: createInvoice
+    description: Raise an invoice for the customer.
+    operationId: createInvoice
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        CustomerRef:
+          value: $inputs.customerId
+        Line:
+        - Amount: $inputs.lineAmount
+          DetailType: SalesItemLineDetail
+          Description: $inputs.lineDescription
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      invoiceId: $response.body#/Invoice/Id
+      totalAmt: $response.body#/Invoice/TotalAmt
+  - stepId: createPayment
+    description: Record a payment that links to the new invoice.
+    operationId: createPayment
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        CustomerRef:
+          value: $inputs.customerId
+        TotalAmt: $inputs.paymentAmount
+        Line:
+        - Amount: $inputs.paymentAmount
+          LinkedTxn:
+          - TxnId: $steps.createInvoice.outputs.invoiceId
+            TxnType: Invoice
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      paymentId: $response.body#/Payment/Id
+      unappliedAmt: $response.body#/Payment/UnappliedAmt
+  - stepId: readInvoice
+    description: Read the invoice back to confirm the remaining balance.
+    operationId: readInvoice
+    parameters:
+    - name: invoiceId
+      in: path
+      value: $steps.createInvoice.outputs.invoiceId
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.accessToken"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      balance: $response.body#/Invoice/Balance
+  outputs:
+    invoiceId: $steps.createInvoice.outputs.invoiceId
+    paymentId: $steps.createPayment.outputs.paymentId
+    balance: $steps.readInvoice.outputs.balance
