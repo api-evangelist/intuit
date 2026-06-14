@@ -1,0 +1,1617 @@
+# Intuit / QuickBooks Online Conceptual GraphQL Schema
+# Derived from the QuickBooks Online Accounting REST API entity model.
+# No native public GraphQL endpoint exists; this is a conceptual representation.
+# Source: https://developer.intuit.com/app/developer/qbo/docs/api/accounting/all-entities/account
+
+scalar Date
+scalar DateTime
+scalar Decimal
+
+# ─────────────────────────────────────────────
+# Enumerations
+# ─────────────────────────────────────────────
+
+enum AccountClassification {
+  ASSET
+  EQUITY
+  EXPENSE
+  LIABILITY
+  REVENUE
+}
+
+enum AccountSubType {
+  ACCOUNTS_PAYABLE
+  ACCOUNTS_RECEIVABLE
+  ACCUMULATED_DEPRECIATION
+  BANK
+  CASH_AND_CASH_EQUIVALENTS
+  CHECKING
+  COST_OF_GOODS_SOLD
+  CREDIT_CARD
+  DEPRECIATION
+  EQUITY
+  INCOME
+  INVENTORY_ASSET
+  OTHER_CURRENT_ASSET
+  OTHER_CURRENT_LIABILITY
+  OTHER_EXPENSE
+  OTHER_INCOME
+  PAYROLL_EXPENSES
+  PAYROLL_LIABILITIES
+  RETAINED_EARNINGS
+  SAVINGS
+  UNDEPOSITED_FUNDS
+}
+
+enum BillPaymentType {
+  CHECK
+  CREDIT_CARD
+}
+
+enum CustomerStatus {
+  ACTIVE
+  DELETED
+  MERGED
+}
+
+enum EmployeeStatus {
+  ACTIVE
+  INACTIVE
+  TERMINATED
+}
+
+enum EntityType {
+  CUSTOMER
+  EMPLOYEE
+  JOB
+  VENDOR
+}
+
+enum GlobalTaxCalculationMethod {
+  EXCLUDED_FROM_TAX
+  NOT_APPLICABLE
+  TAX_INCLUSIVE
+  TAX_EXCLUDED
+}
+
+enum ItemType {
+  CATEGORY
+  GROUP
+  INVENTORY
+  NON_INVENTORY
+  SERVICE
+}
+
+enum LineDetailType {
+  ACCOUNT_BASED_EXPENSE_LINE_DETAIL
+  DEPOSIT_LINE_DETAIL
+  DISCOUNT_LINE_DETAIL
+  GROUP_LINE_DETAIL
+  ITEM_BASED_EXPENSE_LINE_DETAIL
+  JOURNAL_ENTRY_LINE_DETAIL
+  PAYMENT_LINE_DETAIL
+  SALES_ITEM_LINE_DETAIL
+  SUB_TOTAL_LINE_DETAIL
+  TAX_LINE_DETAIL
+}
+
+enum PaymentMethodType {
+  CASH
+  CHECK
+  CREDIT_CARD
+  NON_MONETARY
+  OTHER
+}
+
+enum PurchasePaymentType {
+  CASH
+  CHECK
+  CREDIT_CARD
+}
+
+enum ReportBasis {
+  ACCRUAL
+  CASH
+}
+
+enum SummarizeColumnsByValue {
+  CLASS
+  CUSTOMER
+  DAY
+  DEPARTMENT
+  EMPLOYEE
+  ITEM
+  MONTH
+  PAYEE
+  QUARTER
+  TOTAL_ONLY
+  VENDOR
+  WEEK
+  YEAR
+}
+
+enum TaxApplicableOnType {
+  PURCHASE
+  SALES
+}
+
+enum TransactionStatus {
+  DELETED
+  DRAFT
+  PAID
+  PENDING
+  VOIDED
+}
+
+# ─────────────────────────────────────────────
+# Common Supporting Types
+# ─────────────────────────────────────────────
+
+type PhysicalAddress {
+  Id: ID
+  Line1: String
+  Line2: String
+  Line3: String
+  Line4: String
+  Line5: String
+  City: String
+  County: String
+  CountrySubDivisionCode: String
+  Country: String
+  PostalCode: String
+  Lat: String
+  Long: String
+}
+
+type EmailAddress {
+  Address: String
+}
+
+type TelephoneNumber {
+  FreeFormNumber: String
+}
+
+type WebSiteAddress {
+  URI: String
+}
+
+type ReferenceType {
+  value: ID!
+  name: String
+}
+
+type ModificationMetaData {
+  CreateTime: DateTime
+  LastUpdatedTime: DateTime
+}
+
+type CurrencyRef {
+  value: String
+  name: String
+}
+
+type CustomField {
+  DefinitionId: ID
+  Name: String
+  Type: String
+  StringValue: String
+  BooleanValue: Boolean
+  DateValue: Date
+  NumberValue: Decimal
+}
+
+type AttachableRef {
+  EntityRef: ReferenceType
+  LineInfo: String
+  NoRefOnly: Boolean
+  CustomField: [CustomField]
+  Inactive: Boolean
+  IncludeOnSend: Boolean
+}
+
+type LinkedTxn {
+  TxnId: ID!
+  TxnType: String!
+  TxnLineId: ID
+}
+
+type MarkupInfo {
+  PriceLevelRef: ReferenceType
+  Percent: Decimal
+  MarkUpIncomeAccountRef: ReferenceType
+}
+
+type TaxLineDetail {
+  TaxRateRef: ReferenceType!
+  NetAmountTaxable: Decimal
+  PercentBased: Boolean
+  TaxInclusiveAmount: Decimal
+  OverrideDeltaAmount: Decimal
+  TaxPercent: Decimal
+}
+
+type SalesItemLineDetail {
+  ItemRef: ReferenceType
+  ClassRef: ReferenceType
+  UnitPrice: Decimal
+  MarkupInfo: MarkupInfo
+  Qty: Decimal
+  ItemAccountRef: ReferenceType
+  ServiceDate: Date
+  TaxCodeRef: ReferenceType
+  DiscountRate: Decimal
+  DiscountAmt: Decimal
+}
+
+type AccountBasedExpenseLineDetail {
+  AccountRef: ReferenceType!
+  TaxAmount: Decimal
+  TaxInclusiveAmt: Decimal
+  ClassRef: ReferenceType
+  TaxCodeRef: ReferenceType
+  MarkupInfo: MarkupInfo
+  BillableStatus: String
+  CustomerRef: ReferenceType
+}
+
+type ItemBasedExpenseLineDetail {
+  ItemRef: ReferenceType!
+  ClassRef: ReferenceType
+  UnitPrice: Decimal
+  Qty: Decimal
+  TaxCodeRef: ReferenceType
+  MarkupInfo: MarkupInfo
+  BillableStatus: String
+  CustomerRef: ReferenceType
+  PriceLevelRef: ReferenceType
+}
+
+type DepositLineDetail {
+  Entity: ReferenceType
+  ClassRef: ReferenceType
+  AccountRef: ReferenceType
+  PaymentMethodRef: ReferenceType
+  CheckNum: String
+  TxnType: String
+}
+
+type DiscountLineDetail {
+  DiscountRef: ReferenceType
+  PercentBased: Boolean
+  DiscountPercent: Decimal
+  ClassRef: ReferenceType
+  TaxCodeRef: ReferenceType
+}
+
+type JournalEntryLineDetail {
+  PostingType: String!
+  Entity: ReferenceType
+  AccountRef: ReferenceType!
+  ClassRef: ReferenceType
+  DepartmentRef: ReferenceType
+  TaxCodeRef: ReferenceType
+  BillableStatus: String
+  TaxInclusiveAmt: Decimal
+  TaxAmount: Decimal
+}
+
+type Line {
+  Id: ID
+  LineNum: Int
+  Description: String
+  Amount: Decimal!
+  DetailType: LineDetailType!
+  SalesItemLineDetail: SalesItemLineDetail
+  AccountBasedExpenseLineDetail: AccountBasedExpenseLineDetail
+  ItemBasedExpenseLineDetail: ItemBasedExpenseLineDetail
+  DepositLineDetail: DepositLineDetail
+  DiscountLineDetail: DiscountLineDetail
+  JournalEntryLineDetail: JournalEntryLineDetail
+  TaxLineDetail: TaxLineDetail
+  LinkedTxn: [LinkedTxn]
+  CustomField: [CustomField]
+}
+
+type TxnTaxDetail {
+  TxnTaxCodeRef: ReferenceType
+  TotalTax: Decimal
+  TaxLine: [Line]
+}
+
+type DeliveryInfo {
+  DeliveryType: String
+  DeliveryTime: DateTime
+}
+
+type BillEmail {
+  Address: String
+}
+
+# ─────────────────────────────────────────────
+# Core Entity Types
+# ─────────────────────────────────────────────
+
+type Account {
+  Id: ID!
+  SyncToken: String!
+  Name: String!
+  SubAccount: Boolean
+  ParentRef: ReferenceType
+  Description: String
+  FullyQualifiedName: String
+  Active: Boolean
+  Classification: AccountClassification
+  AccountType: String
+  AccountSubType: AccountSubType
+  AcctNum: String
+  CurrentBalance: Decimal
+  CurrentBalanceWithSubAccounts: Decimal
+  CurrencyRef: CurrencyRef
+  TaxCodeRef: ReferenceType
+  TaxAccount: Boolean
+  LinkedTransactions: [LinkedTxn]
+  MetaData: ModificationMetaData
+}
+
+type AccountType {
+  Name: String!
+  SubTypes: [String]
+}
+
+type Bill {
+  Id: ID!
+  SyncToken: String!
+  VendorRef: ReferenceType!
+  Line: [Line]!
+  CurrencyRef: CurrencyRef
+  ExchangeRate: Decimal
+  APAccountRef: ReferenceType
+  SalesTermRef: ReferenceType
+  LinkedTxn: [LinkedTxn]
+  GlobalTaxCalculation: GlobalTaxCalculationMethod
+  TotalAmt: Decimal
+  TransactionLocationType: String
+  DueDate: Date
+  MetaData: ModificationMetaData
+  DocNumber: String
+  PrivateNote: String
+  TxnTaxDetail: TxnTaxDetail
+  VendorAddr: PhysicalAddress
+  TxnDate: Date
+  Balance: Decimal
+}
+
+type BillPayment {
+  Id: ID!
+  SyncToken: String!
+  VendorRef: ReferenceType!
+  PayType: BillPaymentType!
+  CheckPayment: BillPaymentCheck
+  CreditCardPayment: BillPaymentCreditCard
+  Line: [Line]!
+  CurrencyRef: CurrencyRef
+  ExchangeRate: Decimal
+  DepartmentRef: ReferenceType
+  TotalAmt: Decimal
+  TxnDate: Date
+  DocNumber: String
+  PrivateNote: String
+  MetaData: ModificationMetaData
+}
+
+type BillPaymentCheck {
+  BankAccountRef: ReferenceType
+  PrintStatus: String
+  CheckDetail: String
+}
+
+type BillPaymentCreditCard {
+  CCAccountRef: ReferenceType
+}
+
+type Budget {
+  Id: ID!
+  SyncToken: String!
+  Name: String!
+  StartDate: Date
+  EndDate: Date
+  BudgetType: String
+  BudgetEntryType: String
+  Active: Boolean
+  BudgetDetail: [BudgetDetail]
+  MetaData: ModificationMetaData
+}
+
+type BudgetDetail {
+  BudgetDate: Date
+  Amount: Decimal
+  AccountRef: ReferenceType
+  CustomerRef: ReferenceType
+  ClassRef: ReferenceType
+  DepartmentRef: ReferenceType
+}
+
+type Class {
+  Id: ID!
+  SyncToken: String!
+  Name: String!
+  SubClass: Boolean
+  ParentRef: ReferenceType
+  FullyQualifiedName: String
+  Active: Boolean
+  MetaData: ModificationMetaData
+}
+
+type Company {
+  Id: ID!
+  SyncToken: String!
+  CompanyName: String
+  LegalName: String
+  CompanyAddr: PhysicalAddress
+  CustomerCommunicationAddr: PhysicalAddress
+  LegalAddr: PhysicalAddress
+  PrimaryPhone: TelephoneNumber
+  CompanyStartDate: Date
+  FiscalYearStartMonth: String
+  Country: String
+  Email: EmailAddress
+  WebAddr: WebSiteAddress
+  SupportedLanguages: String
+  NameValue: [NameValue]
+  MetaData: ModificationMetaData
+}
+
+type CompanyInfo {
+  CompanyName: String!
+  LegalName: String
+  CompanyAddr: PhysicalAddress
+  CustomerCommunicationAddr: PhysicalAddress
+  LegalAddr: PhysicalAddress
+  PrimaryPhone: TelephoneNumber
+  CompanyStartDate: Date
+  FiscalYearStartMonth: String
+  Country: String
+  Email: EmailAddress
+  WebAddr: WebSiteAddress
+  SupportedLanguages: String
+  NameValue: [NameValue]
+  MetaData: ModificationMetaData
+}
+
+type NameValue {
+  Name: String
+  Value: String
+}
+
+type CreditMemo {
+  Id: ID!
+  SyncToken: String!
+  CustomerRef: ReferenceType!
+  Line: [Line]!
+  CurrencyRef: CurrencyRef
+  ExchangeRate: Decimal
+  BillAddr: PhysicalAddress
+  ShipAddr: PhysicalAddress
+  ClassRef: ReferenceType
+  DepartmentRef: ReferenceType
+  PrintStatus: String
+  EmailStatus: String
+  BillEmail: BillEmail
+  TxnDate: Date
+  ApplyTaxAfterDiscount: Boolean
+  DocNumber: String
+  PrivateNote: String
+  CustomerMemo: CustomerMemo
+  TxnTaxDetail: TxnTaxDetail
+  TotalAmt: Decimal
+  RemainingCredit: Decimal
+  GlobalTaxCalculation: GlobalTaxCalculationMethod
+  TransactionLocationType: String
+  MetaData: ModificationMetaData
+  LinkedTxn: [LinkedTxn]
+  CustomField: [CustomField]
+  DeliveryInfo: DeliveryInfo
+}
+
+type CustomerMemo {
+  value: String
+}
+
+type Customer {
+  Id: ID!
+  SyncToken: String!
+  DisplayName: String!
+  Title: String
+  GivenName: String
+  MiddleName: String
+  FamilyName: String
+  Suffix: String
+  FullyQualifiedName: String
+  CompanyName: String
+  PrintOnCheckName: String
+  Active: Boolean
+  PrimaryPhone: TelephoneNumber
+  AlternatePhone: TelephoneNumber
+  Mobile: TelephoneNumber
+  Fax: TelephoneNumber
+  PrimaryEmailAddr: EmailAddress
+  WebAddr: WebSiteAddress
+  DefaultTaxCodeRef: ReferenceType
+  Taxable: Boolean
+  BillAddr: PhysicalAddress
+  ShipAddr: PhysicalAddress
+  PaymentMethodRef: ReferenceType
+  SalesTermRef: ReferenceType
+  PreferredDeliveryMethod: String
+  ResaleNum: String
+  ARAccountRef: ReferenceType
+  ParentRef: ReferenceType
+  Level: Int
+  IsProject: Boolean
+  Balance: Decimal
+  OpenBalanceDate: Date
+  BalanceWithJobs: Decimal
+  CurrencyRef: CurrencyRef
+  Job: Boolean
+  BillWithParent: Boolean
+  CustomerTypeRef: ReferenceType
+  Notes: String
+  MetaData: ModificationMetaData
+}
+
+type CustomerType {
+  Id: ID!
+  SyncToken: String!
+  Name: String!
+  Active: Boolean
+  MetaData: ModificationMetaData
+}
+
+type Department {
+  Id: ID!
+  SyncToken: String!
+  Name: String!
+  SubDepartment: Boolean
+  ParentRef: ReferenceType
+  FullyQualifiedName: String
+  Active: Boolean
+  MetaData: ModificationMetaData
+}
+
+type Deposit {
+  Id: ID!
+  SyncToken: String!
+  DepositToAccountRef: ReferenceType!
+  Line: [Line]!
+  CurrencyRef: CurrencyRef
+  ExchangeRate: Decimal
+  PrivateNote: String
+  TxnDate: Date
+  TxnTaxDetail: TxnTaxDetail
+  TotalAmt: Decimal
+  GlobalTaxCalculation: GlobalTaxCalculationMethod
+  TransactionLocationType: String
+  CashBack: CashBack
+  MetaData: ModificationMetaData
+}
+
+type CashBack {
+  AccountRef: ReferenceType
+  Memo: String
+  Amount: Decimal
+}
+
+type Employee {
+  Id: ID!
+  SyncToken: String!
+  DisplayName: String!
+  Title: String
+  GivenName: String
+  MiddleName: String
+  FamilyName: String
+  Suffix: String
+  PrintOnCheckName: String
+  Active: Boolean
+  PrimaryPhone: TelephoneNumber
+  Mobile: TelephoneNumber
+  PrimaryEmailAddr: EmailAddress
+  EmployeeNumber: String
+  SSN: String
+  PrimaryAddr: PhysicalAddress
+  BillableTime: Boolean
+  BillRate: Decimal
+  BirthDate: Date
+  Gender: String
+  HiredDate: Date
+  ReleasedDate: Date
+  Status: EmployeeStatus
+  Organization: Boolean
+  MetaData: ModificationMetaData
+}
+
+type Estimate {
+  Id: ID!
+  SyncToken: String!
+  CustomerRef: ReferenceType!
+  Line: [Line]!
+  CurrencyRef: CurrencyRef
+  ExchangeRate: Decimal
+  BillAddr: PhysicalAddress
+  ShipAddr: PhysicalAddress
+  ClassRef: ReferenceType
+  SalesTermRef: ReferenceType
+  TxnDate: Date
+  ShipDate: Date
+  TrackingNum: String
+  CustomerMemo: CustomerMemo
+  BillEmail: BillEmail
+  PrintStatus: String
+  EmailStatus: String
+  TxnStatus: String
+  DocNumber: String
+  PrivateNote: String
+  TxnTaxDetail: TxnTaxDetail
+  TotalAmt: Decimal
+  ApplyTaxAfterDiscount: Boolean
+  GlobalTaxCalculation: GlobalTaxCalculationMethod
+  TransactionLocationType: String
+  DepartmentRef: ReferenceType
+  AcceptedBy: String
+  AcceptedDate: Date
+  LinkedTxn: [LinkedTxn]
+  MetaData: ModificationMetaData
+  CustomField: [CustomField]
+  DeliveryInfo: DeliveryInfo
+  ExpirationDate: Date
+}
+
+type ExchangeRate {
+  SourceCurrencyCode: String!
+  TargetCurrencyCode: String!
+  Rate: Decimal!
+  AsOfDate: Date
+  MetaData: ModificationMetaData
+}
+
+type Invoice {
+  Id: ID!
+  SyncToken: String!
+  CustomerRef: ReferenceType!
+  Line: [Line]!
+  CurrencyRef: CurrencyRef
+  ExchangeRate: Decimal
+  DocNumber: String
+  TxnDate: Date
+  DueDate: Date
+  ShipDate: Date
+  TrackingNum: String
+  PrintStatus: String
+  EmailStatus: String
+  BillEmail: BillEmail
+  BillEmailCc: BillEmail
+  BillEmailBcc: BillEmail
+  BillAddr: PhysicalAddress
+  ShipAddr: PhysicalAddress
+  ClassRef: ReferenceType
+  DepartmentRef: ReferenceType
+  SalesTermRef: ReferenceType
+  CustomerMemo: CustomerMemo
+  PrivateNote: String
+  TxnTaxDetail: TxnTaxDetail
+  TotalAmt: Decimal
+  HomeTotalAmt: Decimal
+  ApplyTaxAfterDiscount: Boolean
+  GlobalTaxCalculation: GlobalTaxCalculationMethod
+  TransactionLocationType: String
+  Balance: Decimal
+  HomeBalance: Decimal
+  Deposit: Decimal
+  AllowOnlinePayment: Boolean
+  AllowOnlineCreditCardPayment: Boolean
+  AllowOnlineACHPayment: Boolean
+  LinkedTxn: [LinkedTxn]
+  MetaData: ModificationMetaData
+  CustomField: [CustomField]
+  DeliveryInfo: DeliveryInfo
+  InvoiceLink: String
+}
+
+type Item {
+  Id: ID!
+  SyncToken: String!
+  Name: String!
+  Description: String
+  Active: Boolean
+  SubItem: Boolean
+  ParentRef: ReferenceType
+  Level: Int
+  FullyQualifiedName: String
+  Taxable: Boolean
+  SalesTaxIncluded: Boolean
+  UnitPrice: Decimal
+  RatePercent: Decimal
+  Type: ItemType!
+  IncomeAccountRef: ReferenceType
+  ExpenseAccountRef: ReferenceType
+  AssetAccountRef: ReferenceType
+  TrackQtyOnHand: Boolean
+  QtyOnHand: Decimal
+  SalesTaxCodeRef: ReferenceType
+  PurchaseTaxCodeRef: ReferenceType
+  PurchaseCost: Decimal
+  PurchaseDesc: String
+  InvStartDate: Date
+  ClassRef: ReferenceType
+  PrintGroupedItems: Boolean
+  ItemGroupDetail: ItemGroupDetail
+  MetaData: ModificationMetaData
+}
+
+type ItemGroupDetail {
+  ItemGroupLine: [ItemGroupLine]
+}
+
+type ItemGroupLine {
+  Qty: Decimal
+  ItemRef: ReferenceType!
+}
+
+type JournalEntry {
+  Id: ID!
+  SyncToken: String!
+  Line: [Line]!
+  CurrencyRef: CurrencyRef
+  ExchangeRate: Decimal
+  Adjustment: Boolean
+  PrivateNote: String
+  TxnDate: Date
+  DocNumber: String
+  TxnTaxDetail: TxnTaxDetail
+  TotalAmt: Decimal
+  HomeTotalAmt: Decimal
+  GlobalTaxCalculation: GlobalTaxCalculationMethod
+  TransactionLocationType: String
+  MetaData: ModificationMetaData
+}
+
+type JournalEntryLine {
+  Id: ID
+  Description: String
+  Amount: Decimal!
+  DetailType: String!
+  JournalEntryLineDetail: JournalEntryLineDetail
+}
+
+type Payment {
+  Id: ID!
+  SyncToken: String!
+  CustomerRef: ReferenceType!
+  TotalAmt: Decimal!
+  Line: [Line]
+  CurrencyRef: CurrencyRef
+  ExchangeRate: Decimal
+  ARAccountRef: ReferenceType
+  PaymentMethodRef: ReferenceType
+  PaymentRefNum: String
+  TxnDate: Date
+  PrivateNote: String
+  TxnStatus: TransactionStatus
+  CreditCardPayment: CreditCardPayment
+  TransactionLocationType: String
+  MetaData: ModificationMetaData
+  UnappliedAmt: Decimal
+  LinkedTxn: [LinkedTxn]
+}
+
+type CreditCardPayment {
+  CreditChargeInfo: CreditChargeInfo
+  CreditChargeResponse: CreditChargeResponse
+}
+
+type CreditChargeInfo {
+  Amount: Decimal
+  Number: String
+  NameOnAcct: String
+  CcExpiryMonth: Int
+  CcExpiryYear: Int
+  BillAddrStreet: String
+  PostalCode: String
+  CommercialCardCode: String
+  CCTxnMode: String
+  CCTxnType: String
+}
+
+type CreditChargeResponse {
+  Status: String
+  AuthCode: String
+  TxnAuthorizationTime: DateTime
+  CCTransId: String
+}
+
+type PaymentMethod {
+  Id: ID!
+  SyncToken: String!
+  Name: String!
+  Active: Boolean
+  Type: PaymentMethodType
+  MetaData: ModificationMetaData
+}
+
+type Preferences {
+  SalesFormsPrefs: SalesFormsPrefs
+  EmailMessagesPrefs: EmailMessagesPrefs
+  VendorAndPurchasesPrefs: VendorAndPurchasesPrefs
+  TimeTrackingPrefs: TimeTrackingPrefs
+  TaxPrefs: TaxPrefs
+  AccountingInfoPrefs: AccountingInfoPrefs
+  ProductAndServicesPrefs: ProductAndServicesPrefs
+  ReportPrefs: ReportPrefs
+  OtherPrefs: OtherPrefs
+  MetaData: ModificationMetaData
+}
+
+type SalesFormsPrefs {
+  DefaultTerms: ReferenceType
+  DefaultDeliveryMethod: String
+  EmailCopyToCompany: Boolean
+  AllowShipping: Boolean
+  AllowDeposit: Boolean
+  AllowDiscount: Boolean
+  AllowEstimates: Boolean
+  DefaultDiscountAccount: ReferenceType
+  UsingPriceLevels: Boolean
+  AllowServiceDate: Boolean
+  IPNSupportEnabled: Boolean
+  ETransactionEnabledStatus: String
+  ETransactionAttachPDF: Boolean
+  ETransactionPaymentEnabled: Boolean
+}
+
+type EmailMessagesPrefs {
+  InvoiceMessage: EmailMessage
+  EstimateMessage: EmailMessage
+  SalesReceiptMessage: EmailMessage
+  StatementMessage: EmailMessage
+}
+
+type EmailMessage {
+  Subject: String
+  Message: String
+}
+
+type VendorAndPurchasesPrefs {
+  TrackingByCustomer: Boolean
+  BillableExpenseTracking: Boolean
+  DefaultTerms: ReferenceType
+  DefaultMarkup: Decimal
+  POCustomField: [CustomField]
+}
+
+type TimeTrackingPrefs {
+  WorkWeekStartDate: String
+  MarkTimeEntriesBillable: Boolean
+  ShowBillRateToAll: Boolean
+  UseServices: Boolean
+  BillCustomers: Boolean
+}
+
+type TaxPrefs {
+  PartnerTaxEnabled: Boolean
+  PaySalesTax: String
+  TaxGroupingPrefs: String
+  TaxYear: String
+  StartMonthOfFiscalYear: String
+  AccountingMethod: String
+  TaxOn: String
+}
+
+type AccountingInfoPrefs {
+  FirstMonthOfFiscalYear: String
+  UseAccountNumbers: Boolean
+  ClassTrackingPerTxn: Boolean
+  ClassTrackingPerTxnLine: Boolean
+  TrackDepartments: Boolean
+  DepartmentTerminology: String
+  CustomerTerminology: String
+  BookCloseDate: Date
+  TaxYearMonth: String
+}
+
+type ProductAndServicesPrefs {
+  QuantityOnHand: Boolean
+  ForPurchase: Boolean
+  QuantityWithPriceAndRate: Boolean
+  ForSales: Boolean
+  RevenueRecognitionEnabled: Boolean
+  RevenueRecognitionFrequency: String
+  RevenueRecognitionStartingYear: String
+}
+
+type ReportPrefs {
+  ReportBasis: ReportBasis
+  CalcAgingReportFromTxnDate: Boolean
+}
+
+type OtherPrefs {
+  NameValue: [NameValue]
+}
+
+type Purchase {
+  Id: ID!
+  SyncToken: String!
+  AccountRef: ReferenceType!
+  PaymentType: PurchasePaymentType!
+  Line: [Line]!
+  CurrencyRef: CurrencyRef
+  ExchangeRate: Decimal
+  TxnDate: Date
+  PrintStatus: String
+  RemitToAddr: PhysicalAddress
+  TxnSource: String
+  LinkedTxn: [LinkedTxn]
+  GlobalTaxCalculation: GlobalTaxCalculationMethod
+  TotalAmt: Decimal
+  EntityRef: ReferenceType
+  PrivateNote: String
+  Credit: Boolean
+  TxnTaxDetail: TxnTaxDetail
+  DepartmentRef: ReferenceType
+  IncludeInAnnualTPAR: Boolean
+  TransactionLocationType: String
+  RecurDataRef: ReferenceType
+  MetaData: ModificationMetaData
+}
+
+type PurchaseOrder {
+  Id: ID!
+  SyncToken: String!
+  VendorRef: ReferenceType!
+  Line: [Line]!
+  CurrencyRef: CurrencyRef
+  ExchangeRate: Decimal
+  ClassRef: ReferenceType
+  SalesTermRef: ReferenceType
+  LinkedTxn: [LinkedTxn]
+  GlobalTaxCalculation: GlobalTaxCalculationMethod
+  TotalAmt: Decimal
+  TxnDate: Date
+  ShipMethodRef: ReferenceType
+  DueDate: Date
+  EmailStatus: String
+  POStatus: String
+  POEmail: BillEmail
+  VendorAddr: PhysicalAddress
+  ShipTo: ReferenceType
+  ShipAddr: PhysicalAddress
+  Memo: String
+  PrivateNote: String
+  TxnTaxDetail: TxnTaxDetail
+  APAccountRef: ReferenceType
+  DepartmentRef: ReferenceType
+  IncludeInAnnualTPAR: Boolean
+  TransactionLocationType: String
+  RecurDataRef: ReferenceType
+  MetaData: ModificationMetaData
+  CustomField: [CustomField]
+}
+
+type RefundReceipt {
+  Id: ID!
+  SyncToken: String!
+  CustomerRef: ReferenceType!
+  Line: [Line]!
+  CurrencyRef: CurrencyRef
+  ExchangeRate: Decimal
+  DocNumber: String
+  TxnDate: Date
+  PrivateNote: String
+  CustomerMemo: CustomerMemo
+  BillAddr: PhysicalAddress
+  ShipAddr: PhysicalAddress
+  ClassRef: ReferenceType
+  DepartmentRef: ReferenceType
+  SalesTermRef: ReferenceType
+  PrintStatus: String
+  EmailStatus: String
+  BillEmail: BillEmail
+  TxnTaxDetail: TxnTaxDetail
+  TotalAmt: Decimal
+  ApplyTaxAfterDiscount: Boolean
+  GlobalTaxCalculation: GlobalTaxCalculationMethod
+  TransactionLocationType: String
+  DepositToAccountRef: ReferenceType
+  MetaData: ModificationMetaData
+  LinkedTxn: [LinkedTxn]
+  CustomField: [CustomField]
+  DeliveryInfo: DeliveryInfo
+  CheckPayment: BillPaymentCheck
+  CreditCardPayment: CreditCardPayment
+}
+
+type SalesReceipt {
+  Id: ID!
+  SyncToken: String!
+  CustomerRef: ReferenceType!
+  Line: [Line]!
+  CurrencyRef: CurrencyRef
+  ExchangeRate: Decimal
+  DocNumber: String
+  TxnDate: Date
+  PrintStatus: String
+  EmailStatus: String
+  BillEmail: BillEmail
+  BillAddr: PhysicalAddress
+  ShipAddr: PhysicalAddress
+  ShipDate: Date
+  TrackingNum: String
+  ClassRef: ReferenceType
+  DepartmentRef: ReferenceType
+  SalesTermRef: ReferenceType
+  CustomerMemo: CustomerMemo
+  PrivateNote: String
+  TxnTaxDetail: TxnTaxDetail
+  TotalAmt: Decimal
+  ApplyTaxAfterDiscount: Boolean
+  GlobalTaxCalculation: GlobalTaxCalculationMethod
+  TransactionLocationType: String
+  DepositToAccountRef: ReferenceType
+  MetaData: ModificationMetaData
+  LinkedTxn: [LinkedTxn]
+  CustomField: [CustomField]
+  DeliveryInfo: DeliveryInfo
+  CheckPayment: BillPaymentCheck
+  CreditCardPayment: CreditCardPayment
+  PaymentMethodRef: ReferenceType
+  PaymentRefNum: String
+}
+
+type TaxAgency {
+  Id: ID!
+  SyncToken: String!
+  DisplayName: String!
+  Active: Boolean
+  TaxRegistrationNumber: String
+  TaxTrackedOnPurchases: Boolean
+  TaxOnPurchasesAccountRef: ReferenceType
+  TaxTrackedOnSales: Boolean
+  TaxOnSalesAccountRef: ReferenceType
+  LastFileDate: Date
+  MetaData: ModificationMetaData
+}
+
+type TaxCode {
+  Id: ID!
+  SyncToken: String!
+  Name: String!
+  Description: String
+  Active: Boolean
+  Taxable: Boolean
+  PurchaseTaxRateList: TaxRateList
+  SalesTaxRateList: TaxRateList
+  MetaData: ModificationMetaData
+}
+
+type TaxRateList {
+  TaxRateDetail: [TaxRateDetail]
+}
+
+type TaxRateDetail {
+  TaxRateRef: ReferenceType!
+  TaxTypeApplicable: TaxApplicableOnType
+  TaxOrder: Int
+}
+
+type TaxRate {
+  Id: ID!
+  SyncToken: String!
+  Name: String!
+  Description: String
+  Active: Boolean
+  RateValue: Decimal
+  AgencyRef: ReferenceType
+  TaxReturnLineRef: ReferenceType
+  EffectiveTaxRate: [EffectiveTaxRate]
+  SpecialTaxType: String
+  DisplayType: String
+  MetaData: ModificationMetaData
+}
+
+type EffectiveTaxRate {
+  RateValue: Decimal
+  EffectiveDate: Date
+  EndDate: Date
+}
+
+type TaxService {
+  TaxCode: String
+  TaxRateDetails: [TaxRateServiceDetail]
+}
+
+type TaxRateServiceDetail {
+  TaxRateName: String
+  RateValue: Decimal
+  TaxAgencyId: ID
+  TaxApplicableOn: TaxApplicableOnType
+}
+
+type Term {
+  Id: ID!
+  SyncToken: String!
+  Name: String!
+  Active: Boolean
+  Type: String
+  DiscountPercent: Decimal
+  DueDays: Int
+  DiscountDays: Int
+  DayOfMonthDue: Int
+  DueNextMonthDays: Int
+  DiscountDayOfMonth: Int
+  MetaData: ModificationMetaData
+}
+
+type TimeActivity {
+  Id: ID!
+  SyncToken: String!
+  NameOf: EntityType!
+  TxnDate: Date
+  EmployeeRef: ReferenceType
+  VendorRef: ReferenceType
+  CustomerRef: ReferenceType
+  ItemRef: ReferenceType
+  ClassRef: ReferenceType
+  DepartmentRef: ReferenceType
+  PayrollItemRef: ReferenceType
+  BillableStatus: String
+  Taxable: Boolean
+  HourlyRate: Decimal
+  Hours: Int
+  Minutes: Int
+  Seconds: Int
+  StartTime: DateTime
+  EndTime: DateTime
+  BreakHours: Int
+  BreakMinutes: Int
+  Description: String
+  MetaData: ModificationMetaData
+}
+
+type Transfer {
+  Id: ID!
+  SyncToken: String!
+  FromAccountRef: ReferenceType!
+  ToAccountRef: ReferenceType!
+  Amount: Decimal!
+  CurrencyRef: CurrencyRef
+  ExchangeRate: Decimal
+  TxnDate: Date
+  PrivateNote: String
+  TxnTaxDetail: TxnTaxDetail
+  MetaData: ModificationMetaData
+}
+
+type Vendor {
+  Id: ID!
+  SyncToken: String!
+  DisplayName: String!
+  Title: String
+  GivenName: String
+  MiddleName: String
+  FamilyName: String
+  Suffix: String
+  CompanyName: String
+  PrintOnCheckName: String
+  Active: Boolean
+  PrimaryPhone: TelephoneNumber
+  AlternatePhone: TelephoneNumber
+  Mobile: TelephoneNumber
+  Fax: TelephoneNumber
+  PrimaryEmailAddr: EmailAddress
+  WebAddr: WebSiteAddress
+  BillAddr: PhysicalAddress
+  OtherContactInfo: [OtherContactInfo]
+  APAccountRef: ReferenceType
+  TermRef: ReferenceType
+  Balance: Decimal
+  OpenBalanceDate: Date
+  AcctNum: String
+  Vendor1099: Boolean
+  CurrencyRef: CurrencyRef
+  BusinessNumber: String
+  TaxIdentifier: String
+  TaxReportingBasis: String
+  MetaData: ModificationMetaData
+}
+
+type OtherContactInfo {
+  Type: String
+  Telephone: TelephoneNumber
+}
+
+type VendorCredit {
+  Id: ID!
+  SyncToken: String!
+  VendorRef: ReferenceType!
+  Line: [Line]!
+  CurrencyRef: CurrencyRef
+  ExchangeRate: Decimal
+  APAccountRef: ReferenceType
+  LinkedTxn: [LinkedTxn]
+  GlobalTaxCalculation: GlobalTaxCalculationMethod
+  TotalAmt: Decimal
+  TransactionLocationType: String
+  TxnDate: Date
+  PrivateNote: String
+  TxnTaxDetail: TxnTaxDetail
+  DepartmentRef: ReferenceType
+  IncludeInAnnualTPAR: Boolean
+  RecurDataRef: ReferenceType
+  MetaData: ModificationMetaData
+}
+
+# ─────────────────────────────────────────────
+# Report Types
+# ─────────────────────────────────────────────
+
+type ReportColumn {
+  ColTitle: String
+  ColType: String
+  MetaData: [NameValue]
+}
+
+type ReportRow {
+  type: String
+  ColData: [ReportColData]
+  Rows: ReportRows
+  Header: ReportRowHeader
+  Summary: ReportRowSummary
+}
+
+type ReportColData {
+  value: String
+  id: ID
+  href: String
+}
+
+type ReportRows {
+  Row: [ReportRow]
+}
+
+type ReportRowHeader {
+  ColData: [ReportColData]
+}
+
+type ReportRowSummary {
+  ColData: [ReportColData]
+}
+
+type ReportHeader {
+  Time: DateTime
+  ReportName: String
+  ReportBasis: ReportBasis
+  StartPeriod: Date
+  EndPeriod: Date
+  SummarizeColumnsBy: SummarizeColumnsByValue
+  Currency: String
+  Option: [NameValue]
+}
+
+type Report {
+  Header: ReportHeader
+  Columns: ReportColumns
+  Rows: ReportRows
+}
+
+type ReportColumns {
+  Column: [ReportColumn]
+}
+
+type BalanceSheet {
+  Header: ReportHeader
+  Columns: ReportColumns
+  Rows: ReportRows
+}
+
+type ProfitLoss {
+  Header: ReportHeader
+  Columns: ReportColumns
+  Rows: ReportRows
+}
+
+type CashFlow {
+  Header: ReportHeader
+  Columns: ReportColumns
+  Rows: ReportRows
+}
+
+type BudgetSummary {
+  Header: ReportHeader
+  Columns: ReportColumns
+  Rows: ReportRows
+}
+
+type CustomerBalance {
+  Header: ReportHeader
+  Columns: ReportColumns
+  Rows: ReportRows
+}
+
+type VendorBalance {
+  Header: ReportHeader
+  Columns: ReportColumns
+  Rows: ReportRows
+}
+
+# ─────────────────────────────────────────────
+# List / Connection Types
+# ─────────────────────────────────────────────
+
+type AccountList {
+  Account: [Account]
+  startPosition: Int
+  maxResults: Int
+  totalCount: Int
+}
+
+type TransactionList {
+  Transaction: [TransactionListItem]
+  startPosition: Int
+  maxResults: Int
+  totalCount: Int
+}
+
+type TransactionListItem {
+  TxnType: String
+  Id: ID
+  DocNumber: String
+  TxnDate: Date
+  Amount: Decimal
+  EntityRef: ReferenceType
+  AccountRef: ReferenceType
+}
+
+type CustomerList {
+  Customer: [Customer]
+  startPosition: Int
+  maxResults: Int
+  totalCount: Int
+}
+
+type VendorList {
+  Vendor: [Vendor]
+  startPosition: Int
+  maxResults: Int
+  totalCount: Int
+}
+
+type InvoiceList {
+  Invoice: [Invoice]
+  startPosition: Int
+  maxResults: Int
+  totalCount: Int
+}
+
+type ItemList {
+  Item: [Item]
+  startPosition: Int
+  maxResults: Int
+  totalCount: Int
+}
+
+# ─────────────────────────────────────────────
+# Root Types
+# ─────────────────────────────────────────────
+
+type Query {
+  # Accounts
+  account(id: ID!, realmId: ID!): Account
+  accounts(realmId: ID!, startPosition: Int, maxResults: Int): AccountList
+
+  # Transactions
+  bill(id: ID!, realmId: ID!): Bill
+  billPayment(id: ID!, realmId: ID!): BillPayment
+  creditMemo(id: ID!, realmId: ID!): CreditMemo
+  deposit(id: ID!, realmId: ID!): Deposit
+  estimate(id: ID!, realmId: ID!): Estimate
+  invoice(id: ID!, realmId: ID!): Invoice
+  invoices(realmId: ID!, startPosition: Int, maxResults: Int): InvoiceList
+  journalEntry(id: ID!, realmId: ID!): JournalEntry
+  payment(id: ID!, realmId: ID!): Payment
+  purchase(id: ID!, realmId: ID!): Purchase
+  purchaseOrder(id: ID!, realmId: ID!): PurchaseOrder
+  refundReceipt(id: ID!, realmId: ID!): RefundReceipt
+  salesReceipt(id: ID!, realmId: ID!): SalesReceipt
+  transfer(id: ID!, realmId: ID!): Transfer
+  vendorCredit(id: ID!, realmId: ID!): VendorCredit
+
+  # List objects
+  customer(id: ID!, realmId: ID!): Customer
+  customers(realmId: ID!, startPosition: Int, maxResults: Int): CustomerList
+  customerType(id: ID!, realmId: ID!): CustomerType
+  vendor(id: ID!, realmId: ID!): Vendor
+  vendors(realmId: ID!, startPosition: Int, maxResults: Int): VendorList
+  employee(id: ID!, realmId: ID!): Employee
+  item(id: ID!, realmId: ID!): Item
+  items(realmId: ID!, startPosition: Int, maxResults: Int): ItemList
+  budget(id: ID!, realmId: ID!): Budget
+  class(id: ID!, realmId: ID!): Class
+  department(id: ID!, realmId: ID!): Department
+  paymentMethod(id: ID!, realmId: ID!): PaymentMethod
+  taxAgency(id: ID!, realmId: ID!): TaxAgency
+  taxCode(id: ID!, realmId: ID!): TaxCode
+  taxRate(id: ID!, realmId: ID!): TaxRate
+  term(id: ID!, realmId: ID!): Term
+  timeActivity(id: ID!, realmId: ID!): TimeActivity
+
+  # Company
+  companyInfo(realmId: ID!): CompanyInfo
+  preferences(realmId: ID!): Preferences
+  exchangeRate(sourceCurrencyCode: String!, targetCurrencyCode: String!, asOfDate: Date, realmId: ID!): ExchangeRate
+
+  # Reports
+  balanceSheet(realmId: ID!, startDate: Date, endDate: Date, reportBasis: ReportBasis): BalanceSheet
+  profitLoss(realmId: ID!, startDate: Date, endDate: Date, reportBasis: ReportBasis): ProfitLoss
+  cashFlow(realmId: ID!, startDate: Date, endDate: Date, reportBasis: ReportBasis): CashFlow
+  budgetSummary(realmId: ID!, startDate: Date, endDate: Date): BudgetSummary
+  customerBalance(realmId: ID!, asOfDate: Date, reportBasis: ReportBasis): CustomerBalance
+  vendorBalance(realmId: ID!, asOfDate: Date, reportBasis: ReportBasis): VendorBalance
+
+  # Utility
+  transactionList(realmId: ID!, startDate: Date, endDate: Date): TransactionList
+}
+
+type Mutation {
+  # Invoice mutations
+  createInvoice(realmId: ID!, input: InvoiceInput!): Invoice
+  updateInvoice(realmId: ID!, id: ID!, syncToken: String!, input: InvoiceInput!): Invoice
+  voidInvoice(realmId: ID!, id: ID!, syncToken: String!): Invoice
+  deleteInvoice(realmId: ID!, id: ID!, syncToken: String!): DeleteResponse
+  sendInvoice(realmId: ID!, id: ID!, email: String!): Invoice
+
+  # Customer mutations
+  createCustomer(realmId: ID!, input: CustomerInput!): Customer
+  updateCustomer(realmId: ID!, id: ID!, syncToken: String!, input: CustomerInput!): Customer
+
+  # Vendor mutations
+  createVendor(realmId: ID!, input: VendorInput!): Vendor
+  updateVendor(realmId: ID!, id: ID!, syncToken: String!, input: VendorInput!): Vendor
+
+  # Payment mutations
+  createPayment(realmId: ID!, input: PaymentInput!): Payment
+  updatePayment(realmId: ID!, id: ID!, syncToken: String!, input: PaymentInput!): Payment
+  voidPayment(realmId: ID!, id: ID!, syncToken: String!): Payment
+
+  # Bill mutations
+  createBill(realmId: ID!, input: BillInput!): Bill
+  updateBill(realmId: ID!, id: ID!, syncToken: String!, input: BillInput!): Bill
+
+  # Item mutations
+  createItem(realmId: ID!, input: ItemInput!): Item
+  updateItem(realmId: ID!, id: ID!, syncToken: String!, input: ItemInput!): Item
+
+  # Account mutations
+  createAccount(realmId: ID!, input: AccountInput!): Account
+  updateAccount(realmId: ID!, id: ID!, syncToken: String!, input: AccountInput!): Account
+}
+
+type DeleteResponse {
+  Id: ID
+  domain: String
+  status: String
+}
+
+# ─────────────────────────────────────────────
+# Input Types
+# ─────────────────────────────────────────────
+
+input ReferenceInput {
+  value: ID!
+  name: String
+}
+
+input LineInput {
+  Id: ID
+  LineNum: Int
+  Description: String
+  Amount: Decimal!
+  DetailType: LineDetailType!
+}
+
+input PhysicalAddressInput {
+  Line1: String
+  Line2: String
+  City: String
+  CountrySubDivisionCode: String
+  Country: String
+  PostalCode: String
+}
+
+input CustomerInput {
+  DisplayName: String!
+  GivenName: String
+  FamilyName: String
+  CompanyName: String
+  PrimaryEmailAddr: String
+  PrimaryPhone: String
+  BillAddr: PhysicalAddressInput
+  ShipAddr: PhysicalAddressInput
+  Taxable: Boolean
+  CurrencyRef: ReferenceInput
+}
+
+input VendorInput {
+  DisplayName: String!
+  GivenName: String
+  FamilyName: String
+  CompanyName: String
+  PrimaryEmailAddr: String
+  PrimaryPhone: String
+  BillAddr: PhysicalAddressInput
+  Vendor1099: Boolean
+  CurrencyRef: ReferenceInput
+}
+
+input InvoiceInput {
+  CustomerRef: ReferenceInput!
+  Line: [LineInput]!
+  TxnDate: Date
+  DueDate: Date
+  DocNumber: String
+  PrivateNote: String
+  BillEmail: String
+  PrintStatus: String
+  EmailStatus: String
+  SalesTermRef: ReferenceInput
+  ClassRef: ReferenceInput
+  DepartmentRef: ReferenceInput
+  CurrencyRef: ReferenceInput
+  ExchangeRate: Decimal
+}
+
+input PaymentInput {
+  CustomerRef: ReferenceInput!
+  TotalAmt: Decimal!
+  TxnDate: Date
+  PaymentMethodRef: ReferenceInput
+  PaymentRefNum: String
+  PrivateNote: String
+  ARAccountRef: ReferenceInput
+  CurrencyRef: ReferenceInput
+  ExchangeRate: Decimal
+}
+
+input BillInput {
+  VendorRef: ReferenceInput!
+  Line: [LineInput]!
+  TxnDate: Date
+  DueDate: Date
+  DocNumber: String
+  PrivateNote: String
+  APAccountRef: ReferenceInput
+  SalesTermRef: ReferenceInput
+  CurrencyRef: ReferenceInput
+  ExchangeRate: Decimal
+}
+
+input ItemInput {
+  Name: String!
+  Type: ItemType!
+  Description: String
+  Active: Boolean
+  UnitPrice: Decimal
+  IncomeAccountRef: ReferenceInput
+  ExpenseAccountRef: ReferenceInput
+  AssetAccountRef: ReferenceInput
+  TrackQtyOnHand: Boolean
+  QtyOnHand: Decimal
+  InvStartDate: Date
+}
+
+input AccountInput {
+  Name: String!
+  AccountType: String!
+  AccountSubType: AccountSubType
+  AcctNum: String
+  Description: String
+  Active: Boolean
+  CurrencyRef: ReferenceInput
+}
