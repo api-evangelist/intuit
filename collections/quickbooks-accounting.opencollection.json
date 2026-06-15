@@ -1,0 +1,529 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "QuickBooks Online Accounting API",
+    "version": "75"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://appcenter.intuit.com/connect/oauth2",
+      "accessTokenUrl": "https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Invoices",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create an Invoice",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://quickbooks.api.intuit.com/v3/company/{realmId}/invoice",
+            "params": [
+              {
+                "name": "minorversion",
+                "value": "75",
+                "type": "query",
+                "description": "The minor version of the API to use. Minor versions introduce new fields and behaviors without breaking existing integrations. If omitted, the base version behavior is used."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new invoice. At minimum, the request must include a CustomerRef and at least one Line item. The TxnDate defaults to the current date if not specified. QuickBooks automatically calculates totals, tax, and balance fields."
+        },
+        {
+          "info": {
+            "name": "Read an Invoice",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://quickbooks.api.intuit.com/v3/company/{realmId}/invoice/:invoiceId",
+            "params": [
+              {
+                "name": "invoiceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the invoice"
+              },
+              {
+                "name": "minorversion",
+                "value": "75",
+                "type": "query",
+                "description": "The minor version of the API to use. Minor versions introduce new fields and behaviors without breaking existing integrations. If omitted, the base version behavior is used."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of an invoice that has been previously created. Supply the unique invoice ID returned from a previous create or query request."
+        },
+        {
+          "info": {
+            "name": "Update an Invoice",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://quickbooks.api.intuit.com/v3/company/{realmId}/invoice/:invoiceId",
+            "params": [
+              {
+                "name": "invoiceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the invoice"
+              },
+              {
+                "name": "minorversion",
+                "value": "75",
+                "type": "query",
+                "description": "The minor version of the API to use. Minor versions introduce new fields and behaviors without breaking existing integrations. If omitted, the base version behavior is used."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing invoice. A full update replaces the entire entity with the data provided. The request must include the Id and SyncToken fields from the latest read of the entity. Writable fields omitted from the request body are set to NULL."
+        },
+        {
+          "info": {
+            "name": "Send an Invoice via Email",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://quickbooks.api.intuit.com/v3/company/{realmId}/invoice/:invoiceId/send",
+            "params": [
+              {
+                "name": "invoiceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the invoice"
+              },
+              {
+                "name": "sendTo",
+                "value": "example_value",
+                "type": "query",
+                "description": "Override destination email address"
+              },
+              {
+                "name": "minorversion",
+                "value": "75",
+                "type": "query",
+                "description": "The minor version of the API to use. Minor versions introduce new fields and behaviors without breaking existing integrations. If omitted, the base version behavior is used."
+              }
+            ]
+          },
+          "docs": "Sends the specified invoice via email to the address associated with the customer's BillEmail. You can override the destination email by providing a sendTo query parameter."
+        },
+        {
+          "info": {
+            "name": "Void an Invoice",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://quickbooks.api.intuit.com/v3/company/{realmId}/invoice/:invoiceId/void",
+            "params": [
+              {
+                "name": "invoiceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the invoice"
+              },
+              {
+                "name": "operation",
+                "value": "void",
+                "type": "query"
+              },
+              {
+                "name": "minorversion",
+                "value": "75",
+                "type": "query",
+                "description": "The minor version of the API to use. Minor versions introduce new fields and behaviors without breaking existing integrations. If omitted, the base version behavior is used."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Voids the specified invoice. The invoice remains in the system with a voided status. The request body must include the Id and SyncToken of the invoice. The operation=void parameter must also be included."
+        },
+        {
+          "info": {
+            "name": "Get Invoice as Pdf",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://quickbooks.api.intuit.com/v3/company/{realmId}/invoice/:invoiceId/pdf",
+            "params": [
+              {
+                "name": "invoiceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the invoice"
+              },
+              {
+                "name": "minorversion",
+                "value": "75",
+                "type": "query",
+                "description": "The minor version of the API to use. Minor versions introduce new fields and behaviors without breaking existing integrations. If omitted, the base version behavior is used."
+              }
+            ]
+          },
+          "docs": "Returns the specified invoice as a PDF document. The response content type is application/pdf."
+        },
+        {
+          "info": {
+            "name": "Query Entities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://quickbooks.api.intuit.com/v3/company/{realmId}/query",
+            "params": [
+              {
+                "name": "query",
+                "value": "SELECT * FROM Invoice WHERE TotalAmt > '100.00' MAXRESULTS 10",
+                "type": "query",
+                "description": "A SQL-like query string. For example: SELECT * FROM Invoice WHERE TotalAmt > '100.00' ORDERBY TxnDate"
+              },
+              {
+                "name": "minorversion",
+                "value": "75",
+                "type": "query",
+                "description": "The minor version of the API to use. Minor versions introduce new fields and behaviors without breaking existing integrations. If omitted, the base version behavior is used."
+              }
+            ]
+          },
+          "docs": "Executes a SQL-like query against QuickBooks Online entities. The query language supports SELECT, WHERE, ORDER BY, COUNT, STARTPOSITION, and MAXRESULTS clauses. This endpoint is used to query invoices, customers, items, payments, and other entity types."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Customers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://quickbooks.api.intuit.com/v3/company/{realmId}/customer",
+            "params": [
+              {
+                "name": "minorversion",
+                "value": "75",
+                "type": "query",
+                "description": "The minor version of the API to use. Minor versions introduce new fields and behaviors without breaking existing integrations. If omitted, the base version behavior is used."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new customer. At minimum, the request must include a DisplayName that is unique across all Customer, Employee, and Vendor objects. Additional fields such as billing address, email, and phone can be set during creation."
+        },
+        {
+          "info": {
+            "name": "Read a Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://quickbooks.api.intuit.com/v3/company/{realmId}/customer/:customerId",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the customer"
+              },
+              {
+                "name": "minorversion",
+                "value": "75",
+                "type": "query",
+                "description": "The minor version of the API to use. Minor versions introduce new fields and behaviors without breaking existing integrations. If omitted, the base version behavior is used."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a customer that has been previously created. Supply the unique customer ID."
+        },
+        {
+          "info": {
+            "name": "Update a Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://quickbooks.api.intuit.com/v3/company/{realmId}/customer/:customerId",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the customer"
+              },
+              {
+                "name": "sparse",
+                "value": "true",
+                "type": "query",
+                "description": "Set to true for a sparse (partial) update"
+              },
+              {
+                "name": "minorversion",
+                "value": "75",
+                "type": "query",
+                "description": "The minor version of the API to use. Minor versions introduce new fields and behaviors without breaking existing integrations. If omitted, the base version behavior is used."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing customer. The request body must include the Id and SyncToken. A sparse update is supported by including only the fields that need to change along with the sparse=true parameter."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Items",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create an Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://quickbooks.api.intuit.com/v3/company/{realmId}/item",
+            "params": [
+              {
+                "name": "minorversion",
+                "value": "75",
+                "type": "query",
+                "description": "The minor version of the API to use. Minor versions introduce new fields and behaviors without breaking existing integrations. If omitted, the base version behavior is used."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new item (product or service). At minimum, the request must include a Name, Type (Inventory, NonInventory, or Service), and appropriate account references (IncomeAccountRef, ExpenseAccountRef, and AssetAccountRef for inventory items)."
+        },
+        {
+          "info": {
+            "name": "Read an Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://quickbooks.api.intuit.com/v3/company/{realmId}/item/:itemId",
+            "params": [
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the item"
+              },
+              {
+                "name": "minorversion",
+                "value": "75",
+                "type": "query",
+                "description": "The minor version of the API to use. Minor versions introduce new fields and behaviors without breaking existing integrations. If omitted, the base version behavior is used."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of an item that has been previously created. Supply the unique item ID."
+        },
+        {
+          "info": {
+            "name": "Update an Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://quickbooks.api.intuit.com/v3/company/{realmId}/item/:itemId",
+            "params": [
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the item"
+              },
+              {
+                "name": "sparse",
+                "value": "true",
+                "type": "query",
+                "description": "Set to true for a sparse (partial) update"
+              },
+              {
+                "name": "minorversion",
+                "value": "75",
+                "type": "query",
+                "description": "The minor version of the API to use. Minor versions introduce new fields and behaviors without breaking existing integrations. If omitted, the base version behavior is used."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing item. The request must include the Id and SyncToken. Sparse updates are supported."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Payments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a Payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://quickbooks.api.intuit.com/v3/company/{realmId}/payment",
+            "params": [
+              {
+                "name": "minorversion",
+                "value": "75",
+                "type": "query",
+                "description": "The minor version of the API to use. Minor versions introduce new fields and behaviors without breaking existing integrations. If omitted, the base version behavior is used."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new payment received from a customer. The payment can be applied to one or more outstanding invoices using the Line array with LinkedTxn references. If TotalAmt exceeds the sum of linked transactions, the remainder is treated as an unapplied amount."
+        },
+        {
+          "info": {
+            "name": "Read a Payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://quickbooks.api.intuit.com/v3/company/{realmId}/payment/:paymentId",
+            "params": [
+              {
+                "name": "paymentId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the payment"
+              },
+              {
+                "name": "minorversion",
+                "value": "75",
+                "type": "query",
+                "description": "The minor version of the API to use. Minor versions introduce new fields and behaviors without breaking existing integrations. If omitted, the base version behavior is used."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a payment that has been previously created. Supply the unique payment ID."
+        },
+        {
+          "info": {
+            "name": "Update a Payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://quickbooks.api.intuit.com/v3/company/{realmId}/payment/:paymentId",
+            "params": [
+              {
+                "name": "paymentId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the payment"
+              },
+              {
+                "name": "sparse",
+                "value": "true",
+                "type": "query",
+                "description": "Set to true for a sparse (partial) update"
+              },
+              {
+                "name": "minorversion",
+                "value": "75",
+                "type": "query",
+                "description": "The minor version of the API to use. Minor versions introduce new fields and behaviors without breaking existing integrations. If omitted, the base version behavior is used."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing payment. The request must include the Id and SyncToken. Use this to change the linked transactions, payment method, or other details."
+        },
+        {
+          "info": {
+            "name": "Void a Payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://quickbooks.api.intuit.com/v3/company/{realmId}/payment/:paymentId/void",
+            "params": [
+              {
+                "name": "paymentId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the payment"
+              },
+              {
+                "name": "operation",
+                "value": "void",
+                "type": "query"
+              },
+              {
+                "name": "minorversion",
+                "value": "75",
+                "type": "query",
+                "description": "The minor version of the API to use. Minor versions introduce new fields and behaviors without breaking existing integrations. If omitted, the base version behavior is used."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Voids the specified payment. The payment is not deleted but marked as voided. The request body must include the Id and SyncToken. Include the operation=void query parameter."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
