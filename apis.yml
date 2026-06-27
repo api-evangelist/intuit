@@ -44,7 +44,7 @@ apis:
   - url: https://developer.intuit.com/app/developer/qbo/docs/learn/explore-the-quickbooks-online-api/minor-versions
     type: Versioning
   - url: https://developer.intuit.com/app/developer/qbo/docs/develop/sdks-and-samples
-    type: SDK
+    type: SDKs
   - url: https://developer.intuit.com/app/developer/qbo/docs/release-notes/platform-release-notes
     type: ReleaseNotes
   - url: openapi/quickbooks-accounting.yml
@@ -209,61 +209,58 @@ specificationVersion: '0.19'
 common:
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/intuit/overview
-- type: ArazzoWorkflows
-  url: arazzo/
-  workflows:
-  - url: arazzo/intuit-catalog-and-bill-customer-workflow.yml
-    name: Intuit Catalog and Bill Customer
-    summary: Create an item, create a customer, then invoice them for that item.
-  - url: arazzo/intuit-create-and-send-invoice-workflow.yml
-    name: Intuit Create and Send Invoice
-    summary: Create an invoice and email it to the customer in one flow.
-  - url: arazzo/intuit-create-and-void-invoice-workflow.yml
-    name: Intuit Create and Void Invoice
-    summary: Create an invoice and void it, carrying the SyncToken forward.
-  - url: arazzo/intuit-create-customer-and-invoice-workflow.yml
-    name: Intuit Create Customer and Invoice
-    summary: Create a new QuickBooks customer and immediately raise their first invoice.
-  - url: arazzo/intuit-create-item-and-invoice-workflow.yml
-    name: Intuit Create Item and Invoice
-    summary: Create a sellable service item and invoice a customer using that item.
-  - url: arazzo/intuit-customer-invoice-payment-workflow.yml
-    name: Intuit Customer Invoice Payment Cycle
-    summary: Onboard a customer, invoice them, and record their payment end to end.
-  - url: arazzo/intuit-find-or-create-customer-workflow.yml
-    name: Intuit Find or Create Customer
-    summary: Look up a customer by display name and create it only if missing.
-  - url: arazzo/intuit-invoice-and-collect-payment-workflow.yml
-    name: Intuit Invoice and Collect Payment
-    summary: Raise an invoice and record a customer payment applied against it.
-  - url: arazzo/intuit-invoice-to-pdf-workflow.yml
-    name: Intuit Invoice to PDF
-    summary: Create an invoice and retrieve it as a downloadable PDF.
-  - url: arazzo/intuit-pay-customer-open-invoice-workflow.yml
-    name: Intuit Pay Customer Open Invoice
-    summary: Find a customer's oldest open invoice and record a payment against it.
-  - url: arazzo/intuit-query-and-void-invoice-workflow.yml
-    name: Intuit Query and Void Invoice
-    summary: Find an invoice by document number and void it with its SyncToken.
-  - url: arazzo/intuit-remind-overdue-invoice-workflow.yml
-    name: Intuit Remind Overdue Invoice
-    summary: Query for unpaid invoices and email a reminder for the first match.
-  - url: arazzo/intuit-reprice-item-workflow.yml
-    name: Intuit Reprice Item
-    summary: Read an item and apply a new unit price via a sparse update.
-  - url: arazzo/intuit-update-customer-by-query-workflow.yml
-    name: Intuit Update Customer by Query
-    summary: Find a customer by email, read it, and update its contact details.
-  - url: arazzo/intuit-update-payment-amount-workflow.yml
-    name: Intuit Update Payment Amount
-    summary: Read a payment for its SyncToken and update its amount and reference.
-  - url: arazzo/intuit-void-payment-safely-workflow.yml
-    name: Intuit Void Payment Safely
-    summary: Read a payment for its SyncToken and then void it.
+- type: Arazzo
+  url: arazzo/intuit-catalog-and-bill-customer-workflow.yml
+  name: Intuit Catalog and Bill Customer
+- type: Arazzo
+  url: arazzo/intuit-create-and-send-invoice-workflow.yml
+  name: Intuit Create and Send Invoice
+- type: Arazzo
+  url: arazzo/intuit-create-and-void-invoice-workflow.yml
+  name: Intuit Create and Void Invoice
+- type: Arazzo
+  url: arazzo/intuit-create-customer-and-invoice-workflow.yml
+  name: Intuit Create Customer and Invoice
+- type: Arazzo
+  url: arazzo/intuit-create-item-and-invoice-workflow.yml
+  name: Intuit Create Item and Invoice
+- type: Arazzo
+  url: arazzo/intuit-customer-invoice-payment-workflow.yml
+  name: Intuit Customer Invoice Payment Cycle
+- type: Arazzo
+  url: arazzo/intuit-find-or-create-customer-workflow.yml
+  name: Intuit Find or Create Customer
+- type: Arazzo
+  url: arazzo/intuit-invoice-and-collect-payment-workflow.yml
+  name: Intuit Invoice and Collect Payment
+- type: Arazzo
+  url: arazzo/intuit-invoice-to-pdf-workflow.yml
+  name: Intuit Invoice to PDF
+- type: Arazzo
+  url: arazzo/intuit-pay-customer-open-invoice-workflow.yml
+  name: Intuit Pay Customer Open Invoice
+- type: Arazzo
+  url: arazzo/intuit-query-and-void-invoice-workflow.yml
+  name: Intuit Query and Void Invoice
+- type: Arazzo
+  url: arazzo/intuit-remind-overdue-invoice-workflow.yml
+  name: Intuit Remind Overdue Invoice
+- type: Arazzo
+  url: arazzo/intuit-reprice-item-workflow.yml
+  name: Intuit Reprice Item
+- type: Arazzo
+  url: arazzo/intuit-update-customer-by-query-workflow.yml
+  name: Intuit Update Customer by Query
+- type: Arazzo
+  url: arazzo/intuit-update-payment-amount-workflow.yml
+  name: Intuit Update Payment Amount
+- type: Arazzo
+  url: arazzo/intuit-void-payment-safely-workflow.yml
+  name: Intuit Void Payment Safely
 - url: https://developer.intuit.com
   type: DeveloperPortal
 - url: https://developer.intuit.com/app/developer/appcard/overview
-  type: SignUp
+  type: Signup
 - url: https://developer.intuit.com/app/developer/blog
   type: Blog
 - url: https://help.developer.intuit.com
@@ -287,22 +284,22 @@ common:
 - url: https://github.com/intuitdeveloper
   type: GitHubOrganization
 - url: https://github.com/intuit/QuickBooks-V3-PHP-SDK
-  type: SDK
+  type: SDKs
   title: PHP SDK
 - url: https://github.com/intuit/QuickBooks-V3-DotNET-SDK
-  type: SDK
+  type: SDKs
   title: .NET SDK
 - url: https://github.com/intuit/QuickBooks-V3-Java-SDK
-  type: SDK
+  type: SDKs
   title: Java SDK
 - url: https://github.com/intuit/oauth-rubyclient
-  type: SDK
+  type: SDKs
   title: Ruby SDK
 - url: https://developer.intuit.com/app/developer/qbo/docs/develop/sdks-and-samples-collections/nodejs
-  type: SDK
+  type: SDKs
   title: Node.js SDK
 - url: https://developer.intuit.com/app/developer/qbo/docs/develop/sdks-and-samples-collections/python
-  type: SDK
+  type: SDKs
   title: Python SDK
 - url: https://blogs.intuit.com/
   type: ChangeLog
