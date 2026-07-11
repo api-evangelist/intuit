@@ -207,6 +207,8 @@ maintainers:
   url: https://help.developer.intuit.com
 specificationVersion: '0.19'
 common:
+- type: OAuthScopes
+  url: scopes/intuit-scopes.yml
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/intuit/overview
 - type: Arazzo
