@@ -207,6 +207,10 @@ maintainers:
   url: https://help.developer.intuit.com
 specificationVersion: '0.19'
 common:
+- type: DomainSecurity
+  url: security/intuit-domain-security.yml
+- type: Authentication
+  url: authentication/intuit-authentication.yml
 - type: OAuthScopes
   url: scopes/intuit-scopes.yml
 - type: PostmanWorkspace

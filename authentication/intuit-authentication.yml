@@ -1,0 +1,21 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/quickbooks-accounting.yml
+summary:
+  types:
+  - oauth2
+  oauth2_flows:
+  - authorizationCode
+schemes:
+- name: oauth2
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://appcenter.intuit.com/connect/oauth2
+    tokenUrl: https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer
+    scopes: 1
+  description: Intuit uses OAuth 2.0 for authorization. Apps must be registered on the Intuit
+    Developer portal to obtain client credentials. Access tokens have a 60-minute lifetime and
+    can be refreshed using refresh tokens (100-day lifetime).
+  sources:
+  - openapi/quickbooks-accounting.yml
