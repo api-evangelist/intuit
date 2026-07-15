@@ -207,6 +207,8 @@ maintainers:
   url: https://help.developer.intuit.com
 specificationVersion: '0.19'
 common:
+- type: AgenticAccess
+  url: agentic-access/intuit-agentic-access.yml
 - type: DomainSecurity
   url: security/intuit-domain-security.yml
 - type: Authentication
