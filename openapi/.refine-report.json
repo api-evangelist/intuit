@@ -1,0 +1,20 @@
+{
+  "provider": "intuit",
+  "sources": [
+    "intuit-customers-api-openapi.yml",
+    "intuit-invoices-api-openapi.yml",
+    "intuit-items-api-openapi.yml",
+    "intuit-payments-api-openapi.yml"
+  ],
+  "outputs": [
+    "intuit-customers-api-openapi.yml",
+    "intuit-invoices-api-openapi.yml",
+    "intuit-items-api-openapi.yml",
+    "intuit-payments-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
