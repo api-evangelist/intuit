@@ -343,7 +343,7 @@ maintainers:
 - name: Intuit Developer
   email: developer-support@intuit.com
   url: https://help.developer.intuit.com
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 common:
 - type: AgenticAccess
   url: agentic-access/intuit-agentic-access.yml
