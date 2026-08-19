@@ -1,0 +1,1494 @@
+{
+  "item": [
+    {
+      "id": "591b297e-6a88-45a0-a2ee-8e7d8dabffa1",
+      "name": "Items",
+      "description": {
+        "content": "An Item represents a product or service that a company buys, sells, or re-sells, such as products, shipping charges, discount, and sales tax (if applicable). Items are used in line items on invoices and other transaction entities.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "30224eae-4b69-47c5-8c2a-90848d7705ea",
+          "name": "Query Entities",
+          "request": {
+            "name": "Query Entities",
+            "description": {
+              "content": "Executes a SQL-like query against QuickBooks Online entities. The query language supports SELECT, WHERE, ORDER BY, COUNT, STARTPOSITION, and MAXRESULTS clauses. This endpoint is used to query invoices, customers, items, payments, and other entity types.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "query"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "(Required) A SQL-like query string. For example: SELECT * FROM Invoice WHERE TotalAmt > '100.00' ORDERBY TxnDate"
+                },
+                {
+                  "disabled": false,
+                  "key": "minorversion",
+                  "value": "<integer>",
+                  "description": "The minor version of the API to use. Minor versions introduce new fields and behaviors without breaking existing integrations. If omitted, the base version behavior is used."
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                  "type": "any",
+                  "value": "{{realmId}}",
+                  "key": "realmId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6859f8ad-79d2-4b33-be60-2815d74ed9e4",
+              "name": "Query executed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "SELECT * FROM Invoice WHERE TotalAmt > '100.00' MAXRESULTS 10"
+                    },
+                    {
+                      "key": "minorversion",
+                      "value": "75"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                      "type": "any",
+                      "value": "{{realmId}}",
+                      "key": "realmId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"QueryResponse\": {\n    \"startPosition\": 10,\n    \"maxResults\": 10,\n    \"totalCount\": 10,\n    \"Invoice\": [\n      {}\n    ],\n    \"Customer\": [\n      {}\n    ],\n    \"Item\": [\n      {}\n    ],\n    \"Payment\": [\n      {}\n    ]\n  },\n  \"time\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "54eac3f6-f8a4-43c0-a274-698f98627eb7",
+              "name": "The request was invalid. This can occur due to missing required fields, validation errors, or malformed request body.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "SELECT * FROM Invoice WHERE TotalAmt > '100.00' MAXRESULTS 10"
+                    },
+                    {
+                      "key": "minorversion",
+                      "value": "75"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                      "type": "any",
+                      "value": "{{realmId}}",
+                      "key": "realmId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Fault\": {\n    \"Error\": [\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      },\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      }\n    ],\n    \"type\": \"SystemFault\"\n  },\n  \"time\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f1578816-fd54-4bb2-a0a5-0b1e8ab1921b",
+              "name": "Authentication failed. The OAuth 2.0 access token is missing, expired, or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "SELECT * FROM Invoice WHERE TotalAmt > '100.00' MAXRESULTS 10"
+                    },
+                    {
+                      "key": "minorversion",
+                      "value": "75"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                      "type": "any",
+                      "value": "{{realmId}}",
+                      "key": "realmId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Fault\": {\n    \"Error\": [\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      },\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      }\n    ],\n    \"type\": \"SystemFault\"\n  },\n  \"time\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5ca3bd0c-489e-47f2-acb4-abcab58b7f39",
+              "name": "An internal error occurred on the server",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "SELECT * FROM Invoice WHERE TotalAmt > '100.00' MAXRESULTS 10"
+                    },
+                    {
+                      "key": "minorversion",
+                      "value": "75"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                      "type": "any",
+                      "value": "{{realmId}}",
+                      "key": "realmId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Fault\": {\n    \"Error\": [\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      },\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      }\n    ],\n    \"type\": \"SystemFault\"\n  },\n  \"time\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5c621bc5-b596-46ba-a1ff-b66603eec181",
+          "name": "Create an Item",
+          "request": {
+            "name": "Create an Item",
+            "description": {
+              "content": "Creates a new item (product or service). At minimum, the request must include a Name, Type (Inventory, NonInventory, or Service), and appropriate account references (IncomeAccountRef, ExpenseAccountRef, and AssetAccountRef for inventory items).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "item"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "minorversion",
+                  "value": "<integer>",
+                  "description": "The minor version of the API to use. Minor versions introduce new fields and behaviors without breaking existing integrations. If omitted, the base version behavior is used."
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                  "type": "any",
+                  "value": "{{realmId}}",
+                  "key": "realmId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"Name\": \"<string>\",\n  \"Type\": \"<string>\",\n  \"SyncToken\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"PurchaseDesc\": \"<string>\",\n  \"Active\": true,\n  \"Taxable\": \"<boolean>\",\n  \"SalesTaxIncluded\": \"<boolean>\",\n  \"UnitPrice\": \"<number>\",\n  \"PurchaseCost\": \"<number>\",\n  \"QtyOnHand\": \"<number>\",\n  \"InvStartDate\": \"<date>\",\n  \"TrackQtyOnHand\": \"<boolean>\",\n  \"Sku\": \"<string>\",\n  \"IncomeAccountRef\": {\n    \"value\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"ExpenseAccountRef\": {\n    \"value\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"AssetAccountRef\": {\n    \"value\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"ParentRef\": {\n    \"value\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"SubItem\": \"<boolean>\",\n  \"SalesTaxCodeRef\": {\n    \"value\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"PurchaseTaxCodeRef\": {\n    \"value\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"ClassRef\": {\n    \"value\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"sparse\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "85314b79-b43d-4a95-b36c-5d227b4fbb6c",
+              "name": "Item created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "item"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "minorversion",
+                      "value": "75"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                      "type": "any",
+                      "value": "{{realmId}}",
+                      "key": "realmId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Id\": \"abc123\",\n  \"SyncToken\": \"example_value\",\n  \"MetaData\": {\n    \"CreateTime\": \"2026-01-15T10:30:00Z\",\n    \"LastUpdatedTime\": \"2026-01-15T10:30:00Z\"\n  },\n  \"Name\": \"Example Title\",\n  \"Description\": \"A sample description.\",\n  \"PurchaseDesc\": \"example_value\",\n  \"Active\": true,\n  \"FullyQualifiedName\": \"example_value\",\n  \"Taxable\": true,\n  \"SalesTaxIncluded\": true,\n  \"UnitPrice\": 42.5,\n  \"Type\": \"Inventory\",\n  \"PurchaseCost\": 42.5,\n  \"QtyOnHand\": 42.5,\n  \"InvStartDate\": \"2026-01-15\",\n  \"TrackQtyOnHand\": true,\n  \"Sku\": \"example_value\",\n  \"IncomeAccountRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"ExpenseAccountRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"AssetAccountRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"ParentRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"SubItem\": true,\n  \"Level\": 10,\n  \"SalesTaxCodeRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"PurchaseTaxCodeRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"ClassRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"AbatementRate\": 42.5,\n  \"ReverseChargeRate\": 42.5,\n  \"domain\": \"example_value\",\n  \"sparse\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Item\": {\n    \"Id\": \"abc123\",\n    \"SyncToken\": \"example_value\",\n    \"Name\": \"Example Title\",\n    \"Description\": \"A sample description.\",\n    \"PurchaseDesc\": \"example_value\",\n    \"Active\": true,\n    \"FullyQualifiedName\": \"example_value\",\n    \"Taxable\": true,\n    \"SalesTaxIncluded\": true,\n    \"UnitPrice\": 42.5,\n    \"Type\": \"Inventory\",\n    \"PurchaseCost\": 42.5,\n    \"QtyOnHand\": 42.5,\n    \"InvStartDate\": \"2026-01-15\",\n    \"TrackQtyOnHand\": true,\n    \"Sku\": \"example_value\",\n    \"SubItem\": true,\n    \"Level\": 10,\n    \"AbatementRate\": 42.5,\n    \"ReverseChargeRate\": 42.5,\n    \"domain\": \"example_value\",\n    \"sparse\": true\n  },\n  \"time\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "08a908c3-0192-41ab-9f2a-3333510e5fee",
+              "name": "The request was invalid. This can occur due to missing required fields, validation errors, or malformed request body.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "item"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "minorversion",
+                      "value": "75"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                      "type": "any",
+                      "value": "{{realmId}}",
+                      "key": "realmId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Id\": \"abc123\",\n  \"SyncToken\": \"example_value\",\n  \"MetaData\": {\n    \"CreateTime\": \"2026-01-15T10:30:00Z\",\n    \"LastUpdatedTime\": \"2026-01-15T10:30:00Z\"\n  },\n  \"Name\": \"Example Title\",\n  \"Description\": \"A sample description.\",\n  \"PurchaseDesc\": \"example_value\",\n  \"Active\": true,\n  \"FullyQualifiedName\": \"example_value\",\n  \"Taxable\": true,\n  \"SalesTaxIncluded\": true,\n  \"UnitPrice\": 42.5,\n  \"Type\": \"Inventory\",\n  \"PurchaseCost\": 42.5,\n  \"QtyOnHand\": 42.5,\n  \"InvStartDate\": \"2026-01-15\",\n  \"TrackQtyOnHand\": true,\n  \"Sku\": \"example_value\",\n  \"IncomeAccountRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"ExpenseAccountRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"AssetAccountRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"ParentRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"SubItem\": true,\n  \"Level\": 10,\n  \"SalesTaxCodeRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"PurchaseTaxCodeRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"ClassRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"AbatementRate\": 42.5,\n  \"ReverseChargeRate\": 42.5,\n  \"domain\": \"example_value\",\n  \"sparse\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Fault\": {\n    \"Error\": [\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      },\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      }\n    ],\n    \"type\": \"AuthorizationFault\"\n  },\n  \"time\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0e4f9b41-7812-409c-9fbc-30b310e3aabc",
+              "name": "Authentication failed. The OAuth 2.0 access token is missing, expired, or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "item"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "minorversion",
+                      "value": "75"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                      "type": "any",
+                      "value": "{{realmId}}",
+                      "key": "realmId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Id\": \"abc123\",\n  \"SyncToken\": \"example_value\",\n  \"MetaData\": {\n    \"CreateTime\": \"2026-01-15T10:30:00Z\",\n    \"LastUpdatedTime\": \"2026-01-15T10:30:00Z\"\n  },\n  \"Name\": \"Example Title\",\n  \"Description\": \"A sample description.\",\n  \"PurchaseDesc\": \"example_value\",\n  \"Active\": true,\n  \"FullyQualifiedName\": \"example_value\",\n  \"Taxable\": true,\n  \"SalesTaxIncluded\": true,\n  \"UnitPrice\": 42.5,\n  \"Type\": \"Inventory\",\n  \"PurchaseCost\": 42.5,\n  \"QtyOnHand\": 42.5,\n  \"InvStartDate\": \"2026-01-15\",\n  \"TrackQtyOnHand\": true,\n  \"Sku\": \"example_value\",\n  \"IncomeAccountRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"ExpenseAccountRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"AssetAccountRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"ParentRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"SubItem\": true,\n  \"Level\": 10,\n  \"SalesTaxCodeRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"PurchaseTaxCodeRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"ClassRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"AbatementRate\": 42.5,\n  \"ReverseChargeRate\": 42.5,\n  \"domain\": \"example_value\",\n  \"sparse\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Fault\": {\n    \"Error\": [\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      },\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      }\n    ],\n    \"type\": \"AuthorizationFault\"\n  },\n  \"time\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "80c53192-ee4e-43f1-8ac4-020f8c5c306f",
+              "name": "An internal error occurred on the server",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "item"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "minorversion",
+                      "value": "75"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                      "type": "any",
+                      "value": "{{realmId}}",
+                      "key": "realmId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Id\": \"abc123\",\n  \"SyncToken\": \"example_value\",\n  \"MetaData\": {\n    \"CreateTime\": \"2026-01-15T10:30:00Z\",\n    \"LastUpdatedTime\": \"2026-01-15T10:30:00Z\"\n  },\n  \"Name\": \"Example Title\",\n  \"Description\": \"A sample description.\",\n  \"PurchaseDesc\": \"example_value\",\n  \"Active\": true,\n  \"FullyQualifiedName\": \"example_value\",\n  \"Taxable\": true,\n  \"SalesTaxIncluded\": true,\n  \"UnitPrice\": 42.5,\n  \"Type\": \"Inventory\",\n  \"PurchaseCost\": 42.5,\n  \"QtyOnHand\": 42.5,\n  \"InvStartDate\": \"2026-01-15\",\n  \"TrackQtyOnHand\": true,\n  \"Sku\": \"example_value\",\n  \"IncomeAccountRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"ExpenseAccountRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"AssetAccountRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"ParentRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"SubItem\": true,\n  \"Level\": 10,\n  \"SalesTaxCodeRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"PurchaseTaxCodeRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"ClassRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"AbatementRate\": 42.5,\n  \"ReverseChargeRate\": 42.5,\n  \"domain\": \"example_value\",\n  \"sparse\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Fault\": {\n    \"Error\": [\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      },\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      }\n    ],\n    \"type\": \"AuthorizationFault\"\n  },\n  \"time\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bcb3c283-61e3-4ced-a8b7-d4e4ee8b850a",
+          "name": "Read an Item",
+          "request": {
+            "name": "Read an Item",
+            "description": {
+              "content": "Retrieves the details of an item that has been previously created. Supply the unique item ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "item",
+                ":itemId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "minorversion",
+                  "value": "<integer>",
+                  "description": "The minor version of the API to use. Minor versions introduce new fields and behaviors without breaking existing integrations. If omitted, the base version behavior is used."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "itemId",
+                  "description": "(Required) The unique identifier for the item"
+                },
+                {
+                  "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                  "type": "any",
+                  "value": "{{realmId}}",
+                  "key": "realmId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a2f63099-a6f1-43e5-9e91-7e02e5f84388",
+              "name": "Item retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "item",
+                    ":itemId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "minorversion",
+                      "value": "75"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "itemId",
+                      "description": "(Required) The unique identifier for the item"
+                    },
+                    {
+                      "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                      "type": "any",
+                      "value": "{{realmId}}",
+                      "key": "realmId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Item\": {\n    \"Id\": \"abc123\",\n    \"SyncToken\": \"example_value\",\n    \"Name\": \"Example Title\",\n    \"Description\": \"A sample description.\",\n    \"PurchaseDesc\": \"example_value\",\n    \"Active\": true,\n    \"FullyQualifiedName\": \"example_value\",\n    \"Taxable\": true,\n    \"SalesTaxIncluded\": true,\n    \"UnitPrice\": 42.5,\n    \"Type\": \"Inventory\",\n    \"PurchaseCost\": 42.5,\n    \"QtyOnHand\": 42.5,\n    \"InvStartDate\": \"2026-01-15\",\n    \"TrackQtyOnHand\": true,\n    \"Sku\": \"example_value\",\n    \"SubItem\": true,\n    \"Level\": 10,\n    \"AbatementRate\": 42.5,\n    \"ReverseChargeRate\": 42.5,\n    \"domain\": \"example_value\",\n    \"sparse\": true\n  },\n  \"time\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "03c9dcb1-d003-44a7-8ca7-1c4efecc32ff",
+              "name": "The request was invalid. This can occur due to missing required fields, validation errors, or malformed request body.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "item",
+                    ":itemId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "minorversion",
+                      "value": "75"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "itemId",
+                      "description": "(Required) The unique identifier for the item"
+                    },
+                    {
+                      "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                      "type": "any",
+                      "value": "{{realmId}}",
+                      "key": "realmId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Fault\": {\n    \"Error\": [\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      },\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      }\n    ],\n    \"type\": \"AuthorizationFault\"\n  },\n  \"time\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "192171ba-8ba9-4bd6-94a2-2f53d0f5be5f",
+              "name": "Authentication failed. The OAuth 2.0 access token is missing, expired, or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "item",
+                    ":itemId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "minorversion",
+                      "value": "75"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "itemId",
+                      "description": "(Required) The unique identifier for the item"
+                    },
+                    {
+                      "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                      "type": "any",
+                      "value": "{{realmId}}",
+                      "key": "realmId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Fault\": {\n    \"Error\": [\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      },\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      }\n    ],\n    \"type\": \"AuthorizationFault\"\n  },\n  \"time\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cf1aa889-c74c-4d89-b373-3ca8f3030030",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "item",
+                    ":itemId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "minorversion",
+                      "value": "75"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "itemId",
+                      "description": "(Required) The unique identifier for the item"
+                    },
+                    {
+                      "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                      "type": "any",
+                      "value": "{{realmId}}",
+                      "key": "realmId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Fault\": {\n    \"Error\": [\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      },\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      }\n    ],\n    \"type\": \"SystemFault\"\n  },\n  \"time\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3ec380da-c13f-472e-997b-d7858a6d8ee7",
+              "name": "An internal error occurred on the server",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "item",
+                    ":itemId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "minorversion",
+                      "value": "75"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "itemId",
+                      "description": "(Required) The unique identifier for the item"
+                    },
+                    {
+                      "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                      "type": "any",
+                      "value": "{{realmId}}",
+                      "key": "realmId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Fault\": {\n    \"Error\": [\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      },\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      }\n    ],\n    \"type\": \"AuthorizationFault\"\n  },\n  \"time\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cd080f2a-9668-492e-9c1c-0ac60dfe5bc0",
+          "name": "Update an Item",
+          "request": {
+            "name": "Update an Item",
+            "description": {
+              "content": "Updates an existing item. The request must include the Id and SyncToken. Sparse updates are supported.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "item",
+                ":itemId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sparse",
+                  "value": "<boolean>",
+                  "description": "Set to true for a sparse (partial) update"
+                },
+                {
+                  "disabled": false,
+                  "key": "minorversion",
+                  "value": "<integer>",
+                  "description": "The minor version of the API to use. Minor versions introduce new fields and behaviors without breaking existing integrations. If omitted, the base version behavior is used."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "itemId",
+                  "description": "(Required) The unique identifier for the item"
+                },
+                {
+                  "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                  "type": "any",
+                  "value": "{{realmId}}",
+                  "key": "realmId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"Name\": \"<string>\",\n  \"Type\": \"<string>\",\n  \"SyncToken\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"PurchaseDesc\": \"<string>\",\n  \"Active\": true,\n  \"Taxable\": \"<boolean>\",\n  \"SalesTaxIncluded\": \"<boolean>\",\n  \"UnitPrice\": \"<number>\",\n  \"PurchaseCost\": \"<number>\",\n  \"QtyOnHand\": \"<number>\",\n  \"InvStartDate\": \"<date>\",\n  \"TrackQtyOnHand\": \"<boolean>\",\n  \"Sku\": \"<string>\",\n  \"IncomeAccountRef\": {\n    \"value\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"ExpenseAccountRef\": {\n    \"value\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"AssetAccountRef\": {\n    \"value\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"ParentRef\": {\n    \"value\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"SubItem\": \"<boolean>\",\n  \"SalesTaxCodeRef\": {\n    \"value\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"PurchaseTaxCodeRef\": {\n    \"value\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"ClassRef\": {\n    \"value\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"sparse\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "feefcdb8-4dd5-4d27-9453-1dbbd042217e",
+              "name": "Item updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "item",
+                    ":itemId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sparse",
+                      "value": "true"
+                    },
+                    {
+                      "key": "minorversion",
+                      "value": "75"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "itemId",
+                      "description": "(Required) The unique identifier for the item"
+                    },
+                    {
+                      "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                      "type": "any",
+                      "value": "{{realmId}}",
+                      "key": "realmId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Id\": \"abc123\",\n  \"SyncToken\": \"example_value\",\n  \"MetaData\": {\n    \"CreateTime\": \"2026-01-15T10:30:00Z\",\n    \"LastUpdatedTime\": \"2026-01-15T10:30:00Z\"\n  },\n  \"Name\": \"Example Title\",\n  \"Description\": \"A sample description.\",\n  \"PurchaseDesc\": \"example_value\",\n  \"Active\": true,\n  \"FullyQualifiedName\": \"example_value\",\n  \"Taxable\": true,\n  \"SalesTaxIncluded\": true,\n  \"UnitPrice\": 42.5,\n  \"Type\": \"Inventory\",\n  \"PurchaseCost\": 42.5,\n  \"QtyOnHand\": 42.5,\n  \"InvStartDate\": \"2026-01-15\",\n  \"TrackQtyOnHand\": true,\n  \"Sku\": \"example_value\",\n  \"IncomeAccountRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"ExpenseAccountRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"AssetAccountRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"ParentRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"SubItem\": true,\n  \"Level\": 10,\n  \"SalesTaxCodeRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"PurchaseTaxCodeRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"ClassRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"AbatementRate\": 42.5,\n  \"ReverseChargeRate\": 42.5,\n  \"domain\": \"example_value\",\n  \"sparse\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Item\": {\n    \"Id\": \"abc123\",\n    \"SyncToken\": \"example_value\",\n    \"Name\": \"Example Title\",\n    \"Description\": \"A sample description.\",\n    \"PurchaseDesc\": \"example_value\",\n    \"Active\": true,\n    \"FullyQualifiedName\": \"example_value\",\n    \"Taxable\": true,\n    \"SalesTaxIncluded\": true,\n    \"UnitPrice\": 42.5,\n    \"Type\": \"Inventory\",\n    \"PurchaseCost\": 42.5,\n    \"QtyOnHand\": 42.5,\n    \"InvStartDate\": \"2026-01-15\",\n    \"TrackQtyOnHand\": true,\n    \"Sku\": \"example_value\",\n    \"SubItem\": true,\n    \"Level\": 10,\n    \"AbatementRate\": 42.5,\n    \"ReverseChargeRate\": 42.5,\n    \"domain\": \"example_value\",\n    \"sparse\": true\n  },\n  \"time\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "311144e1-3c80-4932-aa3c-9e36c2379b7b",
+              "name": "The request was invalid. This can occur due to missing required fields, validation errors, or malformed request body.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "item",
+                    ":itemId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sparse",
+                      "value": "true"
+                    },
+                    {
+                      "key": "minorversion",
+                      "value": "75"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "itemId",
+                      "description": "(Required) The unique identifier for the item"
+                    },
+                    {
+                      "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                      "type": "any",
+                      "value": "{{realmId}}",
+                      "key": "realmId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Id\": \"abc123\",\n  \"SyncToken\": \"example_value\",\n  \"MetaData\": {\n    \"CreateTime\": \"2026-01-15T10:30:00Z\",\n    \"LastUpdatedTime\": \"2026-01-15T10:30:00Z\"\n  },\n  \"Name\": \"Example Title\",\n  \"Description\": \"A sample description.\",\n  \"PurchaseDesc\": \"example_value\",\n  \"Active\": true,\n  \"FullyQualifiedName\": \"example_value\",\n  \"Taxable\": true,\n  \"SalesTaxIncluded\": true,\n  \"UnitPrice\": 42.5,\n  \"Type\": \"Inventory\",\n  \"PurchaseCost\": 42.5,\n  \"QtyOnHand\": 42.5,\n  \"InvStartDate\": \"2026-01-15\",\n  \"TrackQtyOnHand\": true,\n  \"Sku\": \"example_value\",\n  \"IncomeAccountRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"ExpenseAccountRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"AssetAccountRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"ParentRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"SubItem\": true,\n  \"Level\": 10,\n  \"SalesTaxCodeRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"PurchaseTaxCodeRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"ClassRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"AbatementRate\": 42.5,\n  \"ReverseChargeRate\": 42.5,\n  \"domain\": \"example_value\",\n  \"sparse\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Fault\": {\n    \"Error\": [\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      },\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      }\n    ],\n    \"type\": \"AuthorizationFault\"\n  },\n  \"time\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9b10cd35-8950-4fc9-b9ac-70b31e51e777",
+              "name": "Authentication failed. The OAuth 2.0 access token is missing, expired, or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "item",
+                    ":itemId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sparse",
+                      "value": "true"
+                    },
+                    {
+                      "key": "minorversion",
+                      "value": "75"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "itemId",
+                      "description": "(Required) The unique identifier for the item"
+                    },
+                    {
+                      "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                      "type": "any",
+                      "value": "{{realmId}}",
+                      "key": "realmId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Id\": \"abc123\",\n  \"SyncToken\": \"example_value\",\n  \"MetaData\": {\n    \"CreateTime\": \"2026-01-15T10:30:00Z\",\n    \"LastUpdatedTime\": \"2026-01-15T10:30:00Z\"\n  },\n  \"Name\": \"Example Title\",\n  \"Description\": \"A sample description.\",\n  \"PurchaseDesc\": \"example_value\",\n  \"Active\": true,\n  \"FullyQualifiedName\": \"example_value\",\n  \"Taxable\": true,\n  \"SalesTaxIncluded\": true,\n  \"UnitPrice\": 42.5,\n  \"Type\": \"Inventory\",\n  \"PurchaseCost\": 42.5,\n  \"QtyOnHand\": 42.5,\n  \"InvStartDate\": \"2026-01-15\",\n  \"TrackQtyOnHand\": true,\n  \"Sku\": \"example_value\",\n  \"IncomeAccountRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"ExpenseAccountRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"AssetAccountRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"ParentRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"SubItem\": true,\n  \"Level\": 10,\n  \"SalesTaxCodeRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"PurchaseTaxCodeRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"ClassRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"AbatementRate\": 42.5,\n  \"ReverseChargeRate\": 42.5,\n  \"domain\": \"example_value\",\n  \"sparse\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Fault\": {\n    \"Error\": [\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      },\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      }\n    ],\n    \"type\": \"AuthorizationFault\"\n  },\n  \"time\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "adbbc4a2-a59a-4039-9e23-172ce4954959",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "item",
+                    ":itemId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sparse",
+                      "value": "true"
+                    },
+                    {
+                      "key": "minorversion",
+                      "value": "75"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "itemId",
+                      "description": "(Required) The unique identifier for the item"
+                    },
+                    {
+                      "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                      "type": "any",
+                      "value": "{{realmId}}",
+                      "key": "realmId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Id\": \"abc123\",\n  \"SyncToken\": \"example_value\",\n  \"MetaData\": {\n    \"CreateTime\": \"2026-01-15T10:30:00Z\",\n    \"LastUpdatedTime\": \"2026-01-15T10:30:00Z\"\n  },\n  \"Name\": \"Example Title\",\n  \"Description\": \"A sample description.\",\n  \"PurchaseDesc\": \"example_value\",\n  \"Active\": true,\n  \"FullyQualifiedName\": \"example_value\",\n  \"Taxable\": true,\n  \"SalesTaxIncluded\": true,\n  \"UnitPrice\": 42.5,\n  \"Type\": \"Inventory\",\n  \"PurchaseCost\": 42.5,\n  \"QtyOnHand\": 42.5,\n  \"InvStartDate\": \"2026-01-15\",\n  \"TrackQtyOnHand\": true,\n  \"Sku\": \"example_value\",\n  \"IncomeAccountRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"ExpenseAccountRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"AssetAccountRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"ParentRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"SubItem\": true,\n  \"Level\": 10,\n  \"SalesTaxCodeRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"PurchaseTaxCodeRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"ClassRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"AbatementRate\": 42.5,\n  \"ReverseChargeRate\": 42.5,\n  \"domain\": \"example_value\",\n  \"sparse\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Fault\": {\n    \"Error\": [\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      },\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      }\n    ],\n    \"type\": \"AuthorizationFault\"\n  },\n  \"time\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "78568378-6afd-48aa-958c-428ca4b48d45",
+              "name": "An internal error occurred on the server",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "item",
+                    ":itemId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sparse",
+                      "value": "true"
+                    },
+                    {
+                      "key": "minorversion",
+                      "value": "75"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "itemId",
+                      "description": "(Required) The unique identifier for the item"
+                    },
+                    {
+                      "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                      "type": "any",
+                      "value": "{{realmId}}",
+                      "key": "realmId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Id\": \"abc123\",\n  \"SyncToken\": \"example_value\",\n  \"MetaData\": {\n    \"CreateTime\": \"2026-01-15T10:30:00Z\",\n    \"LastUpdatedTime\": \"2026-01-15T10:30:00Z\"\n  },\n  \"Name\": \"Example Title\",\n  \"Description\": \"A sample description.\",\n  \"PurchaseDesc\": \"example_value\",\n  \"Active\": true,\n  \"FullyQualifiedName\": \"example_value\",\n  \"Taxable\": true,\n  \"SalesTaxIncluded\": true,\n  \"UnitPrice\": 42.5,\n  \"Type\": \"Inventory\",\n  \"PurchaseCost\": 42.5,\n  \"QtyOnHand\": 42.5,\n  \"InvStartDate\": \"2026-01-15\",\n  \"TrackQtyOnHand\": true,\n  \"Sku\": \"example_value\",\n  \"IncomeAccountRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"ExpenseAccountRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"AssetAccountRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"ParentRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"SubItem\": true,\n  \"Level\": 10,\n  \"SalesTaxCodeRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"PurchaseTaxCodeRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"ClassRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"AbatementRate\": 42.5,\n  \"ReverseChargeRate\": 42.5,\n  \"domain\": \"example_value\",\n  \"sparse\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Fault\": {\n    \"Error\": [\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      },\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      }\n    ],\n    \"type\": \"AuthorizationFault\"\n  },\n  \"time\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "1234567890",
+      "key": "realmId"
+    },
+    {
+      "type": "string",
+      "value": "https://quickbooks.api.intuit.com/v3/company/{{realmId}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "com.intuit.quickbooks.accounting"
+      },
+      {
+        "key": "redirect_uri",
+        "value": "https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://appcenter.intuit.com/connect/oauth2"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "24ea7da4-5429-47d8-952d-d66f11bf66ea",
+    "name": "QuickBooks Online Accounting Customers Items API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The QuickBooks Online Accounting API is a RESTful API that provides programmatic access to QuickBooks Online company data. This specification covers core entities including invoices, customers, items, and payments, enabling developers to automate accounting workflows, synchronize financial data, and extend QuickBooks Online functionality for small and mid-sized businesses. All API calls require OAuth 2.0 authorization and a valid company ID (realmId). Responses follow the Intuit entity response envelope pattern, and the API supports minor version parameters to access newer fields and behaviors without breaking existing integrations.\n\nContact Support:\n Name: Intuit Developer Support\n Email: developer-support@intuit.com",
+      "type": "text/plain"
+    }
+  }
+}

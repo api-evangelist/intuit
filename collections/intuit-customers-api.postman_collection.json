@@ -1,0 +1,1494 @@
+{
+  "item": [
+    {
+      "id": "a8574806-dadb-47cb-a7af-4ad4432e0b2e",
+      "name": "Customers",
+      "description": {
+        "content": "A Customer object represents a consumer of the service or product that the business offers. The Customer entity allows you to categorize customers into jobs and sub-customers.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "84822338-ce24-4435-a8d2-83a14604bde4",
+          "name": "Query Entities",
+          "request": {
+            "name": "Query Entities",
+            "description": {
+              "content": "Executes a SQL-like query against QuickBooks Online entities. The query language supports SELECT, WHERE, ORDER BY, COUNT, STARTPOSITION, and MAXRESULTS clauses. This endpoint is used to query invoices, customers, items, payments, and other entity types.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "query"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "(Required) A SQL-like query string. For example: SELECT * FROM Invoice WHERE TotalAmt > '100.00' ORDERBY TxnDate"
+                },
+                {
+                  "disabled": false,
+                  "key": "minorversion",
+                  "value": "<integer>",
+                  "description": "The minor version of the API to use. Minor versions introduce new fields and behaviors without breaking existing integrations. If omitted, the base version behavior is used."
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                  "type": "any",
+                  "value": "{{realmId}}",
+                  "key": "realmId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "16a7a33d-e3cc-4ac0-b6d1-0a01230a4a19",
+              "name": "Query executed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "SELECT * FROM Invoice WHERE TotalAmt > '100.00' MAXRESULTS 10"
+                    },
+                    {
+                      "key": "minorversion",
+                      "value": "75"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                      "type": "any",
+                      "value": "{{realmId}}",
+                      "key": "realmId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"QueryResponse\": {\n    \"startPosition\": 10,\n    \"maxResults\": 10,\n    \"totalCount\": 10,\n    \"Invoice\": [\n      {}\n    ],\n    \"Customer\": [\n      {}\n    ],\n    \"Item\": [\n      {}\n    ],\n    \"Payment\": [\n      {}\n    ]\n  },\n  \"time\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4d2d4a23-f558-469b-8a4d-2621d8aa4904",
+              "name": "The request was invalid. This can occur due to missing required fields, validation errors, or malformed request body.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "SELECT * FROM Invoice WHERE TotalAmt > '100.00' MAXRESULTS 10"
+                    },
+                    {
+                      "key": "minorversion",
+                      "value": "75"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                      "type": "any",
+                      "value": "{{realmId}}",
+                      "key": "realmId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Fault\": {\n    \"Error\": [\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      },\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      }\n    ],\n    \"type\": \"AuthenticationFault\"\n  },\n  \"time\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2391bb9f-7b0f-4690-acc0-8db44357da21",
+              "name": "Authentication failed. The OAuth 2.0 access token is missing, expired, or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "SELECT * FROM Invoice WHERE TotalAmt > '100.00' MAXRESULTS 10"
+                    },
+                    {
+                      "key": "minorversion",
+                      "value": "75"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                      "type": "any",
+                      "value": "{{realmId}}",
+                      "key": "realmId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Fault\": {\n    \"Error\": [\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      },\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      }\n    ],\n    \"type\": \"AuthenticationFault\"\n  },\n  \"time\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "df7a3823-cb50-4e0e-acbe-e5b0fdbcd70d",
+              "name": "An internal error occurred on the server",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "SELECT * FROM Invoice WHERE TotalAmt > '100.00' MAXRESULTS 10"
+                    },
+                    {
+                      "key": "minorversion",
+                      "value": "75"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                      "type": "any",
+                      "value": "{{realmId}}",
+                      "key": "realmId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Fault\": {\n    \"Error\": [\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      },\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      }\n    ],\n    \"type\": \"AuthenticationFault\"\n  },\n  \"time\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "975b65a9-3fd3-4b26-bac1-f12d89186acb",
+          "name": "Create a Customer",
+          "request": {
+            "name": "Create a Customer",
+            "description": {
+              "content": "Creates a new customer. At minimum, the request must include a DisplayName that is unique across all Customer, Employee, and Vendor objects. Additional fields such as billing address, email, and phone can be set during creation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customer"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "minorversion",
+                  "value": "<integer>",
+                  "description": "The minor version of the API to use. Minor versions introduce new fields and behaviors without breaking existing integrations. If omitted, the base version behavior is used."
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                  "type": "any",
+                  "value": "{{realmId}}",
+                  "key": "realmId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"DisplayName\": \"<string>\",\n  \"SyncToken\": \"<string>\",\n  \"Title\": \"<string>\",\n  \"GivenName\": \"<string>\",\n  \"MiddleName\": \"<string>\",\n  \"FamilyName\": \"<string>\",\n  \"Suffix\": \"<string>\",\n  \"CompanyName\": \"<string>\",\n  \"PrintOnCheckName\": \"<string>\",\n  \"Active\": true,\n  \"Taxable\": \"<boolean>\",\n  \"PrimaryEmailAddr\": {\n    \"Address\": \"<email>\"\n  },\n  \"PrimaryPhone\": {\n    \"FreeFormNumber\": \"<string>\"\n  },\n  \"Mobile\": {\n    \"FreeFormNumber\": \"<string>\"\n  },\n  \"Fax\": {\n    \"FreeFormNumber\": \"<string>\"\n  },\n  \"AlternatePhone\": {\n    \"FreeFormNumber\": \"<string>\"\n  },\n  \"BillAddr\": {\n    \"Id\": \"<string>\",\n    \"Line1\": \"<string>\",\n    \"Line2\": \"<string>\",\n    \"Line3\": \"<string>\",\n    \"Line4\": \"<string>\",\n    \"Line5\": \"<string>\",\n    \"City\": \"<string>\",\n    \"CountrySubDivisionCode\": \"<string>\",\n    \"PostalCode\": \"<string>\",\n    \"Country\": \"<string>\",\n    \"Lat\": \"<string>\",\n    \"Long\": \"<string>\"\n  },\n  \"ShipAddr\": {\n    \"Id\": \"<string>\",\n    \"Line1\": \"<string>\",\n    \"Line2\": \"<string>\",\n    \"Line3\": \"<string>\",\n    \"Line4\": \"<string>\",\n    \"Line5\": \"<string>\",\n    \"City\": \"<string>\",\n    \"CountrySubDivisionCode\": \"<string>\",\n    \"PostalCode\": \"<string>\",\n    \"Country\": \"<string>\",\n    \"Lat\": \"<string>\",\n    \"Long\": \"<string>\"\n  },\n  \"Notes\": \"<string>\",\n  \"Job\": \"<boolean>\",\n  \"ParentRef\": {\n    \"value\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"CurrencyRef\": {\n    \"value\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"PreferredDeliveryMethod\": \"<string>\",\n  \"SalesTermRef\": {\n    \"value\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"PaymentMethodRef\": {\n    \"value\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"TaxExemptionReasonId\": \"<string>\",\n  \"WebAddr\": {\n    \"URI\": \"<uri>\"\n  },\n  \"sparse\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "de9ad91a-9e72-4294-b256-58d71fe51c43",
+              "name": "Customer created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "minorversion",
+                      "value": "75"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                      "type": "any",
+                      "value": "{{realmId}}",
+                      "key": "realmId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Id\": \"abc123\",\n  \"SyncToken\": \"example_value\",\n  \"MetaData\": {\n    \"CreateTime\": \"2026-01-15T10:30:00Z\",\n    \"LastUpdatedTime\": \"2026-01-15T10:30:00Z\"\n  },\n  \"Title\": \"Example Title\",\n  \"GivenName\": \"example_value\",\n  \"MiddleName\": \"example_value\",\n  \"FamilyName\": \"example_value\",\n  \"Suffix\": \"example_value\",\n  \"DisplayName\": \"example_value\",\n  \"CompanyName\": \"example_value\",\n  \"PrintOnCheckName\": \"example_value\",\n  \"Active\": true,\n  \"Taxable\": true,\n  \"PrimaryEmailAddr\": {\n    \"Address\": \"example_value\"\n  },\n  \"PrimaryPhone\": {\n    \"FreeFormNumber\": \"example_value\"\n  },\n  \"Mobile\": {\n    \"FreeFormNumber\": \"example_value\"\n  },\n  \"Fax\": {\n    \"FreeFormNumber\": \"example_value\"\n  },\n  \"AlternatePhone\": {\n    \"FreeFormNumber\": \"example_value\"\n  },\n  \"BillAddr\": {\n    \"Id\": \"abc123\",\n    \"Line1\": \"example_value\",\n    \"Line2\": \"example_value\",\n    \"Line3\": \"example_value\",\n    \"Line4\": \"example_value\",\n    \"Line5\": \"example_value\",\n    \"City\": \"example_value\",\n    \"CountrySubDivisionCode\": \"example_value\",\n    \"PostalCode\": \"example_value\",\n    \"Country\": \"example_value\",\n    \"Lat\": \"example_value\",\n    \"Long\": \"example_value\"\n  },\n  \"ShipAddr\": {\n    \"Id\": \"abc123\",\n    \"Line1\": \"example_value\",\n    \"Line2\": \"example_value\",\n    \"Line3\": \"example_value\",\n    \"Line4\": \"example_value\",\n    \"Line5\": \"example_value\",\n    \"City\": \"example_value\",\n    \"CountrySubDivisionCode\": \"example_value\",\n    \"PostalCode\": \"example_value\",\n    \"Country\": \"example_value\",\n    \"Lat\": \"example_value\",\n    \"Long\": \"example_value\"\n  },\n  \"Notes\": \"example_value\",\n  \"Job\": true,\n  \"ParentRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"Level\": 10,\n  \"FullyQualifiedName\": \"example_value\",\n  \"CurrencyRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"PreferredDeliveryMethod\": \"Print\",\n  \"Balance\": 42.5,\n  \"BalanceWithJobs\": 42.5,\n  \"SalesTermRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"PaymentMethodRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"TaxExemptionReasonId\": \"500123\",\n  \"WebAddr\": {\n    \"URI\": \"https://www.example.com\"\n  },\n  \"domain\": \"example_value\",\n  \"sparse\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Customer\": {\n    \"Id\": \"abc123\",\n    \"SyncToken\": \"example_value\",\n    \"Title\": \"Example Title\",\n    \"GivenName\": \"example_value\",\n    \"MiddleName\": \"example_value\",\n    \"FamilyName\": \"example_value\",\n    \"Suffix\": \"example_value\",\n    \"DisplayName\": \"example_value\",\n    \"CompanyName\": \"example_value\",\n    \"PrintOnCheckName\": \"example_value\",\n    \"Active\": true,\n    \"Taxable\": true,\n    \"Notes\": \"example_value\",\n    \"Job\": true,\n    \"Level\": 10,\n    \"FullyQualifiedName\": \"example_value\",\n    \"PreferredDeliveryMethod\": \"Print\",\n    \"Balance\": 42.5,\n    \"BalanceWithJobs\": 42.5,\n    \"TaxExemptionReasonId\": \"500123\",\n    \"WebAddr\": {\n      \"URI\": \"https://www.example.com\"\n    },\n    \"domain\": \"example_value\",\n    \"sparse\": true\n  },\n  \"time\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f49bb2d2-0359-43cd-82e6-8bfc5bf859e1",
+              "name": "The request was invalid. This can occur due to missing required fields, validation errors, or malformed request body.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "minorversion",
+                      "value": "75"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                      "type": "any",
+                      "value": "{{realmId}}",
+                      "key": "realmId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Id\": \"abc123\",\n  \"SyncToken\": \"example_value\",\n  \"MetaData\": {\n    \"CreateTime\": \"2026-01-15T10:30:00Z\",\n    \"LastUpdatedTime\": \"2026-01-15T10:30:00Z\"\n  },\n  \"Title\": \"Example Title\",\n  \"GivenName\": \"example_value\",\n  \"MiddleName\": \"example_value\",\n  \"FamilyName\": \"example_value\",\n  \"Suffix\": \"example_value\",\n  \"DisplayName\": \"example_value\",\n  \"CompanyName\": \"example_value\",\n  \"PrintOnCheckName\": \"example_value\",\n  \"Active\": true,\n  \"Taxable\": true,\n  \"PrimaryEmailAddr\": {\n    \"Address\": \"example_value\"\n  },\n  \"PrimaryPhone\": {\n    \"FreeFormNumber\": \"example_value\"\n  },\n  \"Mobile\": {\n    \"FreeFormNumber\": \"example_value\"\n  },\n  \"Fax\": {\n    \"FreeFormNumber\": \"example_value\"\n  },\n  \"AlternatePhone\": {\n    \"FreeFormNumber\": \"example_value\"\n  },\n  \"BillAddr\": {\n    \"Id\": \"abc123\",\n    \"Line1\": \"example_value\",\n    \"Line2\": \"example_value\",\n    \"Line3\": \"example_value\",\n    \"Line4\": \"example_value\",\n    \"Line5\": \"example_value\",\n    \"City\": \"example_value\",\n    \"CountrySubDivisionCode\": \"example_value\",\n    \"PostalCode\": \"example_value\",\n    \"Country\": \"example_value\",\n    \"Lat\": \"example_value\",\n    \"Long\": \"example_value\"\n  },\n  \"ShipAddr\": {\n    \"Id\": \"abc123\",\n    \"Line1\": \"example_value\",\n    \"Line2\": \"example_value\",\n    \"Line3\": \"example_value\",\n    \"Line4\": \"example_value\",\n    \"Line5\": \"example_value\",\n    \"City\": \"example_value\",\n    \"CountrySubDivisionCode\": \"example_value\",\n    \"PostalCode\": \"example_value\",\n    \"Country\": \"example_value\",\n    \"Lat\": \"example_value\",\n    \"Long\": \"example_value\"\n  },\n  \"Notes\": \"example_value\",\n  \"Job\": true,\n  \"ParentRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"Level\": 10,\n  \"FullyQualifiedName\": \"example_value\",\n  \"CurrencyRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"PreferredDeliveryMethod\": \"Print\",\n  \"Balance\": 42.5,\n  \"BalanceWithJobs\": 42.5,\n  \"SalesTermRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"PaymentMethodRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"TaxExemptionReasonId\": \"500123\",\n  \"WebAddr\": {\n    \"URI\": \"https://www.example.com\"\n  },\n  \"domain\": \"example_value\",\n  \"sparse\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Fault\": {\n    \"Error\": [\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      },\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      }\n    ],\n    \"type\": \"AuthorizationFault\"\n  },\n  \"time\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "65f36800-e768-4747-be36-72faafc04a42",
+              "name": "Authentication failed. The OAuth 2.0 access token is missing, expired, or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "minorversion",
+                      "value": "75"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                      "type": "any",
+                      "value": "{{realmId}}",
+                      "key": "realmId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Id\": \"abc123\",\n  \"SyncToken\": \"example_value\",\n  \"MetaData\": {\n    \"CreateTime\": \"2026-01-15T10:30:00Z\",\n    \"LastUpdatedTime\": \"2026-01-15T10:30:00Z\"\n  },\n  \"Title\": \"Example Title\",\n  \"GivenName\": \"example_value\",\n  \"MiddleName\": \"example_value\",\n  \"FamilyName\": \"example_value\",\n  \"Suffix\": \"example_value\",\n  \"DisplayName\": \"example_value\",\n  \"CompanyName\": \"example_value\",\n  \"PrintOnCheckName\": \"example_value\",\n  \"Active\": true,\n  \"Taxable\": true,\n  \"PrimaryEmailAddr\": {\n    \"Address\": \"example_value\"\n  },\n  \"PrimaryPhone\": {\n    \"FreeFormNumber\": \"example_value\"\n  },\n  \"Mobile\": {\n    \"FreeFormNumber\": \"example_value\"\n  },\n  \"Fax\": {\n    \"FreeFormNumber\": \"example_value\"\n  },\n  \"AlternatePhone\": {\n    \"FreeFormNumber\": \"example_value\"\n  },\n  \"BillAddr\": {\n    \"Id\": \"abc123\",\n    \"Line1\": \"example_value\",\n    \"Line2\": \"example_value\",\n    \"Line3\": \"example_value\",\n    \"Line4\": \"example_value\",\n    \"Line5\": \"example_value\",\n    \"City\": \"example_value\",\n    \"CountrySubDivisionCode\": \"example_value\",\n    \"PostalCode\": \"example_value\",\n    \"Country\": \"example_value\",\n    \"Lat\": \"example_value\",\n    \"Long\": \"example_value\"\n  },\n  \"ShipAddr\": {\n    \"Id\": \"abc123\",\n    \"Line1\": \"example_value\",\n    \"Line2\": \"example_value\",\n    \"Line3\": \"example_value\",\n    \"Line4\": \"example_value\",\n    \"Line5\": \"example_value\",\n    \"City\": \"example_value\",\n    \"CountrySubDivisionCode\": \"example_value\",\n    \"PostalCode\": \"example_value\",\n    \"Country\": \"example_value\",\n    \"Lat\": \"example_value\",\n    \"Long\": \"example_value\"\n  },\n  \"Notes\": \"example_value\",\n  \"Job\": true,\n  \"ParentRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"Level\": 10,\n  \"FullyQualifiedName\": \"example_value\",\n  \"CurrencyRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"PreferredDeliveryMethod\": \"Print\",\n  \"Balance\": 42.5,\n  \"BalanceWithJobs\": 42.5,\n  \"SalesTermRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"PaymentMethodRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"TaxExemptionReasonId\": \"500123\",\n  \"WebAddr\": {\n    \"URI\": \"https://www.example.com\"\n  },\n  \"domain\": \"example_value\",\n  \"sparse\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Fault\": {\n    \"Error\": [\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      },\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      }\n    ],\n    \"type\": \"AuthorizationFault\"\n  },\n  \"time\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8106f893-75af-4fa0-a219-bb97467bce59",
+              "name": "An internal error occurred on the server",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "minorversion",
+                      "value": "75"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                      "type": "any",
+                      "value": "{{realmId}}",
+                      "key": "realmId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Id\": \"abc123\",\n  \"SyncToken\": \"example_value\",\n  \"MetaData\": {\n    \"CreateTime\": \"2026-01-15T10:30:00Z\",\n    \"LastUpdatedTime\": \"2026-01-15T10:30:00Z\"\n  },\n  \"Title\": \"Example Title\",\n  \"GivenName\": \"example_value\",\n  \"MiddleName\": \"example_value\",\n  \"FamilyName\": \"example_value\",\n  \"Suffix\": \"example_value\",\n  \"DisplayName\": \"example_value\",\n  \"CompanyName\": \"example_value\",\n  \"PrintOnCheckName\": \"example_value\",\n  \"Active\": true,\n  \"Taxable\": true,\n  \"PrimaryEmailAddr\": {\n    \"Address\": \"example_value\"\n  },\n  \"PrimaryPhone\": {\n    \"FreeFormNumber\": \"example_value\"\n  },\n  \"Mobile\": {\n    \"FreeFormNumber\": \"example_value\"\n  },\n  \"Fax\": {\n    \"FreeFormNumber\": \"example_value\"\n  },\n  \"AlternatePhone\": {\n    \"FreeFormNumber\": \"example_value\"\n  },\n  \"BillAddr\": {\n    \"Id\": \"abc123\",\n    \"Line1\": \"example_value\",\n    \"Line2\": \"example_value\",\n    \"Line3\": \"example_value\",\n    \"Line4\": \"example_value\",\n    \"Line5\": \"example_value\",\n    \"City\": \"example_value\",\n    \"CountrySubDivisionCode\": \"example_value\",\n    \"PostalCode\": \"example_value\",\n    \"Country\": \"example_value\",\n    \"Lat\": \"example_value\",\n    \"Long\": \"example_value\"\n  },\n  \"ShipAddr\": {\n    \"Id\": \"abc123\",\n    \"Line1\": \"example_value\",\n    \"Line2\": \"example_value\",\n    \"Line3\": \"example_value\",\n    \"Line4\": \"example_value\",\n    \"Line5\": \"example_value\",\n    \"City\": \"example_value\",\n    \"CountrySubDivisionCode\": \"example_value\",\n    \"PostalCode\": \"example_value\",\n    \"Country\": \"example_value\",\n    \"Lat\": \"example_value\",\n    \"Long\": \"example_value\"\n  },\n  \"Notes\": \"example_value\",\n  \"Job\": true,\n  \"ParentRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"Level\": 10,\n  \"FullyQualifiedName\": \"example_value\",\n  \"CurrencyRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"PreferredDeliveryMethod\": \"Print\",\n  \"Balance\": 42.5,\n  \"BalanceWithJobs\": 42.5,\n  \"SalesTermRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"PaymentMethodRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"TaxExemptionReasonId\": \"500123\",\n  \"WebAddr\": {\n    \"URI\": \"https://www.example.com\"\n  },\n  \"domain\": \"example_value\",\n  \"sparse\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Fault\": {\n    \"Error\": [\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      },\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      }\n    ],\n    \"type\": \"AuthorizationFault\"\n  },\n  \"time\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "de9df0a9-9879-46b7-bd80-aeeadd605022",
+          "name": "Read a Customer",
+          "request": {
+            "name": "Read a Customer",
+            "description": {
+              "content": "Retrieves the details of a customer that has been previously created. Supply the unique customer ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customer",
+                ":customerId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "minorversion",
+                  "value": "<integer>",
+                  "description": "The minor version of the API to use. Minor versions introduce new fields and behaviors without breaking existing integrations. If omitted, the base version behavior is used."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customerId",
+                  "description": "(Required) The unique identifier for the customer"
+                },
+                {
+                  "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                  "type": "any",
+                  "value": "{{realmId}}",
+                  "key": "realmId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4a2ab3b1-0326-49a0-adf4-56fe64d45055",
+              "name": "Customer retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customer",
+                    ":customerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "minorversion",
+                      "value": "75"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) The unique identifier for the customer"
+                    },
+                    {
+                      "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                      "type": "any",
+                      "value": "{{realmId}}",
+                      "key": "realmId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Customer\": {\n    \"Id\": \"abc123\",\n    \"SyncToken\": \"example_value\",\n    \"Title\": \"Example Title\",\n    \"GivenName\": \"example_value\",\n    \"MiddleName\": \"example_value\",\n    \"FamilyName\": \"example_value\",\n    \"Suffix\": \"example_value\",\n    \"DisplayName\": \"example_value\",\n    \"CompanyName\": \"example_value\",\n    \"PrintOnCheckName\": \"example_value\",\n    \"Active\": true,\n    \"Taxable\": true,\n    \"Notes\": \"example_value\",\n    \"Job\": true,\n    \"Level\": 10,\n    \"FullyQualifiedName\": \"example_value\",\n    \"PreferredDeliveryMethod\": \"Print\",\n    \"Balance\": 42.5,\n    \"BalanceWithJobs\": 42.5,\n    \"TaxExemptionReasonId\": \"500123\",\n    \"WebAddr\": {\n      \"URI\": \"https://www.example.com\"\n    },\n    \"domain\": \"example_value\",\n    \"sparse\": true\n  },\n  \"time\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e754200d-9fb8-4cd4-970c-e10c25c5bc5c",
+              "name": "The request was invalid. This can occur due to missing required fields, validation errors, or malformed request body.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customer",
+                    ":customerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "minorversion",
+                      "value": "75"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) The unique identifier for the customer"
+                    },
+                    {
+                      "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                      "type": "any",
+                      "value": "{{realmId}}",
+                      "key": "realmId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Fault\": {\n    \"Error\": [\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      },\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      }\n    ],\n    \"type\": \"AuthorizationFault\"\n  },\n  \"time\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "18e987bc-02db-4584-85fb-7568314f4204",
+              "name": "Authentication failed. The OAuth 2.0 access token is missing, expired, or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customer",
+                    ":customerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "minorversion",
+                      "value": "75"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) The unique identifier for the customer"
+                    },
+                    {
+                      "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                      "type": "any",
+                      "value": "{{realmId}}",
+                      "key": "realmId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Fault\": {\n    \"Error\": [\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      },\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      }\n    ],\n    \"type\": \"AuthorizationFault\"\n  },\n  \"time\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "77e62fe9-af18-415c-b913-080404b9d26b",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customer",
+                    ":customerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "minorversion",
+                      "value": "75"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) The unique identifier for the customer"
+                    },
+                    {
+                      "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                      "type": "any",
+                      "value": "{{realmId}}",
+                      "key": "realmId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Fault\": {\n    \"Error\": [\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      },\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      }\n    ],\n    \"type\": \"AuthenticationFault\"\n  },\n  \"time\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f011f2b3-aabe-4b90-87e3-ed3f6676f78f",
+              "name": "An internal error occurred on the server",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customer",
+                    ":customerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "minorversion",
+                      "value": "75"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) The unique identifier for the customer"
+                    },
+                    {
+                      "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                      "type": "any",
+                      "value": "{{realmId}}",
+                      "key": "realmId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Fault\": {\n    \"Error\": [\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      },\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      }\n    ],\n    \"type\": \"AuthorizationFault\"\n  },\n  \"time\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "56c6acc8-8351-4390-b40a-66c4133a3874",
+          "name": "Update a Customer",
+          "request": {
+            "name": "Update a Customer",
+            "description": {
+              "content": "Updates an existing customer. The request body must include the Id and SyncToken. A sparse update is supported by including only the fields that need to change along with the sparse=true parameter.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customer",
+                ":customerId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sparse",
+                  "value": "<boolean>",
+                  "description": "Set to true for a sparse (partial) update"
+                },
+                {
+                  "disabled": false,
+                  "key": "minorversion",
+                  "value": "<integer>",
+                  "description": "The minor version of the API to use. Minor versions introduce new fields and behaviors without breaking existing integrations. If omitted, the base version behavior is used."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customerId",
+                  "description": "(Required) The unique identifier for the customer"
+                },
+                {
+                  "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                  "type": "any",
+                  "value": "{{realmId}}",
+                  "key": "realmId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"DisplayName\": \"<string>\",\n  \"SyncToken\": \"<string>\",\n  \"Title\": \"<string>\",\n  \"GivenName\": \"<string>\",\n  \"MiddleName\": \"<string>\",\n  \"FamilyName\": \"<string>\",\n  \"Suffix\": \"<string>\",\n  \"CompanyName\": \"<string>\",\n  \"PrintOnCheckName\": \"<string>\",\n  \"Active\": true,\n  \"Taxable\": \"<boolean>\",\n  \"PrimaryEmailAddr\": {\n    \"Address\": \"<email>\"\n  },\n  \"PrimaryPhone\": {\n    \"FreeFormNumber\": \"<string>\"\n  },\n  \"Mobile\": {\n    \"FreeFormNumber\": \"<string>\"\n  },\n  \"Fax\": {\n    \"FreeFormNumber\": \"<string>\"\n  },\n  \"AlternatePhone\": {\n    \"FreeFormNumber\": \"<string>\"\n  },\n  \"BillAddr\": {\n    \"Id\": \"<string>\",\n    \"Line1\": \"<string>\",\n    \"Line2\": \"<string>\",\n    \"Line3\": \"<string>\",\n    \"Line4\": \"<string>\",\n    \"Line5\": \"<string>\",\n    \"City\": \"<string>\",\n    \"CountrySubDivisionCode\": \"<string>\",\n    \"PostalCode\": \"<string>\",\n    \"Country\": \"<string>\",\n    \"Lat\": \"<string>\",\n    \"Long\": \"<string>\"\n  },\n  \"ShipAddr\": {\n    \"Id\": \"<string>\",\n    \"Line1\": \"<string>\",\n    \"Line2\": \"<string>\",\n    \"Line3\": \"<string>\",\n    \"Line4\": \"<string>\",\n    \"Line5\": \"<string>\",\n    \"City\": \"<string>\",\n    \"CountrySubDivisionCode\": \"<string>\",\n    \"PostalCode\": \"<string>\",\n    \"Country\": \"<string>\",\n    \"Lat\": \"<string>\",\n    \"Long\": \"<string>\"\n  },\n  \"Notes\": \"<string>\",\n  \"Job\": \"<boolean>\",\n  \"ParentRef\": {\n    \"value\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"CurrencyRef\": {\n    \"value\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"PreferredDeliveryMethod\": \"<string>\",\n  \"SalesTermRef\": {\n    \"value\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"PaymentMethodRef\": {\n    \"value\": \"<string>\",\n    \"name\": \"<string>\"\n  },\n  \"TaxExemptionReasonId\": \"<string>\",\n  \"WebAddr\": {\n    \"URI\": \"<uri>\"\n  },\n  \"sparse\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c2c39a9a-6107-44d0-a85a-eb85c7677c7b",
+              "name": "Customer updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customer",
+                    ":customerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sparse",
+                      "value": "true"
+                    },
+                    {
+                      "key": "minorversion",
+                      "value": "75"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) The unique identifier for the customer"
+                    },
+                    {
+                      "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                      "type": "any",
+                      "value": "{{realmId}}",
+                      "key": "realmId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Id\": \"abc123\",\n  \"SyncToken\": \"example_value\",\n  \"MetaData\": {\n    \"CreateTime\": \"2026-01-15T10:30:00Z\",\n    \"LastUpdatedTime\": \"2026-01-15T10:30:00Z\"\n  },\n  \"Title\": \"Example Title\",\n  \"GivenName\": \"example_value\",\n  \"MiddleName\": \"example_value\",\n  \"FamilyName\": \"example_value\",\n  \"Suffix\": \"example_value\",\n  \"DisplayName\": \"example_value\",\n  \"CompanyName\": \"example_value\",\n  \"PrintOnCheckName\": \"example_value\",\n  \"Active\": true,\n  \"Taxable\": true,\n  \"PrimaryEmailAddr\": {\n    \"Address\": \"example_value\"\n  },\n  \"PrimaryPhone\": {\n    \"FreeFormNumber\": \"example_value\"\n  },\n  \"Mobile\": {\n    \"FreeFormNumber\": \"example_value\"\n  },\n  \"Fax\": {\n    \"FreeFormNumber\": \"example_value\"\n  },\n  \"AlternatePhone\": {\n    \"FreeFormNumber\": \"example_value\"\n  },\n  \"BillAddr\": {\n    \"Id\": \"abc123\",\n    \"Line1\": \"example_value\",\n    \"Line2\": \"example_value\",\n    \"Line3\": \"example_value\",\n    \"Line4\": \"example_value\",\n    \"Line5\": \"example_value\",\n    \"City\": \"example_value\",\n    \"CountrySubDivisionCode\": \"example_value\",\n    \"PostalCode\": \"example_value\",\n    \"Country\": \"example_value\",\n    \"Lat\": \"example_value\",\n    \"Long\": \"example_value\"\n  },\n  \"ShipAddr\": {\n    \"Id\": \"abc123\",\n    \"Line1\": \"example_value\",\n    \"Line2\": \"example_value\",\n    \"Line3\": \"example_value\",\n    \"Line4\": \"example_value\",\n    \"Line5\": \"example_value\",\n    \"City\": \"example_value\",\n    \"CountrySubDivisionCode\": \"example_value\",\n    \"PostalCode\": \"example_value\",\n    \"Country\": \"example_value\",\n    \"Lat\": \"example_value\",\n    \"Long\": \"example_value\"\n  },\n  \"Notes\": \"example_value\",\n  \"Job\": true,\n  \"ParentRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"Level\": 10,\n  \"FullyQualifiedName\": \"example_value\",\n  \"CurrencyRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"PreferredDeliveryMethod\": \"Print\",\n  \"Balance\": 42.5,\n  \"BalanceWithJobs\": 42.5,\n  \"SalesTermRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"PaymentMethodRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"TaxExemptionReasonId\": \"500123\",\n  \"WebAddr\": {\n    \"URI\": \"https://www.example.com\"\n  },\n  \"domain\": \"example_value\",\n  \"sparse\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Customer\": {\n    \"Id\": \"abc123\",\n    \"SyncToken\": \"example_value\",\n    \"Title\": \"Example Title\",\n    \"GivenName\": \"example_value\",\n    \"MiddleName\": \"example_value\",\n    \"FamilyName\": \"example_value\",\n    \"Suffix\": \"example_value\",\n    \"DisplayName\": \"example_value\",\n    \"CompanyName\": \"example_value\",\n    \"PrintOnCheckName\": \"example_value\",\n    \"Active\": true,\n    \"Taxable\": true,\n    \"Notes\": \"example_value\",\n    \"Job\": true,\n    \"Level\": 10,\n    \"FullyQualifiedName\": \"example_value\",\n    \"PreferredDeliveryMethod\": \"Print\",\n    \"Balance\": 42.5,\n    \"BalanceWithJobs\": 42.5,\n    \"TaxExemptionReasonId\": \"500123\",\n    \"WebAddr\": {\n      \"URI\": \"https://www.example.com\"\n    },\n    \"domain\": \"example_value\",\n    \"sparse\": true\n  },\n  \"time\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0f4883d7-1db2-42e0-8f9b-a8e843f4e7bf",
+              "name": "The request was invalid. This can occur due to missing required fields, validation errors, or malformed request body.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customer",
+                    ":customerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sparse",
+                      "value": "true"
+                    },
+                    {
+                      "key": "minorversion",
+                      "value": "75"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) The unique identifier for the customer"
+                    },
+                    {
+                      "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                      "type": "any",
+                      "value": "{{realmId}}",
+                      "key": "realmId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Id\": \"abc123\",\n  \"SyncToken\": \"example_value\",\n  \"MetaData\": {\n    \"CreateTime\": \"2026-01-15T10:30:00Z\",\n    \"LastUpdatedTime\": \"2026-01-15T10:30:00Z\"\n  },\n  \"Title\": \"Example Title\",\n  \"GivenName\": \"example_value\",\n  \"MiddleName\": \"example_value\",\n  \"FamilyName\": \"example_value\",\n  \"Suffix\": \"example_value\",\n  \"DisplayName\": \"example_value\",\n  \"CompanyName\": \"example_value\",\n  \"PrintOnCheckName\": \"example_value\",\n  \"Active\": true,\n  \"Taxable\": true,\n  \"PrimaryEmailAddr\": {\n    \"Address\": \"example_value\"\n  },\n  \"PrimaryPhone\": {\n    \"FreeFormNumber\": \"example_value\"\n  },\n  \"Mobile\": {\n    \"FreeFormNumber\": \"example_value\"\n  },\n  \"Fax\": {\n    \"FreeFormNumber\": \"example_value\"\n  },\n  \"AlternatePhone\": {\n    \"FreeFormNumber\": \"example_value\"\n  },\n  \"BillAddr\": {\n    \"Id\": \"abc123\",\n    \"Line1\": \"example_value\",\n    \"Line2\": \"example_value\",\n    \"Line3\": \"example_value\",\n    \"Line4\": \"example_value\",\n    \"Line5\": \"example_value\",\n    \"City\": \"example_value\",\n    \"CountrySubDivisionCode\": \"example_value\",\n    \"PostalCode\": \"example_value\",\n    \"Country\": \"example_value\",\n    \"Lat\": \"example_value\",\n    \"Long\": \"example_value\"\n  },\n  \"ShipAddr\": {\n    \"Id\": \"abc123\",\n    \"Line1\": \"example_value\",\n    \"Line2\": \"example_value\",\n    \"Line3\": \"example_value\",\n    \"Line4\": \"example_value\",\n    \"Line5\": \"example_value\",\n    \"City\": \"example_value\",\n    \"CountrySubDivisionCode\": \"example_value\",\n    \"PostalCode\": \"example_value\",\n    \"Country\": \"example_value\",\n    \"Lat\": \"example_value\",\n    \"Long\": \"example_value\"\n  },\n  \"Notes\": \"example_value\",\n  \"Job\": true,\n  \"ParentRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"Level\": 10,\n  \"FullyQualifiedName\": \"example_value\",\n  \"CurrencyRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"PreferredDeliveryMethod\": \"Print\",\n  \"Balance\": 42.5,\n  \"BalanceWithJobs\": 42.5,\n  \"SalesTermRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"PaymentMethodRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"TaxExemptionReasonId\": \"500123\",\n  \"WebAddr\": {\n    \"URI\": \"https://www.example.com\"\n  },\n  \"domain\": \"example_value\",\n  \"sparse\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Fault\": {\n    \"Error\": [\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      },\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      }\n    ],\n    \"type\": \"AuthorizationFault\"\n  },\n  \"time\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2e042f1b-c4d4-443a-a1b3-34c277b254ba",
+              "name": "Authentication failed. The OAuth 2.0 access token is missing, expired, or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customer",
+                    ":customerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sparse",
+                      "value": "true"
+                    },
+                    {
+                      "key": "minorversion",
+                      "value": "75"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) The unique identifier for the customer"
+                    },
+                    {
+                      "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                      "type": "any",
+                      "value": "{{realmId}}",
+                      "key": "realmId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Id\": \"abc123\",\n  \"SyncToken\": \"example_value\",\n  \"MetaData\": {\n    \"CreateTime\": \"2026-01-15T10:30:00Z\",\n    \"LastUpdatedTime\": \"2026-01-15T10:30:00Z\"\n  },\n  \"Title\": \"Example Title\",\n  \"GivenName\": \"example_value\",\n  \"MiddleName\": \"example_value\",\n  \"FamilyName\": \"example_value\",\n  \"Suffix\": \"example_value\",\n  \"DisplayName\": \"example_value\",\n  \"CompanyName\": \"example_value\",\n  \"PrintOnCheckName\": \"example_value\",\n  \"Active\": true,\n  \"Taxable\": true,\n  \"PrimaryEmailAddr\": {\n    \"Address\": \"example_value\"\n  },\n  \"PrimaryPhone\": {\n    \"FreeFormNumber\": \"example_value\"\n  },\n  \"Mobile\": {\n    \"FreeFormNumber\": \"example_value\"\n  },\n  \"Fax\": {\n    \"FreeFormNumber\": \"example_value\"\n  },\n  \"AlternatePhone\": {\n    \"FreeFormNumber\": \"example_value\"\n  },\n  \"BillAddr\": {\n    \"Id\": \"abc123\",\n    \"Line1\": \"example_value\",\n    \"Line2\": \"example_value\",\n    \"Line3\": \"example_value\",\n    \"Line4\": \"example_value\",\n    \"Line5\": \"example_value\",\n    \"City\": \"example_value\",\n    \"CountrySubDivisionCode\": \"example_value\",\n    \"PostalCode\": \"example_value\",\n    \"Country\": \"example_value\",\n    \"Lat\": \"example_value\",\n    \"Long\": \"example_value\"\n  },\n  \"ShipAddr\": {\n    \"Id\": \"abc123\",\n    \"Line1\": \"example_value\",\n    \"Line2\": \"example_value\",\n    \"Line3\": \"example_value\",\n    \"Line4\": \"example_value\",\n    \"Line5\": \"example_value\",\n    \"City\": \"example_value\",\n    \"CountrySubDivisionCode\": \"example_value\",\n    \"PostalCode\": \"example_value\",\n    \"Country\": \"example_value\",\n    \"Lat\": \"example_value\",\n    \"Long\": \"example_value\"\n  },\n  \"Notes\": \"example_value\",\n  \"Job\": true,\n  \"ParentRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"Level\": 10,\n  \"FullyQualifiedName\": \"example_value\",\n  \"CurrencyRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"PreferredDeliveryMethod\": \"Print\",\n  \"Balance\": 42.5,\n  \"BalanceWithJobs\": 42.5,\n  \"SalesTermRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"PaymentMethodRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"TaxExemptionReasonId\": \"500123\",\n  \"WebAddr\": {\n    \"URI\": \"https://www.example.com\"\n  },\n  \"domain\": \"example_value\",\n  \"sparse\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Fault\": {\n    \"Error\": [\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      },\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      }\n    ],\n    \"type\": \"AuthorizationFault\"\n  },\n  \"time\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f1a4efbe-6c32-404e-a988-f54fa7d855bd",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customer",
+                    ":customerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sparse",
+                      "value": "true"
+                    },
+                    {
+                      "key": "minorversion",
+                      "value": "75"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) The unique identifier for the customer"
+                    },
+                    {
+                      "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                      "type": "any",
+                      "value": "{{realmId}}",
+                      "key": "realmId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Id\": \"abc123\",\n  \"SyncToken\": \"example_value\",\n  \"MetaData\": {\n    \"CreateTime\": \"2026-01-15T10:30:00Z\",\n    \"LastUpdatedTime\": \"2026-01-15T10:30:00Z\"\n  },\n  \"Title\": \"Example Title\",\n  \"GivenName\": \"example_value\",\n  \"MiddleName\": \"example_value\",\n  \"FamilyName\": \"example_value\",\n  \"Suffix\": \"example_value\",\n  \"DisplayName\": \"example_value\",\n  \"CompanyName\": \"example_value\",\n  \"PrintOnCheckName\": \"example_value\",\n  \"Active\": true,\n  \"Taxable\": true,\n  \"PrimaryEmailAddr\": {\n    \"Address\": \"example_value\"\n  },\n  \"PrimaryPhone\": {\n    \"FreeFormNumber\": \"example_value\"\n  },\n  \"Mobile\": {\n    \"FreeFormNumber\": \"example_value\"\n  },\n  \"Fax\": {\n    \"FreeFormNumber\": \"example_value\"\n  },\n  \"AlternatePhone\": {\n    \"FreeFormNumber\": \"example_value\"\n  },\n  \"BillAddr\": {\n    \"Id\": \"abc123\",\n    \"Line1\": \"example_value\",\n    \"Line2\": \"example_value\",\n    \"Line3\": \"example_value\",\n    \"Line4\": \"example_value\",\n    \"Line5\": \"example_value\",\n    \"City\": \"example_value\",\n    \"CountrySubDivisionCode\": \"example_value\",\n    \"PostalCode\": \"example_value\",\n    \"Country\": \"example_value\",\n    \"Lat\": \"example_value\",\n    \"Long\": \"example_value\"\n  },\n  \"ShipAddr\": {\n    \"Id\": \"abc123\",\n    \"Line1\": \"example_value\",\n    \"Line2\": \"example_value\",\n    \"Line3\": \"example_value\",\n    \"Line4\": \"example_value\",\n    \"Line5\": \"example_value\",\n    \"City\": \"example_value\",\n    \"CountrySubDivisionCode\": \"example_value\",\n    \"PostalCode\": \"example_value\",\n    \"Country\": \"example_value\",\n    \"Lat\": \"example_value\",\n    \"Long\": \"example_value\"\n  },\n  \"Notes\": \"example_value\",\n  \"Job\": true,\n  \"ParentRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"Level\": 10,\n  \"FullyQualifiedName\": \"example_value\",\n  \"CurrencyRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"PreferredDeliveryMethod\": \"Print\",\n  \"Balance\": 42.5,\n  \"BalanceWithJobs\": 42.5,\n  \"SalesTermRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"PaymentMethodRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"TaxExemptionReasonId\": \"500123\",\n  \"WebAddr\": {\n    \"URI\": \"https://www.example.com\"\n  },\n  \"domain\": \"example_value\",\n  \"sparse\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Fault\": {\n    \"Error\": [\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      },\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      }\n    ],\n    \"type\": \"AuthorizationFault\"\n  },\n  \"time\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9ad1f83f-c26f-4122-b8f0-db6c668ac212",
+              "name": "An internal error occurred on the server",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customer",
+                    ":customerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sparse",
+                      "value": "true"
+                    },
+                    {
+                      "key": "minorversion",
+                      "value": "75"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) The unique identifier for the customer"
+                    },
+                    {
+                      "description": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+                      "type": "any",
+                      "value": "{{realmId}}",
+                      "key": "realmId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Id\": \"abc123\",\n  \"SyncToken\": \"example_value\",\n  \"MetaData\": {\n    \"CreateTime\": \"2026-01-15T10:30:00Z\",\n    \"LastUpdatedTime\": \"2026-01-15T10:30:00Z\"\n  },\n  \"Title\": \"Example Title\",\n  \"GivenName\": \"example_value\",\n  \"MiddleName\": \"example_value\",\n  \"FamilyName\": \"example_value\",\n  \"Suffix\": \"example_value\",\n  \"DisplayName\": \"example_value\",\n  \"CompanyName\": \"example_value\",\n  \"PrintOnCheckName\": \"example_value\",\n  \"Active\": true,\n  \"Taxable\": true,\n  \"PrimaryEmailAddr\": {\n    \"Address\": \"example_value\"\n  },\n  \"PrimaryPhone\": {\n    \"FreeFormNumber\": \"example_value\"\n  },\n  \"Mobile\": {\n    \"FreeFormNumber\": \"example_value\"\n  },\n  \"Fax\": {\n    \"FreeFormNumber\": \"example_value\"\n  },\n  \"AlternatePhone\": {\n    \"FreeFormNumber\": \"example_value\"\n  },\n  \"BillAddr\": {\n    \"Id\": \"abc123\",\n    \"Line1\": \"example_value\",\n    \"Line2\": \"example_value\",\n    \"Line3\": \"example_value\",\n    \"Line4\": \"example_value\",\n    \"Line5\": \"example_value\",\n    \"City\": \"example_value\",\n    \"CountrySubDivisionCode\": \"example_value\",\n    \"PostalCode\": \"example_value\",\n    \"Country\": \"example_value\",\n    \"Lat\": \"example_value\",\n    \"Long\": \"example_value\"\n  },\n  \"ShipAddr\": {\n    \"Id\": \"abc123\",\n    \"Line1\": \"example_value\",\n    \"Line2\": \"example_value\",\n    \"Line3\": \"example_value\",\n    \"Line4\": \"example_value\",\n    \"Line5\": \"example_value\",\n    \"City\": \"example_value\",\n    \"CountrySubDivisionCode\": \"example_value\",\n    \"PostalCode\": \"example_value\",\n    \"Country\": \"example_value\",\n    \"Lat\": \"example_value\",\n    \"Long\": \"example_value\"\n  },\n  \"Notes\": \"example_value\",\n  \"Job\": true,\n  \"ParentRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"Level\": 10,\n  \"FullyQualifiedName\": \"example_value\",\n  \"CurrencyRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"PreferredDeliveryMethod\": \"Print\",\n  \"Balance\": 42.5,\n  \"BalanceWithJobs\": 42.5,\n  \"SalesTermRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"PaymentMethodRef\": {\n    \"value\": \"example_value\",\n    \"name\": \"Example Title\"\n  },\n  \"TaxExemptionReasonId\": \"500123\",\n  \"WebAddr\": {\n    \"URI\": \"https://www.example.com\"\n  },\n  \"domain\": \"example_value\",\n  \"sparse\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Fault\": {\n    \"Error\": [\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      },\n      {\n        \"Message\": \"string\",\n        \"Detail\": \"string\",\n        \"code\": \"string\",\n        \"element\": \"string\"\n      }\n    ],\n    \"type\": \"AuthorizationFault\"\n  },\n  \"time\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The QuickBooks Online company ID (realm ID) that uniquely identifies the company dataset to operate on.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "1234567890",
+      "key": "realmId"
+    },
+    {
+      "type": "string",
+      "value": "https://quickbooks.api.intuit.com/v3/company/{{realmId}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "com.intuit.quickbooks.accounting"
+      },
+      {
+        "key": "redirect_uri",
+        "value": "https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://appcenter.intuit.com/connect/oauth2"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ec7fe948-4309-4355-a8c3-ca7f9c192471",
+    "name": "QuickBooks Online Accounting Customers API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The QuickBooks Online Accounting API is a RESTful API that provides programmatic access to QuickBooks Online company data. This specification covers core entities including invoices, customers, items, and payments, enabling developers to automate accounting workflows, synchronize financial data, and extend QuickBooks Online functionality for small and mid-sized businesses. All API calls require OAuth 2.0 authorization and a valid company ID (realmId). Responses follow the Intuit entity response envelope pattern, and the API supports minor version parameters to access newer fields and behaviors without breaking existing integrations.\n\nContact Support:\n Name: Intuit Developer Support\n Email: developer-support@intuit.com",
+      "type": "text/plain"
+    }
+  }
+}

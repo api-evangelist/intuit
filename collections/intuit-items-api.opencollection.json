@@ -1,0 +1,138 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "QuickBooks Online Accounting Customers Items API",
+    "version": "75"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://appcenter.intuit.com/connect/oauth2",
+      "accessTokenUrl": "https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Items",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Query Entities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://quickbooks.api.intuit.com/v3/company/{realmId}/query",
+            "params": [
+              {
+                "name": "query",
+                "value": "SELECT * FROM Invoice WHERE TotalAmt > '100.00' MAXRESULTS 10",
+                "type": "query",
+                "description": "A SQL-like query string. For example: SELECT * FROM Invoice WHERE TotalAmt > '100.00' ORDERBY TxnDate"
+              },
+              {
+                "name": "minorversion",
+                "value": "75",
+                "type": "query",
+                "description": "The minor version of the API to use. Minor versions introduce new fields and behaviors without breaking existing integrations. If omitted, the base version behavior is used."
+              }
+            ]
+          },
+          "docs": "Executes a SQL-like query against QuickBooks Online entities. The query language supports SELECT, WHERE, ORDER BY, COUNT, STARTPOSITION, and MAXRESULTS clauses. This endpoint is used to query invoices, customers, items, payments, and other entity types."
+        },
+        {
+          "info": {
+            "name": "Create an Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://quickbooks.api.intuit.com/v3/company/{realmId}/item",
+            "params": [
+              {
+                "name": "minorversion",
+                "value": "75",
+                "type": "query",
+                "description": "The minor version of the API to use. Minor versions introduce new fields and behaviors without breaking existing integrations. If omitted, the base version behavior is used."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new item (product or service). At minimum, the request must include a Name, Type (Inventory, NonInventory, or Service), and appropriate account references (IncomeAccountRef, ExpenseAccountRef, and AssetAccountRef for inventory items)."
+        },
+        {
+          "info": {
+            "name": "Read an Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://quickbooks.api.intuit.com/v3/company/{realmId}/item/:itemId",
+            "params": [
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the item"
+              },
+              {
+                "name": "minorversion",
+                "value": "75",
+                "type": "query",
+                "description": "The minor version of the API to use. Minor versions introduce new fields and behaviors without breaking existing integrations. If omitted, the base version behavior is used."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of an item that has been previously created. Supply the unique item ID."
+        },
+        {
+          "info": {
+            "name": "Update an Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://quickbooks.api.intuit.com/v3/company/{realmId}/item/:itemId",
+            "params": [
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the item"
+              },
+              {
+                "name": "sparse",
+                "value": "true",
+                "type": "query",
+                "description": "Set to true for a sparse (partial) update"
+              },
+              {
+                "name": "minorversion",
+                "value": "75",
+                "type": "query",
+                "description": "The minor version of the API to use. Minor versions introduce new fields and behaviors without breaking existing integrations. If omitted, the base version behavior is used."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing item. The request must include the Id and SyncToken. Sparse updates are supported."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
