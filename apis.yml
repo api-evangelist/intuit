@@ -24,6 +24,11 @@ apis:
   name: QuickBooks Payments API
   tags:
   - Credit Cards
+  - E-Commerce
+  - Financial
+  - Payments
+  tags_raw:
+  - Credit Cards
   - eCommerce
   - Financial
   - Payments
@@ -80,6 +85,12 @@ apis:
 - aid: intuit:quickbooks-projects
   name: QuickBooks Projects API
   tags:
+  - Accounting
+  - Financial
+  - Project Management
+  - Project
+  - Small Business
+  tags_raw:
   - Accounting
   - Financial
   - Project Management
@@ -224,6 +235,8 @@ apis:
     and other transaction entities.
   humanURL: https://developer.intuit.com/app/developer/homepage
   tags:
+  - Item
+  tags_raw:
   - Items
   properties:
   - type: OpenAPI
@@ -301,6 +314,22 @@ apis:
     url: json-ld/intuit-context.jsonld
 name: Intuit
 tags:
+- Accounting
+- Custom Fields
+- Financial
+- Financial-Services
+- Invoicing
+- Payments
+- Payroll
+- Project Management
+- Sales Tax
+- Small Business
+- Tax
+- Tax Preparation
+- Taxes
+- Time Tracking
+- Fortune 1000
+tags_raw:
 - Accounting
 - Custom Fields
 - Financial
