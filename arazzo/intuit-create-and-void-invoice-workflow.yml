@@ -12,8 +12,8 @@ info:
     description.
   version: 1.0.0
 sourceDescriptions:
-- name: quickbooksAccounting
-  url: ../openapi/quickbooks-accounting.yml
+- name: invoicesApi
+  url: ../openapi/intuit-invoices-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: create-and-void-invoice

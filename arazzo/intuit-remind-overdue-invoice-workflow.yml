@@ -12,8 +12,11 @@ info:
     the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: quickbooksAccounting
-  url: ../openapi/quickbooks-accounting.yml
+- name: customersApi
+  url: ../openapi/intuit-customers-api-openapi.yml
+  type: openapi
+- name: invoicesApi
+  url: ../openapi/intuit-invoices-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: remind-overdue-invoice

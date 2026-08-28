@@ -12,8 +12,8 @@ info:
     underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: quickbooksAccounting
-  url: ../openapi/quickbooks-accounting.yml
+- name: paymentsApi
+  url: ../openapi/intuit-payments-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: void-payment-safely
