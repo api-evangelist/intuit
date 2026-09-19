@@ -7,6 +7,11 @@ apis:
   - Accounting
   - Financial
   - Tax Preparation
+  - Tax
+  tags_raw:
+  - Accounting
+  - Financial
+  - Tax Preparation
   - Taxes
   humanURL: https://developer.intuit.com/app/developer/homepage
   properties:
@@ -46,6 +51,11 @@ apis:
 - aid: intuit:quickbooks-payroll-time
   name: QuickBooks Payroll and Time API
   tags:
+  - Human Resources
+  - Payroll
+  - Small Business
+  - Time Tracking
+  tags_raw:
   - HR
   - Payroll
   - Small Business
@@ -298,7 +308,6 @@ tags:
 - Small Business
 - Tax
 - Tax Preparation
-- Taxes
 - Time Tracking
 - Fortune 1000
 tags_raw:
