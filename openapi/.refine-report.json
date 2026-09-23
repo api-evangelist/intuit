@@ -1,10 +1,7 @@
 {
   "provider": "intuit",
   "sources": [
-    "intuit-customers-api-openapi.yml",
-    "intuit-invoices-api-openapi.yml",
-    "intuit-items-api-openapi.yml",
-    "intuit-payments-api-openapi.yml"
+    "_original/quickbooks-accounting.yml"
   ],
   "outputs": [
     "intuit-customers-api-openapi.yml",
@@ -15,6 +12,15 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "quickbooks-accounting.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "intuit-customers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "intuit-invoices-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "intuit-items-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "intuit-payments-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

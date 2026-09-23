@@ -1,7 +1,9 @@
 ---
 title: Intuit Responsible AI Principles
 url: https://www.intuit.com/privacy/responsible-ai/
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"Intuit" press release artificial intelligence'
 position: 5
 source: serpapi-google

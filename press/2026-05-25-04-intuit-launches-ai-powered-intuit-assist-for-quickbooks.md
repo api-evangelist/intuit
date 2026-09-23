@@ -1,7 +1,9 @@
 ---
 title: Intuit Launches AI-Powered Intuit Assist for QuickBooks ...
 url: https://investors.intuit.com/news-events/press-releases/detail/1222/intuit-launches-ai-powered-intuit-assist-for-quickbooks-giving-millions-of-businesses-a-competitive-edge
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"Intuit" press release artificial intelligence'
 position: 4
 source: serpapi-google

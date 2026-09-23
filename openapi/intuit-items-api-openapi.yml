@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: QuickBooks Online Accounting Customers Items API
-  description: The QuickBooks Online Accounting API is a RESTful API that provides programmatic access to QuickBooks Online company data. This specification covers core entities including invoices, customers, items, and payments, enabling developers to automate accounting workflows, synchronize financial data, and extend QuickBooks Online functionality for small and mid-sized businesses. All API calls require OAuth 2.0 authorization and a valid company ID (realmId). Responses follow the Intuit entity response envelope pattern, and the API supports minor version parameters to access newer fields and behaviors without breaking existing integrations.
+  title: QuickBooks Online Accounting Items API
+  description: The QuickBooks Online Accounting API is a RESTful API that provides programmatic access to QuickBooks Online company data.
   version: '75'
   termsOfService: https://developer.intuit.com/app/developer/qbo/docs/learn/terms-of-service
   contact:
@@ -373,6 +373,245 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    LinkedTxn:
+      type: object
+      description: A reference to a linked transaction such as an invoice, payment, or credit memo
+      properties:
+        TxnId:
+          type: string
+          description: Transaction ID of the related transaction
+          example: '500123'
+        TxnType:
+          type: string
+          description: The type of the linked transaction
+          enum:
+          - Invoice
+          - Payment
+          - CreditMemo
+          - Estimate
+          - SalesReceipt
+          - JournalEntry
+          - Expense
+          - StatementCharge
+          - ReimburseCharge
+          example: Invoice
+      required:
+      - TxnId
+      - TxnType
+    Item:
+      type: object
+      description: An Item represents a product or service that a company buys, sells, or re-sells. Items are used in line items on invoices, sales receipts, bills, and other transactions.
+      properties:
+        Id:
+          type: string
+          description: Unique identifier for the item
+          readOnly: true
+          example: abc123
+        SyncToken:
+          type: string
+          description: Version number for optimistic locking
+          example: example_value
+        MetaData:
+          $ref: '#/components/schemas/MetaData'
+          readOnly: true
+        Name:
+          type: string
+          description: Name of the item. Must be unique within the same type.
+          maxLength: 100
+          example: Example Title
+        Description:
+          type: string
+          description: Description of the item used in sales transactions
+          maxLength: 4000
+          example: A sample description.
+        PurchaseDesc:
+          type: string
+          description: Description of the item used in purchase transactions
+          maxLength: 4000
+          example: example_value
+        Active:
+          type: boolean
+          description: Whether the item is currently active
+          default: true
+          example: true
+        FullyQualifiedName:
+          type: string
+          description: Fully qualified name of the item
+          readOnly: true
+          example: example_value
+        Taxable:
+          type: boolean
+          description: Whether sales of this item are taxable
+          example: true
+        SalesTaxIncluded:
+          type: boolean
+          description: Whether the sales tax is included in the item amount
+          example: true
+        UnitPrice:
+          type: number
+          description: Sales price for this item
+          example: 42.5
+        Type:
+          type: string
+          description: Classification of the item
+          enum:
+          - Inventory
+          - NonInventory
+          - Service
+          - Group
+          - Category
+          - Bundle
+          example: Inventory
+        PurchaseCost:
+          type: number
+          description: Purchase cost of the item
+          example: 42.5
+        QtyOnHand:
+          type: number
+          description: Current quantity on hand (inventory items only)
+          example: 42.5
+        InvStartDate:
+          type: string
+          format: date
+          description: Date of opening balance for inventory items
+          example: '2026-01-15'
+        TrackQtyOnHand:
+          type: boolean
+          description: Whether quantity on hand is tracked
+          example: true
+        Sku:
+          type: string
+          description: Stock keeping unit identifier
+          maxLength: 100
+          example: example_value
+        IncomeAccountRef:
+          $ref: '#/components/schemas/ReferenceType'
+        ExpenseAccountRef:
+          $ref: '#/components/schemas/ReferenceType'
+        AssetAccountRef:
+          $ref: '#/components/schemas/ReferenceType'
+        ParentRef:
+          $ref: '#/components/schemas/ReferenceType'
+        SubItem:
+          type: boolean
+          description: Whether this is a sub-item
+          example: true
+        Level:
+          type: integer
+          description: Depth level in the item hierarchy
+          readOnly: true
+          example: 10
+        SalesTaxCodeRef:
+          $ref: '#/components/schemas/ReferenceType'
+        PurchaseTaxCodeRef:
+          $ref: '#/components/schemas/ReferenceType'
+        ClassRef:
+          $ref: '#/components/schemas/ReferenceType'
+        AbatementRate:
+          type: number
+          readOnly: true
+          example: 42.5
+        ReverseChargeRate:
+          type: number
+          readOnly: true
+          example: 42.5
+        domain:
+          type: string
+          readOnly: true
+          example: example_value
+        sparse:
+          type: boolean
+          example: true
+      required:
+      - Name
+      - Type
+    TxnTaxDetail:
+      type: object
+      description: Tax details for a transaction
+      properties:
+        TxnTaxCodeRef:
+          $ref: '#/components/schemas/ReferenceType'
+        TotalTax:
+          type: number
+          description: Total tax calculated for the transaction
+          example: 42.5
+        TaxLine:
+          type: array
+          items:
+            type: object
+            properties:
+              Amount:
+                type: number
+                description: Tax amount for this tax line
+              DetailType:
+                type: string
+                enum:
+                - TaxLineDetail
+              TaxLineDetail:
+                type: object
+                properties:
+                  TaxRateRef:
+                    $ref: '#/components/schemas/ReferenceType'
+                  PercentBased:
+                    type: boolean
+                  TaxPercent:
+                    type: number
+                  NetAmountTaxable:
+                    type: number
+          example: []
+    PaymentLine:
+      type: object
+      description: A line item on a payment showing how it is applied
+      properties:
+        Amount:
+          type: number
+          description: Amount to apply from this payment
+          example: 42.5
+        LinkedTxn:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkedTxn'
+          example: []
+      required:
+      - Amount
+      - LinkedTxn
+    SalesItemLineDetail:
+      type: object
+      description: Detail for a sales item line
+      properties:
+        ItemRef:
+          $ref: '#/components/schemas/ReferenceType'
+        ClassRef:
+          $ref: '#/components/schemas/ReferenceType'
+        UnitPrice:
+          type: number
+          description: Unit price of the item
+          example: 42.5
+        RatePercent:
+          type: number
+          description: The discount rate as a percentage (for discount lines)
+          example: 42.5
+        Qty:
+          type: number
+          description: Number of items for the line
+          example: 42.5
+        ItemAccountRef:
+          $ref: '#/components/schemas/ReferenceType'
+        TaxCodeRef:
+          $ref: '#/components/schemas/ReferenceType'
+        ServiceDate:
+          type: string
+          format: date
+          description: Date the service was performed
+          example: '2026-01-15'
+        DiscountAmt:
+          type: number
+          description: Discount amount applied to the line
+          example: 42.5
+        DiscountRate:
+          type: number
+          description: Discount rate as a percentage
+          example: 42.5
     QueryResponse:
       type: object
       description: Response wrapper for query operations. Contains the array of matching entities along with pagination metadata.
@@ -406,6 +645,24 @@ components:
               items:
                 $ref: '#/components/schemas/Payment'
           example: example_value
+        time:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+    TelephoneNumber:
+      type: object
+      description: Telephone number
+      properties:
+        FreeFormNumber:
+          type: string
+          description: Telephone number in free-form format
+          maxLength: 30
+          example: example_value
+    ItemResponse:
+      type: object
+      properties:
+        Item:
+          $ref: '#/components/schemas/Item'
         time:
           type: string
           format: date-time
@@ -555,6 +812,31 @@ components:
           example: true
       required:
       - DisplayName
+    CustomField:
+      type: object
+      description: Custom field defined for the entity
+      properties:
+        DefinitionId:
+          type: string
+          description: Unique identifier of the custom field definition
+          example: '500123'
+        Name:
+          type: string
+          description: Name of the custom field
+          example: Example Title
+        Type:
+          type: string
+          description: Data type of the custom field
+          enum:
+          - StringType
+          - BooleanType
+          - NumberType
+          - DateType
+          example: StringType
+        StringValue:
+          type: string
+          description: Value when Type is StringType
+          example: example_value
     Payment:
       type: object
       description: A Payment records a payment received from a customer. Payments can be applied to one or more outstanding invoices, or left as unapplied credit.
@@ -632,45 +914,104 @@ components:
       required:
       - CustomerRef
       - TotalAmt
-    CustomField:
+    PhysicalAddress:
       type: object
-      description: Custom field defined for the entity
+      description: Physical (mailing) address
       properties:
-        DefinitionId:
+        Id:
           type: string
-          description: Unique identifier of the custom field definition
-          example: '500123'
-        Name:
+          description: Unique identifier for the address
+          example: abc123
+        Line1:
           type: string
-          description: Name of the custom field
-          example: Example Title
-        Type:
-          type: string
-          description: Data type of the custom field
-          enum:
-          - StringType
-          - BooleanType
-          - NumberType
-          - DateType
-          example: StringType
-        StringValue:
-          type: string
-          description: Value when Type is StringType
+          description: First line of the street address
+          maxLength: 500
           example: example_value
-    ReferenceType:
+        Line2:
+          type: string
+          description: Second line of the street address
+          maxLength: 500
+          example: example_value
+        Line3:
+          type: string
+          description: Third line of the street address
+          maxLength: 500
+          example: example_value
+        Line4:
+          type: string
+          description: Fourth line of the street address
+          maxLength: 500
+          example: example_value
+        Line5:
+          type: string
+          description: Fifth line of the street address
+          maxLength: 500
+          example: example_value
+        City:
+          type: string
+          description: City name
+          maxLength: 255
+          example: example_value
+        CountrySubDivisionCode:
+          type: string
+          description: Region or state within a country (e.g., state, province)
+          maxLength: 255
+          example: example_value
+        PostalCode:
+          type: string
+          description: Postal code
+          maxLength: 30
+          example: example_value
+        Country:
+          type: string
+          description: Country name or code
+          maxLength: 255
+          example: example_value
+        Lat:
+          type: string
+          description: Latitude coordinate
+          example: example_value
+        Long:
+          type: string
+          description: Longitude coordinate
+          example: example_value
+    Error:
       type: object
-      description: A reference type used throughout the API to link entities. Contains the ID value and optionally the display name of the referenced entity.
+      description: Error response from the API
       properties:
-        value:
-          type: string
-          description: The ID of the referenced entity
+        Fault:
+          type: object
+          properties:
+            Error:
+              type: array
+              items:
+                type: object
+                properties:
+                  Message:
+                    type: string
+                    description: A short human-readable summary of the error
+                  Detail:
+                    type: string
+                    description: Detailed description of the error
+                  code:
+                    type: string
+                    description: Intuit-specific error code
+                  element:
+                    type: string
+                    description: The element that caused the error
+            type:
+              type: string
+              description: The type of fault
+              enum:
+              - ValidationFault
+              - SystemFault
+              - AuthenticationFault
+              - AuthorizationFault
           example: example_value
-        name:
+        time:
           type: string
-          description: An identifying name for the referenced entity
-          example: Example Title
-      required:
-      - value
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
     Invoice:
       type: object
       description: An Invoice represents a sales form where the customer pays for a product or service later. It creates an accounts receivable transaction.
@@ -832,14 +1173,19 @@ components:
       required:
       - CustomerRef
       - Line
-    ItemResponse:
+    MetaData:
       type: object
+      description: Metadata about when the entity was created and last updated
       properties:
-        Item:
-          $ref: '#/components/schemas/Item'
-        time:
+        CreateTime:
           type: string
           format: date-time
+          description: Time the entity was created
+          example: '2026-01-15T10:30:00Z'
+        LastUpdatedTime:
+          type: string
+          format: date-time
+          description: Time the entity was last updated
           example: '2026-01-15T10:30:00Z'
     EmailAddress:
       type: object
@@ -851,133 +1197,6 @@ components:
           description: Email address string
           maxLength: 100
           example: example_value
-    Item:
-      type: object
-      description: An Item represents a product or service that a company buys, sells, or re-sells. Items are used in line items on invoices, sales receipts, bills, and other transactions.
-      properties:
-        Id:
-          type: string
-          description: Unique identifier for the item
-          readOnly: true
-          example: abc123
-        SyncToken:
-          type: string
-          description: Version number for optimistic locking
-          example: example_value
-        MetaData:
-          $ref: '#/components/schemas/MetaData'
-          readOnly: true
-        Name:
-          type: string
-          description: Name of the item. Must be unique within the same type.
-          maxLength: 100
-          example: Example Title
-        Description:
-          type: string
-          description: Description of the item used in sales transactions
-          maxLength: 4000
-          example: A sample description.
-        PurchaseDesc:
-          type: string
-          description: Description of the item used in purchase transactions
-          maxLength: 4000
-          example: example_value
-        Active:
-          type: boolean
-          description: Whether the item is currently active
-          default: true
-          example: true
-        FullyQualifiedName:
-          type: string
-          description: Fully qualified name of the item
-          readOnly: true
-          example: example_value
-        Taxable:
-          type: boolean
-          description: Whether sales of this item are taxable
-          example: true
-        SalesTaxIncluded:
-          type: boolean
-          description: Whether the sales tax is included in the item amount
-          example: true
-        UnitPrice:
-          type: number
-          description: Sales price for this item
-          example: 42.5
-        Type:
-          type: string
-          description: Classification of the item
-          enum:
-          - Inventory
-          - NonInventory
-          - Service
-          - Group
-          - Category
-          - Bundle
-          example: Inventory
-        PurchaseCost:
-          type: number
-          description: Purchase cost of the item
-          example: 42.5
-        QtyOnHand:
-          type: number
-          description: Current quantity on hand (inventory items only)
-          example: 42.5
-        InvStartDate:
-          type: string
-          format: date
-          description: Date of opening balance for inventory items
-          example: '2026-01-15'
-        TrackQtyOnHand:
-          type: boolean
-          description: Whether quantity on hand is tracked
-          example: true
-        Sku:
-          type: string
-          description: Stock keeping unit identifier
-          maxLength: 100
-          example: example_value
-        IncomeAccountRef:
-          $ref: '#/components/schemas/ReferenceType'
-        ExpenseAccountRef:
-          $ref: '#/components/schemas/ReferenceType'
-        AssetAccountRef:
-          $ref: '#/components/schemas/ReferenceType'
-        ParentRef:
-          $ref: '#/components/schemas/ReferenceType'
-        SubItem:
-          type: boolean
-          description: Whether this is a sub-item
-          example: true
-        Level:
-          type: integer
-          description: Depth level in the item hierarchy
-          readOnly: true
-          example: 10
-        SalesTaxCodeRef:
-          $ref: '#/components/schemas/ReferenceType'
-        PurchaseTaxCodeRef:
-          $ref: '#/components/schemas/ReferenceType'
-        ClassRef:
-          $ref: '#/components/schemas/ReferenceType'
-        AbatementRate:
-          type: number
-          readOnly: true
-          example: 42.5
-        ReverseChargeRate:
-          type: number
-          readOnly: true
-          example: 42.5
-        domain:
-          type: string
-          readOnly: true
-          example: example_value
-        sparse:
-          type: boolean
-          example: true
-      required:
-      - Name
-      - Type
     InvoiceLine:
       type: object
       description: A line item on an invoice
@@ -1019,269 +1238,21 @@ components:
       required:
       - Amount
       - DetailType
-    TelephoneNumber:
+    ReferenceType:
       type: object
-      description: Telephone number
+      description: A reference type used throughout the API to link entities. Contains the ID value and optionally the display name of the referenced entity.
       properties:
-        FreeFormNumber:
+        value:
           type: string
-          description: Telephone number in free-form format
-          maxLength: 30
+          description: The ID of the referenced entity
           example: example_value
-    Error:
-      type: object
-      description: Error response from the API
-      properties:
-        Fault:
-          type: object
-          properties:
-            Error:
-              type: array
-              items:
-                type: object
-                properties:
-                  Message:
-                    type: string
-                    description: A short human-readable summary of the error
-                  Detail:
-                    type: string
-                    description: Detailed description of the error
-                  code:
-                    type: string
-                    description: Intuit-specific error code
-                  element:
-                    type: string
-                    description: The element that caused the error
-            type:
-              type: string
-              description: The type of fault
-              enum:
-              - ValidationFault
-              - SystemFault
-              - AuthenticationFault
-              - AuthorizationFault
-          example: example_value
-        time:
+        name:
           type: string
-          format: date-time
-          example: '2026-01-15T10:30:00Z'
-    PhysicalAddress:
-      type: object
-      description: Physical (mailing) address
-      properties:
-        Id:
-          type: string
-          description: Unique identifier for the address
-          example: abc123
-        Line1:
-          type: string
-          description: First line of the street address
-          maxLength: 500
-          example: example_value
-        Line2:
-          type: string
-          description: Second line of the street address
-          maxLength: 500
-          example: example_value
-        Line3:
-          type: string
-          description: Third line of the street address
-          maxLength: 500
-          example: example_value
-        Line4:
-          type: string
-          description: Fourth line of the street address
-          maxLength: 500
-          example: example_value
-        Line5:
-          type: string
-          description: Fifth line of the street address
-          maxLength: 500
-          example: example_value
-        City:
-          type: string
-          description: City name
-          maxLength: 255
-          example: example_value
-        CountrySubDivisionCode:
-          type: string
-          description: Region or state within a country (e.g., state, province)
-          maxLength: 255
-          example: example_value
-        PostalCode:
-          type: string
-          description: Postal code
-          maxLength: 30
-          example: example_value
-        Country:
-          type: string
-          description: Country name or code
-          maxLength: 255
-          example: example_value
-        Lat:
-          type: string
-          description: Latitude coordinate
-          example: example_value
-        Long:
-          type: string
-          description: Longitude coordinate
-          example: example_value
-    PaymentLine:
-      type: object
-      description: A line item on a payment showing how it is applied
-      properties:
-        Amount:
-          type: number
-          description: Amount to apply from this payment
-          example: 42.5
-        LinkedTxn:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkedTxn'
-          example: []
+          description: An identifying name for the referenced entity
+          example: Example Title
       required:
-      - Amount
-      - LinkedTxn
-    LinkedTxn:
-      type: object
-      description: A reference to a linked transaction such as an invoice, payment, or credit memo
-      properties:
-        TxnId:
-          type: string
-          description: Transaction ID of the related transaction
-          example: '500123'
-        TxnType:
-          type: string
-          description: The type of the linked transaction
-          enum:
-          - Invoice
-          - Payment
-          - CreditMemo
-          - Estimate
-          - SalesReceipt
-          - JournalEntry
-          - Expense
-          - StatementCharge
-          - ReimburseCharge
-          example: Invoice
-      required:
-      - TxnId
-      - TxnType
-    TxnTaxDetail:
-      type: object
-      description: Tax details for a transaction
-      properties:
-        TxnTaxCodeRef:
-          $ref: '#/components/schemas/ReferenceType'
-        TotalTax:
-          type: number
-          description: Total tax calculated for the transaction
-          example: 42.5
-        TaxLine:
-          type: array
-          items:
-            type: object
-            properties:
-              Amount:
-                type: number
-                description: Tax amount for this tax line
-              DetailType:
-                type: string
-                enum:
-                - TaxLineDetail
-              TaxLineDetail:
-                type: object
-                properties:
-                  TaxRateRef:
-                    $ref: '#/components/schemas/ReferenceType'
-                  PercentBased:
-                    type: boolean
-                  TaxPercent:
-                    type: number
-                  NetAmountTaxable:
-                    type: number
-          example: []
-    SalesItemLineDetail:
-      type: object
-      description: Detail for a sales item line
-      properties:
-        ItemRef:
-          $ref: '#/components/schemas/ReferenceType'
-        ClassRef:
-          $ref: '#/components/schemas/ReferenceType'
-        UnitPrice:
-          type: number
-          description: Unit price of the item
-          example: 42.5
-        RatePercent:
-          type: number
-          description: The discount rate as a percentage (for discount lines)
-          example: 42.5
-        Qty:
-          type: number
-          description: Number of items for the line
-          example: 42.5
-        ItemAccountRef:
-          $ref: '#/components/schemas/ReferenceType'
-        TaxCodeRef:
-          $ref: '#/components/schemas/ReferenceType'
-        ServiceDate:
-          type: string
-          format: date
-          description: Date the service was performed
-          example: '2026-01-15'
-        DiscountAmt:
-          type: number
-          description: Discount amount applied to the line
-          example: 42.5
-        DiscountRate:
-          type: number
-          description: Discount rate as a percentage
-          example: 42.5
-    MetaData:
-      type: object
-      description: Metadata about when the entity was created and last updated
-      properties:
-        CreateTime:
-          type: string
-          format: date-time
-          description: Time the entity was created
-          example: '2026-01-15T10:30:00Z'
-        LastUpdatedTime:
-          type: string
-          format: date-time
-          description: Time the entity was last updated
-          example: '2026-01-15T10:30:00Z'
-  parameters:
-    itemId:
-      name: itemId
-      in: path
-      required: true
-      description: The unique identifier for the item
-      schema:
-        type: string
-    minorVersion:
-      name: minorversion
-      in: query
-      description: The minor version of the API to use. Minor versions introduce new fields and behaviors without breaking existing integrations. If omitted, the base version behavior is used.
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 75
-      example: 75
+      - value
   responses:
-    NotFound:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    InternalError:
-      description: An internal error occurred on the server
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Authentication failed. The OAuth 2.0 access token is missing, expired, or invalid.
       content:
@@ -1294,6 +1265,35 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    InternalError:
+      description: An internal error occurred on the server
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    minorVersion:
+      name: minorversion
+      in: query
+      description: The minor version of the API to use. Minor versions introduce new fields and behaviors without breaking existing integrations. If omitted, the base version behavior is used.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 75
+      example: 75
+    itemId:
+      name: itemId
+      in: path
+      required: true
+      description: The unique identifier for the item
+      schema:
+        type: string
   securitySchemes:
     oauth2:
       type: oauth2
