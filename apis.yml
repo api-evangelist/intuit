@@ -5,7 +5,7 @@ apis:
   name: Intuit APIs
   tags:
   - Accounting
-  - Financial
+  - Finance
   - Tax Preparation
   - Tax
   tags_raw:
@@ -17,8 +17,6 @@ apis:
   properties:
   - url: https://developer.intuit.com/app/developer/homepage
     type: Documentation
-  - url: graphql/intuit-graphql.md
-    type: GraphQL
   description: Intuit APIs provide developers with access to a wide range of services and functionalities
     to help them build innovative solutions for financial management, accounting, and tax-related needs.
     These APIs allow developers to integrate with popular Intuit products such as QuickBooks, TurboTax,
@@ -29,7 +27,7 @@ apis:
   tags:
   - Credit Cards
   - E-Commerce
-  - Financial
+  - Finance
   - Payments
   tags_raw:
   - Credit Cards
@@ -75,6 +73,11 @@ apis:
   tags:
   - Accounting
   - Desktop
+  - Finance
+  - Small Business
+  tags_raw:
+  - Accounting
+  - Desktop
   - Financial
   - Small Business
   humanURL: https://developer.intuit.com/app/developer/qbdesktop/docs/api-reference/qbdesktop
@@ -91,7 +94,7 @@ apis:
   name: QuickBooks Projects API
   tags:
   - Accounting
-  - Financial
+  - Finance
   - Project Management
   - Project
   - Small Business
@@ -116,6 +119,12 @@ apis:
   tags:
   - Accounting
   - Custom Fields
+  - Finance
+  - Metadata
+  - Small Business
+  tags_raw:
+  - Accounting
+  - Custom Fields
   - Financial
   - Metadata
   - Small Business
@@ -132,6 +141,12 @@ apis:
 - aid: intuit:quickbooks-sales-tax
   name: QuickBooks Sales Tax API
   tags:
+  - Accounting
+  - Finance
+  - Sales Tax
+  - Small Business
+  - Tax
+  tags_raw:
   - Accounting
   - Financial
   - Sales Tax
@@ -298,8 +313,8 @@ name: Intuit
 tags:
 - Accounting
 - Custom Fields
-- Financial
-- Financial-Services
+- Finance
+- Financial Services
 - Invoicing
 - Payments
 - Payroll
@@ -326,6 +341,7 @@ tags_raw:
 - Taxes
 - Time Tracking
 - Fortune 1000
+- Financial-Services
 type: Index
 deliveryModel:
   model: saas
