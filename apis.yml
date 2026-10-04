@@ -1,5 +1,8 @@
 aid: intuit
 url: https://raw.githubusercontent.com/api-evangelist/intuit/refs/heads/main/apis.yml
+x-docs-platform: redoc
+x-docs-platform-confidence: medium
+x-docs-platform-checked: 2026-10-03
 apis:
 - aid: intuit:intuit
   name: Intuit APIs
