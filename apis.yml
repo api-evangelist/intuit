@@ -385,6 +385,10 @@ maintainers:
   url: https://help.developer.intuit.com
 specificationVersion: '0.23'
 common:
+- type: Plans
+  url: plans/intuit-plans-pricing.yml
+- type: FinOps
+  url: finops/intuit-finops.yml
 - type: Website
   url: https://intuit.com
 - type: CapabilityMap
