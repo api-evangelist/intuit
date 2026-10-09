@@ -134,3 +134,41 @@ plans:
 maintainers:
   - FN: API Evangelist
     email: info@apievangelist.com
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  - metered
+  - subscription
+  units:
+  - period
+  - request
+  - transaction
+  plans:
+  - name: Intuit Developer Program
+    access: freemium
+    model: subscription
+    model_how: derived
+    units:
+    - period
+    - request
+    periods:
+    - month
+    - per-use
+  - name: QuickBooks App Store (revenue share)
+    access: enterprise
+    model: free
+    model_how: derived
+    units:
+    - period
+    periods:
+    - per-use
+  - name: QuickBooks Payments (end-customer pass-through)
+    access: other
+    model: metered
+    model_how: stated
+    units:
+    - transaction
+    periods:
+    - per-use
