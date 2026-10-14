@@ -29,3 +29,16 @@
     detected: '2026-10-14'
   status: not-a-workflow
   arazzo: null
+- slug: intuit-servicetitan-own
+  label: ServiceTitan (own)
+  partner: servicetitan
+  partner_name: ServiceTitan (own)
+  category: Accounting & Tax
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://marketplace.servicetitan.com/partner/intuit
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null

@@ -23,7 +23,27 @@ edges:
     detected: '2026-10-14'
   detected_by: sweep-fdx.py
   first_seen: '2026-10-14'
+- partner_name: ServiceTitan (own)
+  partner: servicetitan
+  partner_match: mirror
+  mirror_match: domain+name-among-holders
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://marketplace.servicetitan.com/partner/intuit
+  mirror_of: servicetitan/integrations/servicetitan-integration-edges.yml
+  apps:
+  - Intuit
+  listing_count: 1
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
+  category: Accounting & Tax
 generated: '2026-10-14'
 method: searched
 checked:
 - https://registry.financialdataexchange.org/
+- servicetitan/integrations/servicetitan-integration-edges.yml
+source:
+- servicetitan/integrations/servicetitan-integration-edges.yml
