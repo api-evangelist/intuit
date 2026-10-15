@@ -40,10 +40,28 @@ edges:
   detected: '2026-10-14'
   detected_by: mirror-platform-listings.py
   category: Accounting & Tax
+- partner_name: Stripe (own)
+  partner: stripe
+  partner_match: mirror
+  mirror_match: domain+name-among-holders
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://marketplace.stripe.com/apps/quickbooks-online
+  mirror_of: stripe/integrations/stripe-integration-edges.yml
+  apps:
+  - QuickBooks Online
+  listing_count: 1
+  detected: '2026-10-15'
+  detected_by: mirror-platform-listings.py
+  category: accounting
 generated: '2026-10-14'
 method: searched
 checked:
 - https://registry.financialdataexchange.org/
 - servicetitan/integrations/servicetitan-integration-edges.yml
+- stripe/integrations/stripe-integration-edges.yml
 source:
 - servicetitan/integrations/servicetitan-integration-edges.yml

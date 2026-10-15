@@ -42,3 +42,16 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
+- slug: intuit-stripe-own
+  label: Stripe (own)
+  partner: stripe
+  partner_name: Stripe (own)
+  category: accounting
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://marketplace.stripe.com/apps/quickbooks-online
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
