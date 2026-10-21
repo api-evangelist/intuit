@@ -1,55 +1,4 @@
 edges:
-- partner_name: ServiceTitan (own)
-  partner: servicetitan
-  partner_match: mirror
-  mirror_match: domain+name-among-holders
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://marketplace.servicetitan.com/partner/intuit
-  mirror_of: servicetitan/integrations/servicetitan-integration-edges.yml
-  apps:
-  - Intuit
-  listing_count: 1
-  detected: '2026-10-14'
-  detected_by: mirror-platform-listings.py
-  category: Accounting & Tax
-- partner_name: Stripe (own)
-  partner: stripe
-  partner_match: mirror
-  mirror_match: domain+name-among-holders
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://marketplace.stripe.com/apps/quickbooks-online
-  mirror_of: stripe/integrations/stripe-integration-edges.yml
-  apps:
-  - QuickBooks Online
-  listing_count: 1
-  detected: '2026-10-15'
-  detected_by: mirror-platform-listings.py
-  category: accounting
-- partner_name: Google Workspace (own)
-  partner: google-workspace
-  partner_match: mirror
-  mirror_match: domain+name-among-holders
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://workspace.google.com/marketplace/app/spreadsheet_sync/183375661196
-  mirror_of: google-workspace/integrations/google-workspace-integration-edges.yml
-  apps:
-  - Spreadsheet Sync
-  listing_count: 1
-  detected: '2026-10-18'
-  detected_by: mirror-platform-listings.py
-  category: Google Workspace app
 - partner_name: FDX (Financial Data Exchange)
   partner: fdx
   type: contract
@@ -110,6 +59,74 @@ edges:
     detected: '2026-10-20'
   detected_by: sweep-compliance-assurance.py
   first_seen: '2026-10-20'
+- partner_name: ServiceTitan (own)
+  partner: servicetitan
+  partner_match: mirror
+  mirror_match: domain+name-among-holders
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://marketplace.servicetitan.com/partner/intuit
+  mirror_of: servicetitan/integrations/servicetitan-integration-edges.yml
+  apps:
+  - Intuit
+  listing_count: 1
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
+  category: Accounting & Tax
+- partner_name: Stripe (own)
+  partner: stripe
+  partner_match: mirror
+  mirror_match: domain+name-among-holders
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://marketplace.stripe.com/apps/quickbooks-online
+  mirror_of: stripe/integrations/stripe-integration-edges.yml
+  apps:
+  - QuickBooks Online
+  listing_count: 1
+  detected: '2026-10-15'
+  detected_by: mirror-platform-listings.py
+  category: accounting
+- partner_name: Google Workspace (own)
+  partner: google-workspace
+  partner_match: mirror
+  mirror_match: domain+name-among-holders
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://workspace.google.com/marketplace/app/spreadsheet_sync/183375661196
+  mirror_of: google-workspace/integrations/google-workspace-integration-edges.yml
+  apps:
+  - Spreadsheet Sync
+  listing_count: 1
+  detected: '2026-10-18'
+  detected_by: mirror-platform-listings.py
+  category: Google Workspace app
+- partner_name: JetBrains (jetbrains-marketplace)
+  partner: jetbrains
+  partner_match: mirror
+  mirror_match: domain+name-among-holders
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: jetbrains-marketplace
+  evidence: https://plugins.jetbrains.com/vendor/Intuit
+  mirror_of: jetbrains/integrations/jetbrains-integration-edges.yml
+  apps:
+  - Intuit Assist
+  listing_count: 1
+  detected: '2026-10-20'
+  detected_by: mirror-platform-listings.py
+  category: IDE / developer extension marketplace listing
 generated: '2026-10-14'
 method: searched
 checked:
@@ -118,5 +135,6 @@ checked:
 - servicetitan/integrations/servicetitan-integration-edges.yml
 - stripe/integrations/stripe-integration-edges.yml
 - https://listings.pcisecuritystandards.org/assessors_and_solutions
+- jetbrains/integrations/jetbrains-integration-edges.yml
 source:
 - servicetitan/integrations/servicetitan-integration-edges.yml
