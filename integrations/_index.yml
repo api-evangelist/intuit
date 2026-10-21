@@ -161,3 +161,43 @@
       lapsed: null
   status: not-a-workflow
   arazzo: null
+- slug: intuit-app-defense-alliance-certified-products
+  label: App Defense Alliance certified products
+  partner_name: App Defense Alliance certified products
+  category: mobile app security certification
+  type: register
+  channel: standard-directory
+  evidence: https://cert.appdefensealliance.org/certifications/10271
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: App Defense Alliance certified products (cert.appdefensealliance.org/certifications)
+    standard: ADA Mobile Application Security Profile / OWASP MASVS (MASA)
+    spec_file: null
+    role: ada-certified-developer
+    registered_name: Intuit
+    register_id: https://cert.appdefensealliance.org/certifications/10271
+    matched_domain: intuit.com
+    matched_by: domain+name-among-holders
+    domain_source: certificate contact e-mail domain
+    certified_products:
+    - product: Cloud application (ADA CASA)
+      product_type: Cloud application (ADA CASA)
+      certifier: App Defense Alliance (authorized lab + certification body)
+      example_product: QuickBooks Online
+      example_certificate: https://cert.appdefensealliance.org/certifications/10271
+      assurance_levels:
+      - AL1
+      newest_expiry: '2027-09-07'
+      lapsed: false
+      lapsed_note: lapsed = no certificate of this type is Valid and unexpired today
+    products_sample:
+    - QuickBooks Online
+    labs:
+    - NCC Group XYZ Building
+    signal_note: certified_products = ONE entry per ADA product type (profile family), never per app or certificate;
+      labs are assessors (context, never linked)
+    detected_by: sweep-mobile-sdk-index.py
+    detected: '2026-10-21'
+  status: not-a-workflow
+  arazzo: null

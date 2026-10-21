@@ -170,6 +170,46 @@ edges:
       lapsed: null
   detected_by: sweep-stripe-app-marketplace.py
   first_seen: '2026-10-21'
+- partner_name: App Defense Alliance certified products
+  partner: null
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://cert.appdefensealliance.org/certifications/10271
+  category: mobile app security certification
+  contract_reference:
+    register: App Defense Alliance certified products (cert.appdefensealliance.org/certifications)
+    standard: ADA Mobile Application Security Profile / OWASP MASVS (MASA)
+    spec_file: null
+    role: ada-certified-developer
+    registered_name: Intuit
+    register_id: https://cert.appdefensealliance.org/certifications/10271
+    matched_domain: intuit.com
+    matched_by: domain+name-among-holders
+    domain_source: certificate contact e-mail domain
+    certified_products:
+    - product: Cloud application (ADA CASA)
+      product_type: Cloud application (ADA CASA)
+      certifier: App Defense Alliance (authorized lab + certification body)
+      example_product: QuickBooks Online
+      example_certificate: https://cert.appdefensealliance.org/certifications/10271
+      assurance_levels:
+      - AL1
+      newest_expiry: '2027-09-07'
+      lapsed: false
+      lapsed_note: lapsed = no certificate of this type is Valid and unexpired today
+    products_sample:
+    - QuickBooks Online
+    labs:
+    - NCC Group XYZ Building
+    signal_note: certified_products = ONE entry per ADA product type (profile family), never per app or certificate;
+      labs are assessors (context, never linked)
+    detected_by: sweep-mobile-sdk-index.py
+    detected: '2026-10-21'
+  detected_by: sweep-mobile-sdk-index.py
+  first_seen: '2026-10-21'
 generated: '2026-10-14'
 method: searched
 checked:
@@ -186,5 +226,9 @@ checked:
 - https://stripe.com/partners/directory
 - https://stripe.com/partners/verified-partners
 - https://stripe.partners/sitemap.xml
+- https://cdn.cocoapods.org/all_pods.txt
+- https://cert.appdefensealliance.org/certifications
+- https://play.google.com/sdks
+- https://search.maven.org/solrsearch/select
 source:
 - servicetitan/integrations/servicetitan-integration-edges.yml
