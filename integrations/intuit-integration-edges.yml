@@ -59,74 +59,6 @@ edges:
     detected: '2026-10-20'
   detected_by: sweep-compliance-assurance.py
   first_seen: '2026-10-20'
-- partner_name: ServiceTitan (own)
-  partner: servicetitan
-  partner_match: mirror
-  mirror_match: domain+name-among-holders
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://marketplace.servicetitan.com/partner/intuit
-  mirror_of: servicetitan/integrations/servicetitan-integration-edges.yml
-  apps:
-  - Intuit
-  listing_count: 1
-  detected: '2026-10-14'
-  detected_by: mirror-platform-listings.py
-  category: Accounting & Tax
-- partner_name: Stripe (own)
-  partner: stripe
-  partner_match: mirror
-  mirror_match: domain+name-among-holders
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://marketplace.stripe.com/apps/quickbooks-online
-  mirror_of: stripe/integrations/stripe-integration-edges.yml
-  apps:
-  - QuickBooks Online
-  listing_count: 1
-  detected: '2026-10-15'
-  detected_by: mirror-platform-listings.py
-  category: accounting
-- partner_name: Google Workspace (own)
-  partner: google-workspace
-  partner_match: mirror
-  mirror_match: domain+name-among-holders
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://workspace.google.com/marketplace/app/spreadsheet_sync/183375661196
-  mirror_of: google-workspace/integrations/google-workspace-integration-edges.yml
-  apps:
-  - Spreadsheet Sync
-  listing_count: 1
-  detected: '2026-10-18'
-  detected_by: mirror-platform-listings.py
-  category: Google Workspace app
-- partner_name: JetBrains (jetbrains-marketplace)
-  partner: jetbrains
-  partner_match: mirror
-  mirror_match: domain+name-among-holders
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: jetbrains-marketplace
-  evidence: https://plugins.jetbrains.com/vendor/Intuit
-  mirror_of: jetbrains/integrations/jetbrains-integration-edges.yml
-  apps:
-  - Intuit Assist
-  listing_count: 1
-  detected: '2026-10-20'
-  detected_by: mirror-platform-listings.py
-  category: IDE / developer extension marketplace listing
 - partner_name: Stripe Partner Ecosystem
   partner: stripe
   partner_match: register
@@ -243,6 +175,94 @@ edges:
     - Intuit Australia Pty Limited
   detected_by: sweep-australia-cdr-register.py
   first_seen: '2026-10-22'
+- partner_name: ServiceTitan (own)
+  partner: servicetitan
+  partner_match: mirror
+  mirror_match: domain+name-among-holders
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://marketplace.servicetitan.com/partner/intuit
+  mirror_of: servicetitan/integrations/servicetitan-integration-edges.yml
+  apps:
+  - Intuit
+  listing_count: 1
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
+  category: Accounting & Tax
+- partner_name: Stripe (own)
+  partner: stripe
+  partner_match: mirror
+  mirror_match: domain+name-among-holders
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://marketplace.stripe.com/apps/quickbooks-online
+  mirror_of: stripe/integrations/stripe-integration-edges.yml
+  apps:
+  - QuickBooks Online
+  listing_count: 1
+  detected: '2026-10-15'
+  detected_by: mirror-platform-listings.py
+  category: accounting
+- partner_name: Google Workspace (own)
+  partner: google-workspace
+  partner_match: mirror
+  mirror_match: domain+name-among-holders
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://workspace.google.com/marketplace/app/spreadsheet_sync/183375661196
+  mirror_of: google-workspace/integrations/google-workspace-integration-edges.yml
+  apps:
+  - Spreadsheet Sync
+  listing_count: 1
+  detected: '2026-10-18'
+  detected_by: mirror-platform-listings.py
+  category: Google Workspace app
+- partner_name: JetBrains (jetbrains-marketplace)
+  partner: jetbrains
+  partner_match: mirror
+  mirror_match: domain+name-among-holders
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: jetbrains-marketplace
+  evidence: https://plugins.jetbrains.com/vendor/Intuit
+  mirror_of: jetbrains/integrations/jetbrains-integration-edges.yml
+  apps:
+  - Intuit Assist
+  listing_count: 1
+  detected: '2026-10-20'
+  detected_by: mirror-platform-listings.py
+  category: IDE / developer extension marketplace listing
+- partner_name: Wix (own)
+  partner: wix
+  partner_match: mirror
+  mirror_match: domain+name-among-holders
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.wix.com/app-market/developer/intuit-inc
+  mirror_of: wix/integrations/wix-integration-edges.yml
+  apps:
+  - QuickBooks Online
+  - Mailchimp
+  listing_count: 1
+  detected: '2026-10-22'
+  detected_by: mirror-platform-listings.py
+  category: Accounting
+  publisher_verified:
+  - Verified by Wix
 generated: '2026-10-14'
 method: searched
 checked:
@@ -264,5 +284,6 @@ checked:
 - https://play.google.com/sdks
 - https://search.maven.org/solrsearch/select
 - https://api.cdr.gov.au/cdr-register/v1/all/data-recipients
+- wix/integrations/wix-integration-edges.yml
 source:
 - servicetitan/integrations/servicetitan-integration-edges.yml
