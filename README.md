@@ -1,4 +1,4 @@
-# Intuit (intuit)
+# Intuit
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,253 +66,289 @@
 
 Collection of APIs offered by Intuit for financial and business management services.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/intuit/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/intuit/refs/heads/main/apis.yml)
+**Areas:** Accounting · Custom Fields · Finance · Financial Services · Invoicing · Payments · Payroll · Project Management · Sales Tax · Small Business · Tax · Tax Preparation
 
-## Scope
+## Intuit on APIs.io
 
-- **Type:** Index
-- **Position:** Consumer
-- **Access:** 3rd-Party
+Everything profiled for Intuit is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/intuit/](https://apis.io/providers/intuit/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (11)
 
-- Accounting
-- Custom Fields
-- Financial
-- Financial Services
-- Invoicing
-- Payments
-- Payroll
-- Project Management
-- Sales Tax
-- Small Business
-- Tax
-- Tax Preparation
-- Taxes
-- Time Tracking
+- [Intuit APIs](https://apis.io/apis/intuit/intuit/) — Intuit APIs provide developers with access to a wide range of services and functionalities to help them build innovative solutions for financial management,…
+- [QuickBooks Payments API](https://apis.io/apis/intuit/quickbooks-payments/) — The QuickBooks Payments API enables developers to process credit card charges, bank account debits (ACH), and manage payment methods within the QuickBooks…
+- [QuickBooks Payroll and Time API](https://apis.io/apis/intuit/quickbooks-payroll-time/) — The QuickBooks Payroll and Time API provides programmatic access to payroll and time-tracking data within QuickBooks Online. It supports use cases including…
+- [QuickBooks Desktop API](https://apis.io/apis/intuit/quickbooks-desktop/) — The QuickBooks Desktop API allows developers to integrate with QuickBooks Desktop applications using qbXML messages. It provides capabilities for adding,…
+- [QuickBooks Projects API](https://apis.io/apis/intuit/quickbooks-projects/) — The QuickBooks Projects API is a premium API that provides programmatic access to project data within QuickBooks Online Plus, Advanced, Accountant, and…
+- [QuickBooks Custom Fields API](https://apis.io/apis/intuit/quickbooks-custom-fields/) — The QuickBooks Custom Fields API is a premium API that provides programmatic access to custom field definitions and values in QuickBooks Online and Intuit…
+- [QuickBooks Sales Tax API](https://apis.io/apis/intuit/quickbooks-sales-tax/) — The QuickBooks Sales Tax API is a premium API that provides programmatic access to the automated sales tax calculation capabilities within QuickBooks…
+- [Intuit Customers API](https://apis.io/apis/intuit/intuit-customers-api/) — A Customer object represents a consumer of the service or product that the business offers. The Customer entity allows you to categorize customers into jobs…
+- [Intuit Invoices API](https://apis.io/apis/intuit/intuit-invoices-api/) — An Invoice represents a sales form where the customer pays for a product or service later. QuickBooks records an accounts receivable transaction for each…
+- [Intuit Items API](https://apis.io/apis/intuit/intuit-items-api/) — An Item represents a product or service that a company buys, sells, or re-sells, such as products, shipping charges, discount, and sales tax (if…
+- [Intuit Payments API](https://apis.io/apis/intuit/intuit-payments-api/) — A Payment object records a payment received from a customer against one or more invoices or credit memos. Payments can be applied to specific invoices or…
 
-## Timestamps
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### Arazzo workflows (16)
+
+Multi-step workflows that chain operations into a business task.
+
+- [Intuit Catalog and Bill Customer](https://apis.io/arazzos/intuit/intuit-catalog-and-bill-customer-workflow/)
+- [Intuit Create and Send Invoice](https://apis.io/arazzos/intuit/intuit-create-and-send-invoice-workflow/)
+- [Intuit Create and Void Invoice](https://apis.io/arazzos/intuit/intuit-create-and-void-invoice-workflow/)
+- [Intuit Create Customer and Invoice](https://apis.io/arazzos/intuit/intuit-create-customer-and-invoice-workflow/)
+- [Intuit Create Item and Invoice](https://apis.io/arazzos/intuit/intuit-create-item-and-invoice-workflow/)
+- [Intuit Customer Invoice Payment Cycle](https://apis.io/arazzos/intuit/intuit-customer-invoice-payment-workflow/)
+- [Intuit Find or Create Customer](https://apis.io/arazzos/intuit/intuit-find-or-create-customer-workflow/)
+- [Intuit Invoice and Collect Payment](https://apis.io/arazzos/intuit/intuit-invoice-and-collect-payment-workflow/)
+- [Intuit Invoice to PDF](https://apis.io/arazzos/intuit/intuit-invoice-to-pdf-workflow/)
+- [Intuit Pay Customer Open Invoice](https://apis.io/arazzos/intuit/intuit-pay-customer-open-invoice-workflow/)
+- [Intuit Query and Void Invoice](https://apis.io/arazzos/intuit/intuit-query-and-void-invoice-workflow/)
+- [Intuit Remind Overdue Invoice](https://apis.io/arazzos/intuit/intuit-remind-overdue-invoice-workflow/)
+- [Intuit Reprice Item](https://apis.io/arazzos/intuit/intuit-reprice-item-workflow/)
+- [Intuit Update Customer by Query](https://apis.io/arazzos/intuit/intuit-update-customer-by-query-workflow/)
+- [Intuit Update Payment Amount](https://apis.io/arazzos/intuit/intuit-update-payment-amount-workflow/)
+- [Intuit Void Payment Safely](https://apis.io/arazzos/intuit/intuit-void-payment-safely-workflow/)
 
-- **Created:** 2025-03-01
-- **Modified:** 2026-05-19
+#### AsyncAPI (1)
 
-## APIs
+Event-driven and webhook contracts.
 
-### Intuit APIs
+- [QuickBooks Online Webhooks](https://apis.io/asyncapis/intuit/quickbooks-webhooks/)
 
-Intuit APIs provide developers with access to a wide range of services and functionalities to help them build innovative solutions for financial management, accounting, and tax-related needs. These APIs allow developers to integrate with popular Intuit products such as QuickBooks, TurboTax, and Mint, giving users the ability to securely access and manage their financial data across multiple platforms.
+#### Event channels (1)
 
-- **Human URL:** [https://developer.intuit.com/app/developer/homepage](https://developer.intuit.com/app/developer/homepage)
+Individual events and webhooks the provider emits.
 
-#### Tags
+- [/your-webhook-endpoint](https://apis.io/channels/intuit/your-webhook-endpoint/)
 
-- Accounting
-- Financial
-- Tax Preparation
-- Taxes
+#### GraphQL (1)
+
+GraphQL schemas.
+
+- [Moved to /providers/intuit/](https://apis.io/graphqls/intuit/intuit-graphql/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [MCP Server](https://apis.io/servers/intuit/mcp-server/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Intuit Agentic Access](https://apis.io/agentic-access/intuit/intuit-agentic-access/)
+
+#### JSON Schema (23)
+
+The data models the API reads and writes.
+
+- [QuickBooks Online Customer](https://apis.io/schemas/intuit/intuit-customer/)
+- [QuickBooks Online Invoice](https://apis.io/schemas/intuit/intuit-invoice/)
+- [CustomField](https://apis.io/schemas/intuit/quickbooks-accounting-custom-field/)
+- [Customer](https://apis.io/schemas/intuit/quickbooks-accounting-customer/)
+- [CustomerResponse](https://apis.io/schemas/intuit/quickbooks-accounting-customer-response/)
+- [EmailAddress](https://apis.io/schemas/intuit/quickbooks-accounting-email-address/)
+- [Error](https://apis.io/schemas/intuit/quickbooks-accounting-error/)
+- [Invoice](https://apis.io/schemas/intuit/quickbooks-accounting-invoice/)
+- [InvoiceLine](https://apis.io/schemas/intuit/quickbooks-accounting-invoice-line/)
+- [InvoiceResponse](https://apis.io/schemas/intuit/quickbooks-accounting-invoice-response/)
+- [Item](https://apis.io/schemas/intuit/quickbooks-accounting-item/)
+- [ItemResponse](https://apis.io/schemas/intuit/quickbooks-accounting-item-response/)
+- [LinkedTxn](https://apis.io/schemas/intuit/quickbooks-accounting-linked-txn/)
+- [MetaData](https://apis.io/schemas/intuit/quickbooks-accounting-meta-data/)
+- [Payment](https://apis.io/schemas/intuit/quickbooks-accounting-payment/)
+- [PaymentLine](https://apis.io/schemas/intuit/quickbooks-accounting-payment-line/)
+- [PaymentResponse](https://apis.io/schemas/intuit/quickbooks-accounting-payment-response/)
+- [PhysicalAddress](https://apis.io/schemas/intuit/quickbooks-accounting-physical-address/)
+- [QueryResponse](https://apis.io/schemas/intuit/quickbooks-accounting-query-response/)
+- [ReferenceType](https://apis.io/schemas/intuit/quickbooks-accounting-reference-type/)
+- [SalesItemLineDetail](https://apis.io/schemas/intuit/quickbooks-accounting-sales-item-line-detail/)
+- [TelephoneNumber](https://apis.io/schemas/intuit/quickbooks-accounting-telephone-number/)
+- [TxnTaxDetail](https://apis.io/schemas/intuit/quickbooks-accounting-txn-tax-detail/)
 
-#### Properties
+#### JSON Structure (21)
 
-- [Documentation](https://developer.intuit.com/app/developer/homepage)
-- [Postman Collection](collections/quickbooks-accounting.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/quickbooks-accounting.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Data models expressed in JSON Structure.
 
-### QuickBooks Online Accounting API
+- [Quickbooks Accounting Custom Field Structure](https://apis.io/json-structure/intuit/quickbooks-accounting-custom-field-structure/)
+- [Quickbooks Accounting Customer Response Structure](https://apis.io/json-structure/intuit/quickbooks-accounting-customer-response-structure/)
+- [Quickbooks Accounting Customer Structure](https://apis.io/json-structure/intuit/quickbooks-accounting-customer-structure/)
+- [Quickbooks Accounting Email Address Structure](https://apis.io/json-structure/intuit/quickbooks-accounting-email-address-structure/)
+- [Quickbooks Accounting Error Structure](https://apis.io/json-structure/intuit/quickbooks-accounting-error-structure/)
+- [Quickbooks Accounting Invoice Line Structure](https://apis.io/json-structure/intuit/quickbooks-accounting-invoice-line-structure/)
+- [Quickbooks Accounting Invoice Response Structure](https://apis.io/json-structure/intuit/quickbooks-accounting-invoice-response-structure/)
+- [Quickbooks Accounting Invoice Structure](https://apis.io/json-structure/intuit/quickbooks-accounting-invoice-structure/)
+- [Quickbooks Accounting Item Response Structure](https://apis.io/json-structure/intuit/quickbooks-accounting-item-response-structure/)
+- [Quickbooks Accounting Item Structure](https://apis.io/json-structure/intuit/quickbooks-accounting-item-structure/)
+- [Quickbooks Accounting Linked Txn Structure](https://apis.io/json-structure/intuit/quickbooks-accounting-linked-txn-structure/)
+- [Quickbooks Accounting Meta Data Structure](https://apis.io/json-structure/intuit/quickbooks-accounting-meta-data-structure/)
+- [Quickbooks Accounting Payment Line Structure](https://apis.io/json-structure/intuit/quickbooks-accounting-payment-line-structure/)
+- [Quickbooks Accounting Payment Response Structure](https://apis.io/json-structure/intuit/quickbooks-accounting-payment-response-structure/)
+- [Quickbooks Accounting Payment Structure](https://apis.io/json-structure/intuit/quickbooks-accounting-payment-structure/)
+- [Quickbooks Accounting Physical Address Structure](https://apis.io/json-structure/intuit/quickbooks-accounting-physical-address-structure/)
+- [Quickbooks Accounting Query Response Structure](https://apis.io/json-structure/intuit/quickbooks-accounting-query-response-structure/)
+- [Quickbooks Accounting Reference Type Structure](https://apis.io/json-structure/intuit/quickbooks-accounting-reference-type-structure/)
+- [Quickbooks Accounting Sales Item Line Detail Structure](https://apis.io/json-structure/intuit/quickbooks-accounting-sales-item-line-detail-structure/)
+- [Quickbooks Accounting Telephone Number Structure](https://apis.io/json-structure/intuit/quickbooks-accounting-telephone-number-structure/)
+- [Quickbooks Accounting Txn Tax Detail Structure](https://apis.io/json-structure/intuit/quickbooks-accounting-txn-tax-detail-structure/)
 
-The QuickBooks Online Accounting API is a RESTful API that provides programmatic access to QuickBooks Online company data, including customers, invoices, payments, bills, vendors, accounts, and reports. It enables developers to build integrations that automate accounting workflows, synchronize financial data, and extend QuickBooks Online functionality for small and mid-sized businesses.
+#### JSON-LD (2)
 
-- **Human URL:** [https://developer.intuit.com/app/developer/qbo/docs/develop](https://developer.intuit.com/app/developer/qbo/docs/develop)
+Linked-data contexts for the provider's vocabulary.
 
-#### Tags
+- [Intuit Context](https://apis.io/jsonld/intuit/intuit-context/)
+- [Quickbooks Accounting Context](https://apis.io/jsonld/intuit/quickbooks-accounting-context/)
 
-- Accounting
-- Bookkeeping
-- Financial
-- Invoicing
-- Small Business
+#### Vocabulary (1)
 
-#### Properties
+The provider's domain terms, defined.
 
-- [Documentation](https://developer.intuit.com/app/developer/qbo/docs/develop)
-- [API Reference](https://developer.intuit.com/app/developer/qbo/docs/api/accounting/all-entities/account)
-- [Getting Started](https://developer.intuit.com/app/developer/qbo/docs/get-started)
-- [Console](https://developer.intuit.com/app/developer/qbo/docs/get-started/get-started-with-the-api-explorer)
-- [Authentication](https://developer.intuit.com/app/developer/qbo/docs/develop/authentication-and-authorization/oauth-2.0)
-- [Documentation](https://developer.intuit.com/app/developer/qbo/docs/learn/explore-the-quickbooks-online-api)
-- [Versioning](https://developer.intuit.com/app/developer/qbo/docs/learn/explore-the-quickbooks-online-api/minor-versions)
-- [SDK](https://developer.intuit.com/app/developer/qbo/docs/develop/sdks-and-samples)
-- [Release Notes](https://developer.intuit.com/app/developer/qbo/docs/release-notes/platform-release-notes)
-- [OpenAPI](openapi/quickbooks-accounting.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/quickbooks-accounting.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/quickbooks-accounting.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [AsyncAPI](asyncapi/quickbooks-webhooks.yml) — [AsyncAPI Specification](https://www.asyncapi.com/docs/reference/specification/latest)
-- [JSON Schema](json-schema/intuit-invoice-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/intuit-customer-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON-LD](json-ld/intuit-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
+- [intuit API Vocabulary](https://apis.io/vocabularies/intuit/intuit-vocabulary/)
 
-### QuickBooks Payments API
+#### Examples (21)
 
-The QuickBooks Payments API enables developers to process credit card charges, bank account debits (ACH), and manage payment methods within the QuickBooks ecosystem. It supports tokenized card storage, refunds, and the ability to link payments directly to QuickBooks Online invoices for seamless reconciliation.
+Example requests and responses.
 
-- **Human URL:** [https://developer.intuit.com/app/developer/qbpayments/docs/learn/explore-the-quickbooks-payments-api](https://developer.intuit.com/app/developer/qbpayments/docs/learn/explore-the-quickbooks-payments-api)
+- [Quickbooks Accounting Custom Field Example](https://apis.io/examples/intuit/quickbooks-accounting-custom-field-example/)
+- [Quickbooks Accounting Customer Example](https://apis.io/examples/intuit/quickbooks-accounting-customer-example/)
+- [Quickbooks Accounting Customer Response Example](https://apis.io/examples/intuit/quickbooks-accounting-customer-response-example/)
+- [Quickbooks Accounting Email Address Example](https://apis.io/examples/intuit/quickbooks-accounting-email-address-example/)
+- [Quickbooks Accounting Error Example](https://apis.io/examples/intuit/quickbooks-accounting-error-example/)
+- [Quickbooks Accounting Invoice Example](https://apis.io/examples/intuit/quickbooks-accounting-invoice-example/)
+- [Quickbooks Accounting Invoice Line Example](https://apis.io/examples/intuit/quickbooks-accounting-invoice-line-example/)
+- [Quickbooks Accounting Invoice Response Example](https://apis.io/examples/intuit/quickbooks-accounting-invoice-response-example/)
+- [Quickbooks Accounting Item Example](https://apis.io/examples/intuit/quickbooks-accounting-item-example/)
+- [Quickbooks Accounting Item Response Example](https://apis.io/examples/intuit/quickbooks-accounting-item-response-example/)
+- [Quickbooks Accounting Linked Txn Example](https://apis.io/examples/intuit/quickbooks-accounting-linked-txn-example/)
+- [Quickbooks Accounting Meta Data Example](https://apis.io/examples/intuit/quickbooks-accounting-meta-data-example/)
+- [Quickbooks Accounting Payment Example](https://apis.io/examples/intuit/quickbooks-accounting-payment-example/)
+- [Quickbooks Accounting Payment Line Example](https://apis.io/examples/intuit/quickbooks-accounting-payment-line-example/)
+- [Quickbooks Accounting Payment Response Example](https://apis.io/examples/intuit/quickbooks-accounting-payment-response-example/)
+- [Quickbooks Accounting Physical Address Example](https://apis.io/examples/intuit/quickbooks-accounting-physical-address-example/)
+- [Quickbooks Accounting Query Response Example](https://apis.io/examples/intuit/quickbooks-accounting-query-response-example/)
+- [Quickbooks Accounting Reference Type Example](https://apis.io/examples/intuit/quickbooks-accounting-reference-type-example/)
+- [Quickbooks Accounting Sales Item Line Detail Example](https://apis.io/examples/intuit/quickbooks-accounting-sales-item-line-detail-example/)
+- [Quickbooks Accounting Telephone Number Example](https://apis.io/examples/intuit/quickbooks-accounting-telephone-number-example/)
+- [Quickbooks Accounting Txn Tax Detail Example](https://apis.io/examples/intuit/quickbooks-accounting-txn-tax-detail-example/)
 
-#### Tags
+#### Collections (6)
 
-- Credit Cards
-- eCommerce
-- Financial
-- Payments
+Postman and Open Collection request collections.
 
-#### Properties
+- [QuickBooks Online Accounting Customers API](https://apis.io/collections/intuit/open-intuit-customers-api/)
+- [QuickBooks Online Accounting Customers Invoices API](https://apis.io/collections/intuit/open-intuit-invoices-api/)
+- [QuickBooks Online Accounting Customers Items API](https://apis.io/collections/intuit/open-intuit-items-api/)
+- [QuickBooks Online Accounting Customers Payments API](https://apis.io/collections/intuit/open-intuit-payments-api/)
+- [QuickBooks Online Accounting API](https://apis.io/collections/intuit/open-quickbooks-accounting/)
+- [QuickBooks Online Accounting API](https://apis.io/collections/intuit/postman-quickbooks-accounting/)
 
-- [Documentation](https://developer.intuit.com/app/developer/qbpayments/docs/learn/explore-the-quickbooks-payments-api)
-- [Getting Started](https://developer.intuit.com/app/developer/qbpayments/docs/get-started)
-- [API Reference](https://developer.intuit.com/app/developer/qbpayments/docs/develop)
-- [Postman Collection](collections/quickbooks-accounting.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/quickbooks-accounting.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Governance rules (3)
 
-### QuickBooks Payroll and Time API
+Spectral rulesets for the provider's contracts.
 
-The QuickBooks Payroll and Time API provides programmatic access to payroll and time-tracking data within QuickBooks Online. It supports use cases including time entry management, payroll compensation, and deductions, enabling developers to build integrations that streamline workforce and payroll operations for small businesses.
+- [Intuit — asyncapi rules](https://apis.io/rules/intuit/intuit-asyncapi-spectral-rules/)
+- [Intuit — jsonschema rules](https://apis.io/rules/intuit/intuit-jsonschema-spectral-rules/)
+- [Intuit API Rules](https://apis.io/rules/intuit/intuit-spectral-rules/)
 
-- **Human URL:** [https://developer.intuit.com/app/developer/payroll-time/docs/get-started](https://developer.intuit.com/app/developer/payroll-time/docs/get-started)
+#### Security (2)
 
-#### Tags
+Authentication, trust centre, and vulnerability disclosure.
 
-- HR
-- Payroll
-- Small Business
-- Time Tracking
+- [Intuit Authentication](https://apis.io/security/intuit/intuit-authentication/)
+- [Intuit Domain Security](https://apis.io/security/intuit/intuit-domain-security/)
 
-#### Properties
+#### OAuth scopes (1)
 
-- [Getting Started](https://developer.intuit.com/app/developer/payroll-time/docs/get-started)
-- [Documentation](https://developer.intuit.com/app/developer/payroll-time/docs/develop/develop-payroll)
-- [Postman Collection](collections/quickbooks-accounting.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/quickbooks-accounting.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+The permissions the API asks for.
 
-### QuickBooks Desktop API
+- [Intuit Scopes](https://apis.io/scopes/intuit/intuit-scopes/)
 
-The QuickBooks Desktop API allows developers to integrate with QuickBooks Desktop applications using qbXML messages. It provides capabilities for adding, querying, modifying, and deleting data across list objects, transaction objects, query objects, and report objects, enabling third-party applications to interact with on-premise QuickBooks installations.
+#### Plans and pricing (1)
 
-- **Human URL:** [https://developer.intuit.com/app/developer/qbdesktop/docs/api-reference/qbdesktop](https://developer.intuit.com/app/developer/qbdesktop/docs/api-reference/qbdesktop)
+Published plans, tiers and prices.
 
-#### Tags
+- [Intuit Plans Pricing](https://apis.io/plans/intuit/intuit-plans-pricing/)
 
-- Accounting
-- Desktop
-- Financial
-- Small Business
+#### Rate limits (1)
 
-#### Properties
+Published request limits.
 
-- [API Reference](https://developer.intuit.com/app/developer/qbdesktop/docs/api-reference/qbdesktop)
-- [Documentation](https://developer.intuit.com/app/developer/qbdesktop/docs/api-reference)
-- [Postman Collection](collections/quickbooks-accounting.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/quickbooks-accounting.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Intuit Rate Limits](https://apis.io/rate-limits/intuit/intuit-rate-limits/)
 
-### QuickBooks Projects API
+#### FinOps (1)
 
-The QuickBooks Projects API is a premium API that provides programmatic access to project data within QuickBooks Online Plus, Advanced, Accountant, and Intuit Enterprise Suite. It enables developers to create projects, track profitability, and manage project-level financial data, allowing integrations that enhance project-based accounting and reporting workflows.
+What the API costs to run, by operation.
 
-- **Human URL:** [https://developer.intuit.com/app/developer/qbo/docs/api/accounting/all-entities/account](https://developer.intuit.com/app/developer/qbo/docs/api/accounting/all-entities/account)
+- [Intuit Finops](https://apis.io/finops/intuit/intuit-finops/)
 
-#### Tags
+## Where to find this API
 
-- Accounting
-- Financial
-- Project Management
-- Projects
-- Small Business
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-#### Properties
-
-- [API Reference](https://developer.intuit.com/app/developer/qbo/docs/api/accounting/all-entities/account)
-- [Documentation](https://developer.intuit.com/app/developer/qbo/docs/develop)
-- [Postman Collection](collections/quickbooks-accounting.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/quickbooks-accounting.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### QuickBooks Custom Fields API
-
-The QuickBooks Custom Fields API is a premium API that provides programmatic access to custom field definitions and values in QuickBooks Online and Intuit Enterprise Suite. It allows developers to create and manage up to 12 custom fields that can be used across different transaction types, enabling flexible metadata extensions for invoices, estimates, sales receipts, and other entities.
-
-- **Human URL:** [https://developer.intuit.com/app/developer/qbo/docs/api/accounting/all-entities/account](https://developer.intuit.com/app/developer/qbo/docs/api/accounting/all-entities/account)
-
-#### Tags
-
-- Accounting
-- Custom Fields
-- Financial
-- Metadata
-- Small Business
-
-#### Properties
-
-- [API Reference](https://developer.intuit.com/app/developer/qbo/docs/api/accounting/all-entities/account)
-- [Documentation](https://developer.intuit.com/app/developer/qbo/docs/develop)
-- [Postman Collection](collections/quickbooks-accounting.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/quickbooks-accounting.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### QuickBooks Sales Tax API
-
-The QuickBooks Sales Tax API is a premium API that provides programmatic access to the automated sales tax calculation capabilities within QuickBooks Online. It enables developers to leverage QuickBooks automated sales tax engine to calculate the correct sales tax for invoices and other transactions, supporting tax compliance across different jurisdictions.
-
-- **Human URL:** [https://developer.intuit.com/app/developer/qbo/docs/api/accounting/all-entities/taxrate](https://developer.intuit.com/app/developer/qbo/docs/api/accounting/all-entities/taxrate)
-
-#### Tags
-
-- Accounting
-- Financial
-- Sales Tax
-- Small Business
-- Tax
-
-#### Properties
-
-- [API Reference](https://developer.intuit.com/app/developer/qbo/docs/api/accounting/all-entities/taxrate)
-- [Documentation](https://developer.intuit.com/app/developer/qbo/docs/develop)
-- [Postman Collection](collections/quickbooks-accounting.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/quickbooks-accounting.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [Arazzo Workflows](arazzo/) — [Arazzo Specification](https://spec.openapis.org/arazzo/latest.html)
-- [Developer Portal](https://developer.intuit.com)
-- [Sign Up](https://developer.intuit.com/app/developer/appcard/overview)
-- [Blog](https://developer.intuit.com/app/developer/blog)
+- [Website](https://intuit.com)
 - [Support](https://help.developer.intuit.com)
-- [Status Page](https://status.developer.intuit.com)
-- [Terms of Service](https://developer.intuit.com/app/developer/qbo/docs/learn/terms-of-service)
-- [Privacy Policy](https://www.intuit.com/privacy/)
-- [Authentication](https://developer.intuit.com/app/developer/qbo/docs/develop/authentication-and-authorization/oauth-2.0)
-- [Sandbox](https://developer.intuit.com/app/developer/qbo/docs/develop/sandboxes/postman)
-- [Console](https://developer.intuit.com/app/developer/qbo/docs/get-started/get-started-with-the-api-explorer)
-- [F A Q](https://developer.intuit.com/app/developer/qbo/docs/get-started/partner-faq)
-- [GitHub Organization](https://github.com/intuit)
-- [GitHub Organization](https://github.com/intuitdeveloper)
-- [SDK](https://github.com/intuit/QuickBooks-V3-PHP-SDK)
-- [SDK](https://github.com/intuit/QuickBooks-V3-DotNET-SDK)
-- [SDK](https://github.com/intuit/QuickBooks-V3-Java-SDK)
-- [SDK](https://github.com/intuit/oauth-rubyclient)
-- [SDK](https://developer.intuit.com/app/developer/qbo/docs/develop/sdks-and-samples-collections/nodejs)
-- [SDK](https://developer.intuit.com/app/developer/qbo/docs/develop/sdks-and-samples-collections/python)
 - [Changelog](https://blogs.intuit.com/)
-- [Release Notes](https://developer.intuit.com/app/developer/qbo/docs/release-notes/platform-release-notes)
-- [Release Notes](https://developer.intuit.com/app/developer/qbo/docs/release-notes/general-release-notes)
-- [Versioning](https://developer.intuit.com/app/developer/qbo/docs/learn/explore-the-quickbooks-online-api/minor-versions)
-- [Rate Limits](https://help.developer.intuit.com/s/article/API-call-limits-and-throttling)
+- [Blog](https://developer.intuit.com/app/developer/blog)
 - [Security](https://developer.intuit.com/app/developer/qbo/docs/go-live/publish-app/security-requirements)
-- [Marketplace](https://quickbooks.intuit.com/app/apps/home/en-global/)
-- [X (Twitter)](https://x.com/IntuitDev)
-- [LinkedIn](https://www.linkedin.com/company/intuit-developer)
-- [Features](undefined)
-- [Use Cases](undefined)
-- [Integrations](undefined)
-- [M C P Server](https://github.com/intuit/quickbooks-online-mcp-server)
+- [Terms of service](https://developer.intuit.com/app/developer/qbo/docs/learn/terms-of-service)
+- [Privacy policy](https://www.intuit.com/privacy/)
+- [GitHub](https://github.com/intuit)
+- [Status](https://status.developer.intuit.com)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
-**Email:** developer-support@intuit.com
-**URL:** https://help.developer.intuit.com
+**Kin Score 57.7** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 48.3 |
+| Contract quality | 72.4 |
+| Contract governance | 13.6 |
+| Operational transparency | 55.3 |
+| Developer ergonomics | 82.1 |
+| Access clarity | 42.1 |
+
+**Agent readiness 37.1** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | documented (partial credit) |
+| Auth Clarity | negotiable (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | derived (partial credit) |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | documented (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 31.3** — Payments
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/intuit/](https://apis.io/providers/intuit/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Intuit: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/intuit/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
